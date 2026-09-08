@@ -1,15 +1,15 @@
 {
-  "version": "5.5.3",
+  "version": "5.5.4",
   "created": "2026-09-08",
-  "baseVersion": "5.5.2",
-  "notes": "Schritt 3: gruppierte einklappbare Metadaten mit Dokumentationsstatus und eigenständiger Paarvergleich. Keine Datenmigration.",
+  "baseVersion": "5.5.3",
+  "notes": "Schritt 4: kompakte Währungsübersicht, gespeicherte Termine und aufklappbare Quellen. Keine Datenmigration.",
   "files": {
-    "README.md": "648c115fa59d956d8d9cb2ba6f997a490d91ffe025b89bc8977f9d8eb75d813e",
-    "index.html": "e37147516ea319e45b1d02102f7a096350e3142f856e97fbe5d6b9e81c2f705c",
+    "README.md": "00635877eb17a26c12aa0e84f793f2ef4189df04ce8744bc9c8944d41753aaf3",
+    "index.html": "a3a9841aa71a890e0bf73934983aa6e7714132c5ddfcf77cafa9adefcc61b03f",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.5.3.js": "69382934c3bc6ea30cd352ac28debf20aaa2c1ea63628bb1e89a72723a6dde48",
-    "data.v5.5.3.js": "e1489cafbc3f2faef64d50a4c9e450d94d59902502ae5e0b61d886237614089b",
-    "style.v5.5.3.css": "31c3d6bd46963fb61f3404e9fe97c45ba8e5b2dc40dfca3f839ab692422bc9c4",
-    "tests/currency-details.test.cjs": "f529546d24e5d259e46b28b795f72a363b5f7521f25d05bcc09916fc134d3f37"
+    "app.v5.5.4.js": "fd9884b8248dbe717610e534df2a90737ec22000c144cd5f40d3bd47bd6fdada",
+    "data.v5.5.4.js": "74be269608ed97845fa4be780dc3d8180f7fe159ce1056cfe6b26b4c5e053732",
+    "style.v5.5.4.css": "c2e91346271d6e54ecd83b06e69a2cd5c42bb2fceaf47d2c708d7926bb8d545f",
+    "tests/currency-sidebar.test.cjs": "71786a5bfbbb06441a561e1722bf77b9f54c0be16d82125c8f481d7c296f7fa5"
   }
 }

@@ -1,3 +1,50 @@
+# FX EdgeFinder Companion v5.5.4 – Währungen & Rates, Schritt 4
+
+Die rechte Spalte enthält eine kompakte Übersicht aller acht Währungen mit
+Bias und Confidence. Änderungen der Eingaben aktualisieren die Übersicht
+sofort. Die aktive Währung ist gekennzeichnet; jede Zeile wechselt zur Währung.
+Bei ausreichend breiten und hohen Desktopfenstern bleibt die Übersicht beim
+Scrollen unter den Währungs-Tabs erreichbar. Bei schmalen/kurzen Fenstern ist
+sie nicht fixiert, damit Inhalte erreichbar bleiben. Kleine Bildschirme erhalten
+eine einspaltige Ansicht. Die Seitenkarten werden nicht künstlich gestreckt.
+
+„Worauf bei [Währung] achten?“ zeigt zwei kurze allgemeine Treiberhinweise und
+bis zu drei chronologisch sortierte gespeicherte Termine. Die Auswahl umfasst
+passende Währungs-/Paarangaben und globale Ereignisse sowie die eingetragene
+nächste Zentralbanksitzung. Sie beginnt am Datum der jeweiligen Morgenanalyse;
+auch bei archivierten Analysen wird dieser Bezug sichtbar ausgewiesen. Weitere
+Termine bleiben über den Catalyst-Bereich zugänglich. Kein Live-Kalender.
+
+Alle bisherigen Quellenlinks und die ausführlichen allgemeinen Treiberhinweise
+bleiben unter „Quellen & Recherche“ erhalten. Dieser Bereich startet eingeklappt
+und verwendet denselben sitzungsbezogenen Öffnungszustand wie Schritt 3.
+Bestehende Eingabefelder, Berechnungen, Datenbank und Speicherfunktionen bleiben
+erhalten. Die Umsetzung baut auf der installierten v5.5.3 auf.
+
+## Prüfung von v5.5.4
+
+`node tests/currency-sidebar.test.cjs`: echter Anwendungscode mit simuliertem
+DOM/Speicher. Eingaben, Werte, Dropdown-Optionen und Quellenlinks aller acht
+Währungen gegen v5.5.3; Live-Aktualisierung von Bias/Confidence und Sitzung;
+Ereignisfilter, Sortierung, Begrenzung und unveränderte gespeicherte Termine;
+Währungswechsel, Detailzustände, Datenerhalt und Rechenfunktionen geprüft.
+JavaScript-Syntax, HTML-Verschachtelung, Assets und Release-Prüfsummen geprüft.
+
+Die visuelle Desktop-/Mobilprüfung und echte Browser-/IndexedDB-End-to-End-
+Prüfung bleiben offen. Die verfügbare Vorschau unterstützt das statische Projekt
+nicht. Das tatsächliche Sticky-Verhalten sollte im eigenen Browser geprüft werden.
+
+## Installation
+
+ZIP entpacken und deren Inhalt wie gewohnt ins bestehende Repository hochladen.
+Nach dem Pages-Deployment müssen v5.5.4 und „Code geladen · v5.5.4“ erscheinen.
+Alternativ den zugehörigen Pull Request übernehmen. Alle alten Assets bleiben
+enthalten. Keine Website-Daten löschen.
+
+---
+
+## Vorherige Versionsdokumentation (historisch)
+
 # FX EdgeFinder Companion v5.5.3 – Währungen & Rates, Schritt 3
 
 „Referenzzinsen & Datenqualität“ ist standardmässig eingeklappt. Die Statuszeile
