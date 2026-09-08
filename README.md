@@ -30,3 +30,16 @@ Update für den EdgeFinder-kompatiblen FX-Makro-Workflow.
 5. Webseite mit Strg+F5 neu laden.
 
 Oben links muss `v5.3.0` und `Code geladen · v5.3.0` stehen.
+
+
+## Version 5.4.0
+
+- Referenzzinsen je Währung ergänzt: Fed-Obergrenze, Mittelpunkt, effektive Rate oder andere Policy-Referenz sauber dokumentieren.
+- Datenqualität je Pricing-Horizont erweitert: Quelle, Datenstand, Instrument, Methode und Referenzzeitraum.
+- 12M-Erwartungsänderung erhält eigenen aktuellen und historischen Datenstand sowie Kontrakt-/Kurvenangabe.
+- Relative Rates & Repricing präzisiert: Pricing-Differentials zeigen mehr Straffung Base/Quote, nicht automatisch Trade-Bestätigung.
+- Erwartete Leitzins-Differentiale werden nur bei passenden Referenzraten berechnet; gemischte Methoden werden als indikativ markiert.
+- Relatives Repricing wird bei nicht vergleichbaren Daten blockiert und begründet; manueller Override ist möglich und wird gekennzeichnet.
+- Rates-Bestätigungsmatrix ergänzt: Zinsniveau und Zinsmomentum getrennt, ohne künstlichen Gesamtscore.
+
+Bestehende lokale Eingaben bleiben erhalten, weil nur neue optionale Felder ergänzt wurden.
