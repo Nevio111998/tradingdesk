@@ -1,15 +1,15 @@
 {
-  "version": "5.5.2",
+  "version": "5.5.3",
   "created": "2026-09-08",
-  "baseVersion": "5.5.1",
-  "notes": "Schritt 2: vier Sektionen und kompakte Wahrscheinlichkeitsgruppen. Eingaben und Datenlogik erhalten.",
+  "baseVersion": "5.5.2",
+  "notes": "Schritt 3: gruppierte einklappbare Metadaten mit Dokumentationsstatus und eigenständiger Paarvergleich. Keine Datenmigration.",
   "files": {
-    "README.md": "0fc04f1554fc4d6526544f6adc4db13d17ef7a15d8ed87532c4d8dbe6942cb1c",
-    "index.html": "ceb74bb74011376db35b5922432a85fcab90af3da31e38977120c44248da6884",
+    "README.md": "648c115fa59d956d8d9cb2ba6f997a490d91ffe025b89bc8977f9d8eb75d813e",
+    "index.html": "e37147516ea319e45b1d02102f7a096350e3142f856e97fbe5d6b9e81c2f705c",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.5.2.js": "6ab03d299b16b08b0adf9a03c2150b0b69bd98a77553a61700e1056d75a8a5a7",
-    "data.v5.5.2.js": "fd9602b5442e38d331c0b0aa6694a747a502db594d853ac8d6d128b462b0cec7",
-    "style.v5.5.2.css": "180f1cba53969c65bbee13a35be92bbb1fd086d6839297fe776d7e9c2220a4ac",
-    "tests/currency-sections.test.cjs": "f4e69f546fe9559bc4add9846b42547a356c9d756d72be38ce4823c55517b2fd"
+    "app.v5.5.3.js": "69382934c3bc6ea30cd352ac28debf20aaa2c1ea63628bb1e89a72723a6dde48",
+    "data.v5.5.3.js": "e1489cafbc3f2faef64d50a4c9e450d94d59902502ae5e0b61d886237614089b",
+    "style.v5.5.3.css": "31c3d6bd46963fb61f3404e9fe97c45ba8e5b2dc40dfca3f839ab692422bc9c4",
+    "tests/currency-details.test.cjs": "f529546d24e5d259e46b28b795f72a363b5f7521f25d05bcc09916fc134d3f37"
   }
 }
