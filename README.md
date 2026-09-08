@@ -1,55 +1,51 @@
-# FX Trade Desk
+# FX EdgeFinder Companion
 
-Eine statische GitHub-Pages-Web-App für deinen täglichen FX-Swing-Trading-Prozess.
+Eine statische GitHub-Pages-Web-App als Ergänzung zu deinem EdgeFinder-Workflow für FX-Swing-Trading.
 
-## Was die App kann
+## Was diese Version kann
 
+- EdgeFinder als **Baseline** dokumentieren: Score, Bias, Real Yield Proxy, COT/Retail und wichtige Komponenten
+- klar trennen zwischen:
+  - was EdgeFinder bereits abdeckt
+  - was du zusätzlich prüfen musst
+  - was nur als Risiko-/Kontextfaktor zählt
 - Morgenanalysen als wiederverwendbare Makro-Snapshots erfassen
-- Trade-Ideen mit kompletter Fundamental-, Rates-, Risk- und Technik-Checkliste dokumentieren
-- Zentralbanken, Zinserwartungen, 2Y-Yields, Real Yields, Market Driver, Risk Sentiment, Positioning und Catalysts strukturieren
-- Screenshots und Chart-Belege lokal speichern
+- Zusatzchecks erfassen: Zentralbank-Kommunikation, OIS/Futures-Zinserwartungen, 2Y-Yield-Differentials, Market Driver, Event-Risiko, Risk Sentiment und Intermarket
+- Trade-Ideen mit vollständiger Validierung dokumentieren
+- Screenshots speichern: EdgeFinder Scorecard, Real Yield History, COT/Retail, Yield-Charts, D1/H4/M15-Setup
 - Entry, Stop, Ziel, CRV, Risiko, Positionsgrössen-Schätzung und Gesamt-Exposure dokumentieren
-- Trading-Journal mit Review-Einträgen führen
-- Vollständiger JSON-Export und Import inklusive Screenshots
-- Responsive Layout für Desktop und Handy
+- Trading-Journal mit Entry-, Management-, Exit- und Review-Einträgen führen
+- vollständiger JSON-Export und Import inklusive Screenshots
+- responsive Layout für Desktop und Handy
 
 ## Wichtig
 
-Die App ist bewusst keine Cloud-App und kein Trading-Bot.
+Die App ist bewusst keine Cloud-App, kein Trading-Bot und kein zweiter EdgeFinder.
 
-- Keine Live-Marktdaten
-- Keine Broker-Anbindung
-- Keine Orderausführung
-- Keine API-Schlüssel nötig
-- Keine Synchronisierung zwischen Geräten
+- keine Live-Marktdaten
+- keine Broker-Anbindung
+- keine Orderausführung
+- keine API-Schlüssel nötig
+- keine Synchronisierung zwischen Geräten
 - Daten werden lokal im Browser über IndexedDB gespeichert
 
 Wenn du den Browser wechselst, Website-Daten löschst oder im privaten Fenster arbeitest, können lokale Daten verloren gehen. Erstelle regelmässig ein vollständiges Backup unter **Backup & Einstellungen**.
 
+## Update von Version 1
+
+Die App nutzt weiterhin dieselbe lokale Browser-Datenbank (`fx-trade-desk`). Wenn du die bisherigen Dateien im GitHub-Repo durch diese Version ersetzt, bleiben bestehende lokale Einträge im selben Browser erhalten. Mach trotzdem vorher ein Backup.
+
 ## GitHub Pages Setup
 
-1. Auf GitHub ein neues Repository erstellen, z. B. `fx-trade-desk`.
+1. Auf GitHub ein Repository verwenden oder neu erstellen, z. B. `fx-edgefinder-companion`.
 2. Den Inhalt dieses Ordners in das Root-Verzeichnis des Repositorys hochladen.
 3. In GitHub öffnen: **Settings → Pages**.
 4. Bei **Build and deployment** auswählen: **Deploy from a branch**.
-5. Branch: `main`, Ordner: `/root` auswählen und speichern.
+5. Branch: `main`, Ordner: `/ (root)` auswählen und speichern.
 6. Nach kurzer Zeit zeigt GitHub die veröffentlichte URL an.
 
 Nicht das ZIP als einzelne Datei hochladen. Die Dateien `index.html`, `style.css`, `data.js`, `app.js`, `favicon.svg` und `.nojekyll` müssen direkt im Repository liegen.
 
-## Dateien
-
-- `index.html` – App-Shell
-- `style.css` – Design und Responsive Layout
-- `data.js` – Checklisten, Währungen und Quellenbibliothek
-- `app.js` – lokale Datenbank, UI-Logik, Import/Export, Risiko-Berechnung
-- `favicon.svg` – App-Icon
-- `.nojekyll` – verhindert unnötige Jekyll-Verarbeitung auf GitHub Pages
-
-## Quellenhinweis
-
-Die App enthält Direktlinks zu Research-Quellen wie Zentralbanken, CFTC, Treasury, CME, Wirtschaftskalendern und relevanten Datenportalen. Die App lädt diese Daten nicht automatisch. Du trägst Werte, Datenstand und Quelle selbst ein.
-
 ## Version
 
-Version 1.0
+Version 2.0 — EdgeFinder Companion
