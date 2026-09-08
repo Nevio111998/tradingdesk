@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <meta name="description" content="Dein lokaler EdgeFinder-Zusatz für FX-Swing-Trading-Ideen, Zusatz-Makro-Checks und Trading-Journal.">
+  <title>FX EdgeFinder Companion — Macro. Journal. Execute.</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="brand-mark">F<span>X</span></div><div><strong>FX EDGEFINDER COMPANION</strong><small>EDGEFINDER · MACRO · JOURNAL</small></div></div>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Hauptnavigation">
+        <button class="nav-item active" data-nav="home"><span class="nav-icon">▦</span> Übersicht</button>
+        <button class="nav-item" data-nav="macros"><span class="nav-icon">◷</span> Morgenanalysen</button>
+        <button class="nav-item" data-nav="trades"><span class="nav-icon">↗</span> Trade-Ideen</button>
+        <button class="nav-item" data-nav="sources"><span class="nav-icon">▤</span> EdgeFinder & Quellen</button>
+      </nav>
+      <div class="sidebar-label">DATEN</div>
+      <nav class="main-nav"><button class="nav-item" data-nav="settings"><span class="nav-icon">⇅</span> Backup & Einstellungen</button></nav>
+      <div class="sidebar-bottom"><div class="storage-indicator"><span class="status-dot"></span><span>Lokale Browser-Datenbank</span></div><p>Deine Analysen bleiben in diesem Browser. GitHub hostet nur die App, nicht deine Daten.</p><button class="button button-outline button-full" data-action="export">Backup erstellen <span>↗</span></button></div>
+    </aside>
+    <div class="mobile-shade" id="mobile-shade"></div>
+    <div class="main-column">
+      <header class="topbar"><button class="icon-button mobile-menu" id="menu-button" aria-label="Menü öffnen">☰</button><div class="breadcrumbs" id="breadcrumbs">Workspace <span>/</span> Übersicht</div><div class="top-actions"><span id="save-status" class="save-status">Bereit</span><button class="icon-button" id="theme-button" aria-label="Darstellung wechseln" title="Hell / Dunkel">◐</button><button class="button button-primary top-new" data-action="new-trade">+ Neue Trade-Idee</button></div></header>
+      <main id="view" class="view" tabindex="-1"><div class="loading"><div class="spinner"></div><p>Trade Desk wird geladen …</p></div></main>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="modal" class="modal-host" aria-live="polite"></div>
+  <input id="image-picker" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden>
+  <input id="backup-picker" type="file" accept=".json,application/json" hidden>
+</body>
+</html>
