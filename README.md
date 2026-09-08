@@ -1,3 +1,55 @@
+# FX EdgeFinder Companion v5.5.3 – Währungen & Rates, Schritt 3
+
+„Referenzzinsen & Datenqualität“ ist standardmässig eingeklappt. Die Statuszeile
+unterscheidet nicht, teilweise und vollständig dokumentierte Angaben. Sie
+beschreibt ausschliesslich die Vollständigkeit von 28 vorhandenen Metadatenfeldern,
+nicht die Richtigkeit der Quellen oder wirtschaftliche Vergleichbarkeit.
+Die Anzeige aktualisiert sich beim Bearbeiten der bestehenden Währungsfelder.
+
+Im Detailbereich sind alle bisherigen Metadaten in fünf Gruppen angeordnet:
+Referenzzins, nächste Sitzung, 3M-Pricing, 12M-Pricing und Wochenänderung.
+Historischer Vergleichsstichtag und Instrument der Wochenänderung bleiben
+zusätzlich an ihrer bisherigen Eingabestelle in Sektion B; keine doppelten Felder.
+
+Der bestehende Rechner befindet sich in einem eigenständigen aufklappbaren
+Bereich „Paarvergleich“ unmittelbar unter dem Währungskopf. Base-/Quote-Auswahl
+und Berechnungen bleiben unverändert. Die G7 Paar-Makro-Checkliste bleibt der
+Ort für die vollständige Bewertung.
+
+Beide Bereiche verwenden native HTML-details/summary-Elemente. Geöffnete
+Bereiche bleiben pro Analyse/Währung während der Sitzung auch nach einer
+Neudarstellung erhalten. Der Paarvergleich merkt seinen Zustand pro Analyse.
+Nach einem Neuladen starten beide geschlossen. Das Auf-/Zuklappen verändert
+keine Datensätze und löst keine Speicherung aus. IndexedDB bleibt bei Schema 1.
+
+## Prüfung von v5.5.3
+
+`node tests/currency-details.test.cjs` führt den echten Code in einer simulierten
+DOM-/Speicherumgebung aus. Geprüft werden sämtliche Eingabeelemente, Werte und
+Dropdown-Optionen aller acht Währungen gegen v5.5.2, die fünf Metadatengruppen,
+geschlossene Startzustände, unabhängige Öffnungszustände, Statusaktualisierung,
+Neudarstellung bei Horizontwechsel, USD/EUR/JPY-Wechsel, Speicherung und
+unveränderte Rechenfunktionen. HTML-Verschachtelung, JavaScript-Syntax, Assets
+und Release-Prüfsummen sind geprüft.
+
+Visuelle Desktop-/Mobilprüfung und echte Browser-/IndexedDB-End-to-End-Prüfung
+bleiben offen, da die verfügbare Vorschau das statische Projekt nicht unterstützt.
+
+## Installation und Sichtprüfung
+
+ZIP entpacken und den Inhalt wie bisher in das bestehende Repository hochladen.
+Nach dem Pages-Deployment müssen v5.5.3 und „Code geladen · v5.5.3“ erscheinen.
+Alternativ den zugehörigen Pull Request übernehmen. Alte Assets sind enthalten.
+
+Unter „Währungen & Rates“ beide Bereiche öffnen und schliessen, Metadaten
+bearbeiten, zwischen USD/EUR/JPY wechseln und den Vergleichsrechner verwenden.
+Gespeicherte Eingaben bleiben auch nach dem Neuladen erhalten; die Detailbereiche
+starten dann wieder geschlossen. Website-Daten nicht löschen.
+
+---
+
+## Vorherige Versionsdokumentation (historisch)
+
 # FX EdgeFinder Companion v5.5.2 – Währungen & Rates, Schritt 2
 
 Die bestehenden Haupteingaben sind jetzt in vier Sektionen gegliedert:
