@@ -62,3 +62,9 @@ Den Inhalt dieses Ordners ins Root-Verzeichnis des Repositorys hochladen. Danach
 ## Version
 
 Version 5.0 — Tages-Makro vollständig in G7 Paar-Makro-Checkliste integriert.
+
+
+## Changelog v5.1
+
+- Fehler behoben: `Währungen & Rates` und `G7 Paar-Makro-Checkliste` konnten nicht geöffnet werden, weil die Währungs-Hilfsfunktionen im v5-Build fehlten.
+- Datenmodell unverändert: vorhandene Backups und lokale Daten bleiben kompatibel.
