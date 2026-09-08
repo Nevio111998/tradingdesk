@@ -32,7 +32,7 @@ Die App ist bewusst keine Cloud-App, kein Trading-Bot und kein zweiter EdgeFinde
 
 Wenn du den Browser wechselst, Website-Daten löschst oder im privaten Fenster arbeitest, können lokale Daten verloren gehen. Erstelle regelmässig ein vollständiges Backup unter **Backup & Einstellungen**.
 
-## Update von Version 2
+## Update von Version 3
 
 Die App nutzt weiterhin dieselbe lokale Browser-Datenbank (`fx-trade-desk`). Wenn du die bisherigen v2-Dateien im GitHub-Repo durch diese Version ersetzt, bleiben bestehende lokale Einträge im selben Browser erhalten. Mach trotzdem vorher ein Backup.
 
@@ -49,4 +49,12 @@ Nicht das ZIP als einzelne Datei hochladen. Die Dateien `index.html`, `style.css
 
 ## Version
 
-Version 3.0 — EdgeFinder Companion
+Version 4.0 — G7 Paar-Makro-Checkliste
+
+
+## Neu in Version 4
+
+- Die alte Pair-Shortlist wurde durch eine fixe G7 Paar-Makro-Checkliste ersetzt.
+- Alle 21 G7-Paare sind automatisch vorhanden: EURUSD, GBPUSD, AUDUSD, NZDUSD, USDCAD, USDJPY, CADJPY, EURGBP, EURAUD, EURNZD, EURCAD, EURJPY, AUDCAD, NZDCAD, GBPAUD, GBPNZD, GBPCAD, GBPJPY, AUDNZD, AUDJPY, NZDJPY.
+- Die App übernimmt pro Paar die 2Y-Daten aus Währungen & Rates und berechnet Spread jetzt, Spread vor 1 Woche, Spread vor 2 Wochen sowie die Veränderung.
+- Pro Paar gibt es eine eigene Zusatzcheckliste, ohne die Währungsdaten doppelt eintippen zu müssen.
