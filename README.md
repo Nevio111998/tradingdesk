@@ -1,20 +1,32 @@
-# FX EdgeFinder Companion v5.2.0
+# FX EdgeFinder Companion v5.3.0
 
-## Reparatur und Versionsanzeige
-- Gemeinsamer Währungsdaten-Reader steht vor allen Renderfunktionen im äusseren App-Scope.
-- Die Programm-, Daten- und CSS-Dateien tragen eindeutige Versionsnamen. Das verhindert eine Mischung alter und neuer Assets durch den Browsercache.
-- Oben links wird v5.2.0 angezeigt. „Code geladen · v5.2.0“ bestätigt, dass die passende JavaScript-Version tatsächlich gestartet ist.
-- Ein Versionskonflikt wird sichtbar gemeldet, statt als Datenbankfehler missverstanden zu werden.
-- Die bestehende lokale IndexedDB `fx-trade-desk` bleibt unverändert. Es werden keine Daten gelöscht oder automatisch ersetzt.
+Update für den EdgeFinder-kompatiblen FX-Makro-Workflow.
 
-## Update von v5.1 / v5
-1. In der bisherigen App unter Backup & Einstellungen ein vollständiges JSON-Backup exportieren. Falls die Ansichten nicht öffnen, zuerst versuchen, über das linke Menü direkt zum Backup zu gelangen. Keinesfalls Website-Daten löschen.
-2. Den Inhalt dieses ZIPs in das Hauptverzeichnis des bestehenden GitHub-Repositories hochladen. `index.html` ersetzen und sämtliche neuen `v5.2.0`-Dateien mit hochladen. Alte Dateien dürfen zunächst liegen bleiben.
-3. Unter GitHub Actions beziehungsweise Settings → Pages warten, bis das Deployment abgeschlossen ist.
-4. Die veröffentlichte Webseite mit Strg+F5 (Mac: Cmd+Shift+R) neu laden. Falls nötig einmal `?v=5.2.0` an die URL vor dem # anhängen.
-5. Links muss v5.2.0 und „Code geladen · v5.2.0“ erscheinen. Erst danach die Morgenanalyse öffnen und Währungen & Rates sowie die G7 Paar-Makro-Checkliste testen.
+## Neu in v5.3.0
 
-Die App ist weiterhin eine lokale, statische Web-App ohne Live-Kurse, Broker-Anbindung oder Cloud-Synchronisierung. Ein GitHub-Update aktualisiert nur die Programmdateien, nicht die lokal gespeicherten Trades.
+- Währungen & Rates erweitert:
+  - Zentralbank-Ton mit „Leicht Hawkish“ und „Leicht Dovish“
+  - eigenes Datumsfeld für die nächste Zentralbank-Sitzung
+  - aktuelle Hike/Hold/Cut-Wahrscheinlichkeiten in %
+  - Veränderung der Hike/Hold/Cut-Wahrscheinlichkeiten ggü. Vorwoche in Prozentpunkten
+  - klarer Hinweis: Erwartungsänderung = Änderung des 12M-Pricings ggü. Vorwoche in bp
+  - Datenqualität für Meeting/3M/12M: Quelle, Datenstand, Instrument und Methode
 
-## Verifikation
-Die Währungs- und Paaransichten, alle 21 Paare, 2Y-Vergleiche, paarbezogene Checkboxen, Trade-Übernahme und Journal wurden mit automatisierten Funktionstests sowie einem Chromium-UI-Test geprüft. Die bestehende IndexedDB-Datenbank und ihr Schema wurden nicht verändert.
+- G7 Paar-Makro-Checkliste erweitert:
+  - 3M-Pricing-Differential
+  - 12M-Pricing-Differential
+  - relatives Repricing ggü. Vorwoche
+  - erwartetes Leitzins-Differential für 3M und 12M
+  - Real-Yield-Differential aus EdgeFinder Real Yield Base minus Quote
+  - automatische Rates-Bestätigungsmatrix
+  - Qualitätswarnungen bei unterschiedlichen Stichtagen, Methoden oder Horizonten
+
+## Update
+
+1. In der alten App zuerst Backup exportieren.
+2. Alle Dateien aus diesem ZIP ins Root-Verzeichnis deines GitHub-Repositories hochladen.
+3. `index.html` ersetzen und die neuen `v5.3.0`-Dateien mit hochladen.
+4. GitHub Pages Deployment abwarten.
+5. Webseite mit Strg+F5 neu laden.
+
+Oben links muss `v5.3.0` und `Code geladen · v5.3.0` stehen.
