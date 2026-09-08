@@ -1,3 +1,44 @@
+# FX EdgeFinder Companion v5.5.2 – Währungen & Rates, Schritt 2
+
+Die bestehenden Haupteingaben sind jetzt in vier Sektionen gegliedert:
+
+- **A – Zentralbank & Entscheidung:** Leitzins, letzte Entscheidung, nächste
+  Sitzung, Ton und erwartete Veränderung der nächsten Sitzung.
+- **B – Marktpricing & Wahrscheinlichkeiten:** 3M-/12M-Pricing, Repricing mit
+  unverändert wählbarem Horizont sowie Hike, Hold und Cut nebeneinander.
+  Unter jeder Wahrscheinlichkeit steht ihre Wochenänderung in pp.
+- **C – Renditen & Realzins:** 2Y jetzt/vor 1W/vor 2W, Real Yield und Definition.
+- **D – Bias & Interpretation:** Bias, Confidence, Analyse-Datenstand,
+  Interpretation und allgemeine Quellen.
+
+Die Sektionen erhalten einheitliche Überschriften, Abstände und Feldgrössen.
+Auf schmalen Geräten stehen Formulare und Wahrscheinlichkeitsblöcke einspaltig.
+Der Kopf aus Schritt 1 bleibt erhalten. Metadaten, Seitenleiste und Rechner
+bleiben verfügbar; das Einklappen folgt in Schritt 3. Keine Datenmigration.
+
+## Prüfung von v5.5.2
+
+`node tests/currency-sections.test.cjs` vergleicht alle Eingabeelemente samt
+Werten und Dropdown-Optionen für alle acht Währungen mit v5.5.1. Auch 3M,
+benutzerdefinierte und leere Horizonte werden geprüft. Der echte Code läuft
+in einer simulierten DOM-/Speicherumgebung; USD/EUR/JPY-Bearbeitung,
+Währungswechsel, Live-Kopf, Datenerhalt und unveränderte Rechenfunktionen
+werden geprüft. Syntax, lokale Assets und Release-Prüfsummen sind geprüft.
+
+Die visuelle Desktop-/Mobilprüfung und echte IndexedDB-End-to-End-Prüfung
+bleiben offen: Die verfügbare Vorschau unterstützt das statische Projekt nicht.
+
+## Installation
+
+ZIP entpacken und dessen Inhalt wie bisher ins bestehende Repository hochladen.
+Nach dem Pages-Deployment müssen v5.5.2 und „Code geladen · v5.5.2“ erscheinen.
+Die ZIP enthält auch die bisherigen Versionsdateien. Keine Website-Daten löschen.
+Alternativ kann die GitHub-Änderung übernommen werden.
+
+---
+
+## Vorherige Versionsdokumentation (historisch)
+
 # FX EdgeFinder Companion v5.5.1 – Währungen & Rates, Schritt 1
 
 Die neue Währungsübersicht fasst Währung/Zentralbank, Bias, Confidence,

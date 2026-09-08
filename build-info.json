@@ -1,15 +1,15 @@
 {
-  "version": "5.5.1",
+  "version": "5.5.2",
   "created": "2026-09-08",
-  "baseVersion": "5.4.7",
-  "notes": "Währungen & Rates, Schritt 1: kompakter Live-Kopf und sticky Währungsnavigation. Bestehende Felder und Datenlogik unverändert.",
+  "baseVersion": "5.5.1",
+  "notes": "Schritt 2: vier Sektionen und kompakte Wahrscheinlichkeitsgruppen. Eingaben und Datenlogik erhalten.",
   "files": {
-    "README.md": "4f0a1cc84531c8f152b97e3a6c915b745b1cb788837c990da70d62ba3e488296",
-    "index.html": "05acb2e3aa4c3aefce99f16a8f41bf7ff401097d647fc403ff349ae9c816880b",
+    "README.md": "0fc04f1554fc4d6526544f6adc4db13d17ef7a15d8ed87532c4d8dbe6942cb1c",
+    "index.html": "ceb74bb74011376db35b5922432a85fcab90af3da31e38977120c44248da6884",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.5.1.js": "3859278808d6d19d8ef21fc74f132024f4b6d27561edef3418d102df82961ecd",
-    "data.v5.5.1.js": "0e56c75e196e0fa0cc67f6b53b2dc77584f54bbdef6fefb750494eb68afaa006",
-    "style.v5.5.1.css": "0887714e64a11ebd8937de73bf567967cdd3a46c227bfeb050f167e4c04a91ea",
-    "tests/currency-header.test.cjs": "993d12aaebcb723057ec1d3b161ab80639bf1f2092adcf3cf2123b9320456b3a"
+    "app.v5.5.2.js": "6ab03d299b16b08b0adf9a03c2150b0b69bd98a77553a61700e1056d75a8a5a7",
+    "data.v5.5.2.js": "fd9602b5442e38d331c0b0aa6694a747a502db594d853ac8d6d128b462b0cec7",
+    "style.v5.5.2.css": "180f1cba53969c65bbee13a35be92bbb1fd086d6839297fe776d7e9c2220a4ac",
+    "tests/currency-sections.test.cjs": "f4e69f546fe9559bc4add9846b42547a356c9d756d72be38ce4823c55517b2fd"
   }
 }
