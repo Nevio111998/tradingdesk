@@ -1,15 +1,14 @@
 {
-  "version": "5.4.1",
+  "version": "5.4.2",
   "created": "2026-09-08",
+  "notes": "Hotfix: correct data/program version mismatch; preserve all existing data and step-1 logic.",
   "files": {
-    "README.md": "29ba02e7a805d9d17b1a65dd18f70cf8ab7570b5430793293b4963452ddbab84",
-    "index.html": "6dd93adde67ca54b55cad8a756e36b719914bddd626a5edb46a7d3d55d21c134",
-    "app.v5.4.1.js": "082818916a6cc8514fba1ff3fca5f6a13d3f6c265e3fa5a16151186a62d64fc2",
-    "data.v5.4.1.js": "027ab3c2377fe1f1d8e815b786c407d661f18e5ad2fdf47afc8f2d84d88fbe7d",
-    "style.v5.4.1.css": "edec1fdf83d9cbe691065c3857e6f05e54f9412ce6c5c46839c9f9fa116ca11b",
+    "style.v5.4.2.css": "edec1fdf83d9cbe691065c3857e6f05e54f9412ce6c5c46839c9f9fa116ca11b",
+    "README.md": "62cb35aee9e82a22578590b930c740bc8d8a46c5efdc343b536092a5b137ec20",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-  },
-  "builtAt": "2026-09-08T18:55:00+02:00",
-  "notes": "Step 1: Pricing metadata is optional for calculations; missing metadata produces quality warnings. Pricing-change horizon defaults to 12M."
+    "app.v5.4.2.js": "c68d66305845839ec73ede97e8626aa3384ba35c5d909cdcbb2f764c72b6ce21",
+    "data.v5.4.2.js": "7dfe0bcc5213af5b3eac56f323d86b96e18b34201727c1b8ba8ab5f820484d50",
+    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index.html": "7c931a94d2926a6fb83ab95654329b566a474fe103ddbde05226eead1f809613"
+  }
 }
