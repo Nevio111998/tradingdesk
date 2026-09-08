@@ -1,3 +1,72 @@
+# FX EdgeFinder Companion v5.5.1 – Währungen & Rates, Schritt 1
+
+Die neue Währungsübersicht fasst Währung/Zentralbank, Bias, Confidence,
+aktuellen Leitzins, nächste Sitzung und den Datenstand der Einzelwährung
+kompakt zusammen. Änderungen an diesen bestehenden Eingaben erscheinen
+sofort im Kopfbereich, ohne das Formular neu aufzubauen.
+
+Die acht Währungs-Tabs bleiben beim Scrollen unter der oberen Menüleiste
+erreichbar. Die Höhe der Menüleiste wird auch bei Fensteränderungen und
+Textvergrösserung berücksichtigt. Auf schmalen Mobilgeräten stehen die Tabs
+in zwei Reihen; die Kennzahlen im Kopfbereich stehen untereinander.
+Die aktive Währung ist sichtbar und für Hilfstechnologien gekennzeichnet.
+
+## Umfang und Datenerhalt
+
+- Basis ist der unveränderte Stand v5.4.7; die früher abgebrochene v5.5.0 wird
+  nicht als Ausgangsversion verwendet.
+- Die bisherigen Eingabefelder, Dropdowns, Metadaten, Seitenleisten und der
+  Paarvergleich bleiben erhalten. Gruppierung und einklappbare Details folgen
+  in den nächsten Schritten.
+- Der neue Kopf liest ausschliesslich bestehende Werte. Fehlende Werte werden
+  als „Nicht erfasst“ angezeigt; Null und negative Zinssätze bleiben sichtbar.
+- IndexedDB `fx-trade-desk`, Schema 1, Speicherung und Import/Export bleiben
+  unverändert. Keine Datenmigration und kein Zurücksetzen.
+- Die originalen v5.4.7-Dateien und alle älteren Assets bleiben im Repository.
+
+## Prüfung dieser Version
+
+`node tests/currency-header.test.cjs` führt den tatsächlichen Anwendungscode
+in einer isolierten, simulierten DOM-/Speicherumgebung aus:
+
+- Für alle acht Währungen ist das komplette Formular einschliesslich
+  Datenqualität, Rechner und Seitenleiste identisch zur v5.4.7-Ausgabe.
+- USD, EUR und JPY: Bearbeiten aller fünf Kopfangaben, unmittelbare Anzeige,
+  Währungswechsel per Klick-Handler, Fokus und Erhalt der Eingaben.
+- Speicherung der Datensätze inklusive unbekannter älterer Felder und
+  unveränderter Bildreferenzen; separate Asset-Daten bleiben unangetastet.
+- Leere Werte, Null-/Negativzinsen, Nachkommastellen und HTML-Escaping.
+- Unveränderte Rechenfunktionen und Differenz 7,4 − (−8,7) = 16,1 bp.
+
+JavaScript-Syntax und eingebundene Dateien werden zusätzlich geprüft.
+**Kein visueller Desktop-/Mobil-Browsertest:** Die verfügbare Vorschau
+unterstützt dieses bestehende statische Projekt nicht. Layout, tatsächliches
+Sticky-Verhalten und echte IndexedDB-Persistenz im Browser sind daher nicht
+als end-to-end geprüft ausgewiesen.
+
+## Update und Sichtprüfung
+
+Das vollständige ZIP enthält die App einschliesslich alter Versionsdateien.
+Beim Hochladen in das bestehende Repository die `index.html` ersetzen und
+alle neuen v5.5.1-Dateien mit hochladen. Alternativ den zugehörigen Pull Request
+nach Prüfung übernehmen. Erst danach veröffentlicht GitHub Pages die Änderung.
+Oben links müssen v5.5.1 und „Code geladen · v5.5.1“ erscheinen.
+
+Für die Sichtprüfung eine bestehende Morgenanalyse öffnen, zu „Währungen &
+Rates“ wechseln und USD, EUR sowie JPY kontrollieren. Kopfangaben bearbeiten,
+weit nach unten scrollen, Währungen wechseln und anschliessend neu laden.
+Auf Desktop und Mobilgerät darauf achten, dass Tabs erreichbar bleiben und
+keine Inhalte verdecken. Beim Neuladen gespeicherte Werte und Screenshots
+kontrollieren. Website-Daten nicht löschen; ein vorheriger JSON-Export ist
+als zusätzliche Sicherung möglich.
+
+---
+
+## Dokumentation der bisherigen Basis (v5.4.7)
+
+Die folgende Beschreibung und ihre damaligen Testangaben beziehen sich auf
+v5.4.7, nicht auf zusätzliche Browsertests der aktuellen Version.
+
 # FX EdgeFinder Companion v5.4.7 – Schritt 6
 
 Dieses Update baut auf v5.4.6 auf und vervollständigt die Regel:
