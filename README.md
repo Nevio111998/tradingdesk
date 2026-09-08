@@ -32,7 +32,7 @@ Update für den EdgeFinder-kompatiblen FX-Makro-Workflow.
 Oben links muss `v5.3.0` und `Code geladen · v5.3.0` stehen.
 
 
-## Version 5.4.0
+## Version 5.4.1
 
 - Referenzzinsen je Währung ergänzt: Fed-Obergrenze, Mittelpunkt, effektive Rate oder andere Policy-Referenz sauber dokumentieren.
 - Datenqualität je Pricing-Horizont erweitert: Quelle, Datenstand, Instrument, Methode und Referenzzeitraum.
@@ -43,3 +43,11 @@ Oben links muss `v5.3.0` und `Code geladen · v5.3.0` stehen.
 - Rates-Bestätigungsmatrix ergänzt: Zinsniveau und Zinsmomentum getrennt, ohne künstlichen Gesamtscore.
 
 Bestehende lokale Eingaben bleiben erhalten, weil nur neue optionale Felder ergänzt wurden.
+
+
+## Neu in v5.4.1
+
+- Marktpricing-Metadaten sind nicht mehr generelle Rechensperren.
+- Fehlende Quelle, Datenstand, Instrument, Methode oder Referenzzeitraum erzeugen Qualitätswarnungen statt automatischer Blockade.
+- Horizont der Erwartungsänderung wird standardmässig als `12M` vorbelegt und bleibt die zentrale Pflichtlogik gegen 3M/12M-Verwechslungen.
+- Bestehende Datenfelder bleiben erhalten.

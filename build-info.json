@@ -1,15 +1,15 @@
 {
-  "version": "5.4.0",
+  "version": "5.4.1",
   "created": "2026-09-08",
   "files": {
-    "README.md": "73f19954b927565d2f86746cdc4c2e552768e1059490f34ce697e243b50d39c1",
-    "index.html": "89ed977635a917785a9b851ef16c6906e16b4ad24c09b8f66a4b2db9d8ed4290",
-    "app.v5.3.0.js": "e6cf719f0d35c47023c1f9cb1ab585235267db181ca70dc34f3fd893bd31364a",
-    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "style.v5.3.0.css": "2cad33d673bc37ae0c38bf6a8e8b90e4942bbcb469b183a7da57b65c4fd2e8f6",
-    "data.v5.3.0.js": "20fe916cc814df60848529595204e05311cacca5564dba4e1b7fe50d3c2445af",
-    "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957"
+    "README.md": "29ba02e7a805d9d17b1a65dd18f70cf8ab7570b5430793293b4963452ddbab84",
+    "index.html": "6dd93adde67ca54b55cad8a756e36b719914bddd626a5edb46a7d3d55d21c134",
+    "app.v5.4.1.js": "082818916a6cc8514fba1ff3fca5f6a13d3f6c265e3fa5a16151186a62d64fc2",
+    "data.v5.4.1.js": "027ab3c2377fe1f1d8e815b786c407d661f18e5ad2fdf47afc8f2d84d88fbe7d",
+    "style.v5.4.1.css": "edec1fdf83d9cbe691065c3857e6f05e54f9412ce6c5c46839c9f9fa116ca11b",
+    "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
+    ".nojekyll": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   },
-  "builtAt": "2026-09-08T17:53:00+02:00",
-  "notes": "Reference-rate quality, repricing validation, rates confirmation matrix."
+  "builtAt": "2026-09-08T18:55:00+02:00",
+  "notes": "Step 1: Pricing metadata is optional for calculations; missing metadata produces quality warnings. Pricing-change horizon defaults to 12M."
 }
