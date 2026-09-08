@@ -1,45 +1,59 @@
-# FX EdgeFinder Companion v5.4.4 – Schritt 3
+# FX EdgeFinder Companion v5.4.5 – Schritt 4
 
-Dieses Update baut auf v5.4.3 auf. Es ändert ausschliesslich die automatische
-Berechnung und Kennzeichnung des relativen Repricings in der Paar-Analyse.
+Dieses Update baut auf v5.4.4 auf und gibt die erwarteten 3M- und
+12M-Leitzins-Differentiale bei vorhandenen numerischen Daten frei.
 
-## Berechnung
+## Berechnungslogik
 
-Relatives Repricing (bp) = Erwartungsänderung Base (bp) − Erwartungsänderung Quote (bp).
+Erwartetes Differential (bp) =
+  100 × (aktueller Leitzins Base − aktueller Leitzins Quote)
+  + kumuliertes Pricing Base (bp) − kumuliertes Pricing Quote (bp).
 
-- Numerische Werte und ein bekannter, vergleichbarer Horizont sind erforderlich.
-- 12M ist der Standard für alte Datensätze ohne gespeicherten Horizont.
-- 3M gegen 12M wird nicht automatisch berechnet.
-- Gleichwertige Schreibweisen wie 12M/1Y oder 3M/3 Monate werden erkannt.
-- Fehlende optionale Metadaten verhindern die Berechnung nicht.
-- Gemischte Methoden wie Meeting-Pricing, OIS-Forward und Futures-Proxy
-  führen zu einem Wert mit dem Hinweis „Indikativer Vergleich“.
-- Der gleiche Wert und die gleiche Kennzeichnung erscheinen in der
-  Rates-Bestätigungsmatrix. Es wird kein Gesamtscore erzeugt.
-- Ein begründeter manueller Override bleibt möglich, wenn die automatische
-  Berechnung nicht möglich ist. Ein alter Override überschreibt keinen
-  gültigen automatischen Wert.
+Die bestehenden Eingabefelder behalten ihre festen Einheiten:
+aktueller Leitzins in Prozent, kumulierte 3M-/12M-Veränderungen in bp.
+Es werden keine Werte automatisch anhand ihrer Grösse als Prozent oder bp
+interpretiert. Fehlende oder ungültige Zahlen sowie ausdrücklich als
+unklar/abweichend markierte, nicht umgerechnete Einheiten verhindern die
+betroffene Berechnung. Ein fehlender 3M-Wert sperrt den vollständigen
+12M-Vergleich nicht und umgekehrt. Null und negative Werte sind gültig.
 
-## Daten und Kompatibilität
+Drei neue optionale Einheiten-Auswahlen im Datenqualitätsbereich dokumentieren
+den Standard oder eine unklare/abweichende Quellen-Einheit. Nichtkanonische
+Quellenwerte müssen vor der Eingabe in die Einheit des Feldes umgerechnet
+werden. Die Auswahl verändert niemals bestehende Zahlen.
 
-Alle Eingabefelder, Währungsdaten, Wahrscheinlichkeiten, Metadaten und
-Paar-Analysen bleiben erhalten. Datenbankname und Schema bleiben unverändert:
-fx-trade-desk, Version 1. Es gibt keine Lösch- oder Reset-Migration.
-Die übrigen Rates- und Leitzins-Berechnungen wurden nicht verändert.
+Quelle, Datenstand, Instrument, Methode und Referenzzinsdefinitionen bleiben
+dokumentierbar und sind keine generellen Rechensperren. Unterschiedliche
+Referenzraten, unvollständige Definitionen, gemischte Methoden und
+Forward-/Futures-Proxys werden als Indikativ bzw. Qualitätswarnung angezeigt.
+Die Detailzeile zeigt zusätzlich den aktuellen Spread und den kumulierten
+Pricing-Unterschied. Ein indikatives Ergebnis ist kein exakt vergleichbares
+zukünftiges offizielles Policy-Rate-Niveau.
 
-## Installation
+Die übrigen Berechnungen, insbesondere relatives Repricing, 2Y und Real Yield,
+sowie die G7-Paar-Checklisten werden nicht neu konzipiert.
 
-Den gesamten ZIP-Inhalt in das bestehende GitHub-Repository hochladen und
-die index.html ersetzen. Alte versionierte Dateien dürfen bleiben.
-Nach erfolgreichem GitHub-Pages-Deployment neu laden. Oben links muss
-v5.4.4 und „Code geladen · v5.4.4“ stehen. Keine Website-Daten löschen.
-Wenn möglich, vorher ein JSON-Backup exportieren.
+## Daten und Installation
 
-## Tests
+Alle bisherigen Währungsdaten, Wahrscheinlichkeiten, Metadaten, Paar-Analysen
+und unbekannten älteren Felder bleiben erhalten. Die bestehende IndexedDB
+fx-trade-desk mit Schema 1 bleibt unverändert. Es gibt keine Lösch-, Reset-
+oder destruktive Migration.
 
-Der echte JavaScript-Code wurde in einem isolierten Runtime-Harness getestet:
-EURUSD, AUDCAD, GBPJPY, alle 21 G7-Paare, Vorzeichen, Nullwerte,
-Dezimalwerte, fehlende Zahlen, gemischte Methoden, Horizonte, Override und
-beide Matrixansichten. Versionsprüfung, Syntax, Quelldatei- und ZIP-Integrität
-wurden ebenfalls geprüft. Ein vollständiger Browser-End-to-End-Test wurde
-nicht durchgeführt.
+Den vollständigen ZIP-Inhalt in das bestehende GitHub-Repository hochladen,
+die index.html ersetzen und das erfolgreiche Pages-Deployment abwarten.
+Alte versionierte Dateien dürfen bleiben. Anschliessend neu laden. Oben
+links muss v5.4.5 und „Code geladen · v5.4.5“ stehen.
+Keine Website-Daten löschen; nach Möglichkeit vorher ein JSON-Backup erstellen.
+
+## Testumfang
+
+Der echte JavaScript-Code wurde in einem isolierten Runtime-Harness geprüft:
+EURUSD, AUDCAD, GBPJPY und alle 21 G7-Paare, 3M/12M-Rechnung, Vorzeichen,
+Null- und Negativwerte, Dezimalzahlen, fehlende/ungültige Zahlen, explizit
+inkompatible Einheiten, fehlende Metadaten, gemischte Referenzraten,
+Forward-Proxys, unabhängige Horizonte, erhaltenes relatives Repricing,
+Formularfelder und bestehende Datensätze. Der unveränderte saveNow-Pfad
+wurde mit einer simulierten IndexedDB-Transaktion getestet.
+Syntax, Programm-/Datenversion und ZIP-Integrität wurden geprüft.
+Ein vollständiger Browser-End-to-End-Test wurde nicht durchgeführt.
