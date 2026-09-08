@@ -10,7 +10,8 @@ Eine statische GitHub-Pages-Web-App als Ergänzung zu deinem EdgeFinder-Workflow
   - was du zusätzlich prüfen musst
   - was nur als Risiko-/Kontextfaktor zählt
 - Morgenanalysen als wiederverwendbare Makro-Snapshots erfassen
-- Zusatzchecks erfassen: Zentralbank-Kommunikation, OIS/Futures-Zinserwartungen, 2Y-Yield-Differentials, Market Driver, Event-Risiko, Risk Sentiment und Intermarket
+- Zusatzchecks erfassen: Zentralbank-Kommunikation, OIS/Futures-Zinserwartungen, 2Y-Yield-Differentials mit 2Y jetzt / vor 1 Woche / vor 2 Wochen, Market Driver, Event-Risiko, Risk Sentiment und Intermarket
+- Pair-Shortlist innerhalb der Morgenanalyse führen und mehrere Paare vergleichen, bevor daraus eine Trade-Idee wird
 - Trade-Ideen mit vollständiger Validierung dokumentieren
 - Screenshots speichern: EdgeFinder Scorecard, Real Yield History, COT/Retail, Yield-Charts, D1/H4/M15-Setup
 - Entry, Stop, Ziel, CRV, Risiko, Positionsgrössen-Schätzung und Gesamt-Exposure dokumentieren
@@ -31,9 +32,9 @@ Die App ist bewusst keine Cloud-App, kein Trading-Bot und kein zweiter EdgeFinde
 
 Wenn du den Browser wechselst, Website-Daten löschst oder im privaten Fenster arbeitest, können lokale Daten verloren gehen. Erstelle regelmässig ein vollständiges Backup unter **Backup & Einstellungen**.
 
-## Update von Version 1
+## Update von Version 2
 
-Die App nutzt weiterhin dieselbe lokale Browser-Datenbank (`fx-trade-desk`). Wenn du die bisherigen Dateien im GitHub-Repo durch diese Version ersetzt, bleiben bestehende lokale Einträge im selben Browser erhalten. Mach trotzdem vorher ein Backup.
+Die App nutzt weiterhin dieselbe lokale Browser-Datenbank (`fx-trade-desk`). Wenn du die bisherigen v2-Dateien im GitHub-Repo durch diese Version ersetzt, bleiben bestehende lokale Einträge im selben Browser erhalten. Mach trotzdem vorher ein Backup.
 
 ## GitHub Pages Setup
 
@@ -48,4 +49,4 @@ Nicht das ZIP als einzelne Datei hochladen. Die Dateien `index.html`, `style.css
 
 ## Version
 
-Version 2.0 — EdgeFinder Companion
+Version 3.0 — EdgeFinder Companion
