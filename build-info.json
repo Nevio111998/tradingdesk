@@ -1,17 +1,11 @@
 {
-  "version": "5.6.4",
+  "version": "5.6.6",
   "created": "2026-09-09",
-  "baseVersion": "5.6.3",
-  "notes": "Schritt 4: Entscheidungsleiste, Schlussbewertung und richtungstreue Trade-Übernahme. Keine Datenmigration.",
+  "baseVersion": "5.6.5",
+  "notes": "Trade-Ideen-Checklisten bereinigt. Historische Analysedaten bleiben erhalten. Repository-Altversionen entfernt.",
   "files": {
-    "README.md": "bbbd187f1f91c61ce6a26a61c4cf93399c29dadbb9a37ae8631e7d6a60cb2c93",
-    "index.html": "be371d78461e66f08f562d232b79ce2744acde738be12feca95ef429bc58350e",
-    "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.6.4.js": "f530eac0331402fe7b5246b96ff626afb874f4e5b6b7669736a7ba24afb6d567",
-    "data.v5.6.4.js": "9bb3d47c5aa3dd3f527af14aa00aff9fa1d20e3b92825622ba81fd15b0d9fe53",
-    "style.v5.6.4.css": "989440119198efd1cae3b6457146ea7a041a57c6d5f5256fdb2a3baec609d562",
-    "tests/fx-decision.test.cjs": "78ccf4a8a129b3702e93e7381610ab6538cb291197bb742409bc8cf5903be122",
-    "package.json": "a47c7d9d9722ef4f18e36c4500fe924bd0b04d73b2349bef014c31494351a886",
-    "package-lock.json": "c6efdfffbf0094711bff551851c5267832529895416d697f091fab914a005e7e"
+    "index.html": "a82e29d9b717bb83547f816bfdc2c803faca1eae",
+    "app.v5.6.6.js": "d795f86888795c04d069dd43d008c521f9914afc",
+    "data.v5.6.6.js": "c2e4e988f95252d4b992f34e27255e3ba29f7733"
   }
 }
