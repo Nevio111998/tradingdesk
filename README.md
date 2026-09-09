@@ -1,3 +1,47 @@
+# FX EdgeFinder Companion v5.6.7 – Trade-Übernahme und Entscheidung korrigiert
+
+Basiert auf v5.6.6. Die Kürzungen bleiben erhalten: sieben Paarblöcke,
+17 Paar-Häkchen und 17 Trade-Häkchen. Keine Datenmigration, IndexedDB-Schema 1.
+
+## Änderungen
+
+- Der Entscheidungsdialog übernimmt die bestehende Entscheidung und bietet
+  ausdrücklich „Offen“ an. Keine automatische Vorwahl von „Trade geplant“.
+- „Offen“ erzeugt weder Freigabe noch finalen Haken. Eine bisher bereite oder
+  verworfene Idee geht bei dokumentierter offener Entscheidung auf Watchlist.
+  Bereits offene oder geschlossene Positionen behalten ihren Journalstatus.
+- Eine Änderung der Entscheidung in der Übersicht hebt die alte Freigabe auf;
+  „Trade geplant“ muss wie bisher ausdrücklich dokumentiert werden. Bestehende
+  Regeln für bewusste Ausnahmen bleiben bestehen. „Kein Trade“ erscheint nicht
+  mehr als „Zuletzt freigegeben“.
+- Paar-Übernahme schreibt EdgeFinder in das von der Tradeansicht verwendete Feld.
+  Bei älteren Übernahmen wird das historische Feld als Rückfall gelesen, ohne
+  gespeicherte Datensätze umzuschreiben. Eine vorhandene aktuelle Bewertung,
+  einschliesslich „Unbewertet“, hat Vorrang.
+- Ereignisnotizen werden bei neuen Paar-Übernahmen zusätzlich im entsprechenden
+  Catalyst-Feld gespeichert. Readiness erkennt auch das sichtbare Feld
+  „Catalyst / dominanter Driver“. Leere Texte zählen nicht als Dokumentation.
+  Eine Textnotiz erstellt keinen Kalendereintrag und bestätigt keine Terminprüfung.
+
+## Prüfung
+
+`node tests/trade-flow-fixes.test.cjs`: Anwendungscode mit simuliertem DOM und
+IndexedDB. EURUSD, GBPUSD, USDCHF; Long/Short/Gemischt, ältere EdgeFinder-Felder,
+manuelle Priorität, Catalyst-Erkennung, 18 Kombinationen aus Status und
+Entscheidung, Speicherung und Rendering aller Anwendungsbereiche geprüft.
+Paar-/Trade-Definitionen und Rates-Berechnungsfunktionen entsprechen v5.6.6.
+JavaScript-Syntax und lokale Index-Referenzen geprüft. Keine neue Browser- oder
+Mobilprüfung in diesem Korrekturschritt; diese ersetzt nicht die Abschlussprüfung.
+
+## Installation
+
+In der bisherigen App auf „Alles gespeichert“ warten und ein vollständiges
+JSON-Backup erstellen. ZIP entpacken und den Inhalt wie bisher hochladen.
+Browserdaten nicht löschen. Danach müssen v5.6.7 und „Code geladen · v5.6.7“
+angezeigt werden. Bestehende Datensätze werden beim Update nicht umgeschrieben.
+
+---
+
 # FX EdgeFinder Companion v5.6.6 – Trade-Ideen bereinigt
 
 Baut ausschliesslich auf v5.6.5 auf. Die 17 Paar-Häkchen, Währungsdaten,
