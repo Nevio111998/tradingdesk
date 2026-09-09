@@ -1,3 +1,60 @@
+# FX EdgeFinder Companion v5.6.3 – Checklisten und Rates-Details, Schritt 3
+
+Alle neun tatsächlich vorhandenen Paar-Checklistenblöcke sind einklappbar.
+Die Nummerierung des bisherigen Codes (01, 03–10) bleibt erhalten; kein Block
+wurde entfernt. Geschlossen werden Titel, Fortschritt, Bearbeitungsstatus und
+ein vorhandenes Paar-Fazit angezeigt. Checkboxen und Notizfelder bleiben
+vollständig vorhanden. Ausführliche Hilfen stehen unter „Info anzeigen“,
+Quellen werden pro Block unter „Quellen & Recherche“ zusammengefasst.
+
+Öffnungszustände werden pro Analyse, Paar und Bereich als lokale
+Browser-Ansichtseinstellung gespeichert und nach Neuladen wiederhergestellt.
+Diese Einstellung ist separat von den Analysedaten und nicht im Analyse-Backup
+enthalten. Keine Datenmigration und keine Änderung am IndexedDB-Schema 1.
+
+Die Rates-Ansicht zeigt wesentliche Kennzahlen und die Bestätigungsmatrix.
+Vollständige Rechendetails und beide manuellen Override-Felder bleiben unter
+„Weitere Rates-Details“ verfügbar. Die übernommenen Währungsdaten sind ebenfalls
+einklappbar. Datenqualität zeigt zunächst die Anzahl eindeutiger Hinweise;
+Ereignis-/Stichtagskonflikte werden bereits im Titel kenntlich gemacht.
+Die bisherigen Warnungen und Erläuterungen bleiben im geöffneten Bereich
+verfügbar. Rechenformeln und Qualitätslogik sind unverändert.
+
+Manuelle Overrides aktualisieren Kennzahlen, Matrix, Qualitätsanzeige und
+Screener direkt, ohne die Eingabefelder zu ersetzen. Checklistenfortschritt
+ändert keinen Paarstatus; EdgeFinder und automatische Rates-Werte werden
+nicht als zusätzliche unabhängige Signale gewichtet.
+
+## Prüfung
+
+`node tests/fx-accordions.test.cjs`: alle bestehenden Blöcke, Eingabefelder,
+Hilfetexte und Quellen von EURUSD/GBPUSD/USDCHF erhalten; isolierte und
+persistente Öffnungszustände, ignorierte verspätete Ereignisse entfernter
+Elemente, unveränderte Analysedaten, Status und Berechnungsfunktionen,
+Fortschritt, manueller Override und Anzahl der Qualitätshinweise geprüft.
+Dieser Test verwendet Anwendungscode mit simuliertem DOM/Speicher.
+
+Chromium-Browser mit künstlichen Daten: USDCHF-Override +15 bp inklusive
+direkter Anzeigeaktualisierung; Event-Risk-Checkbox und Paar-Fazit; getrennte
+Öffnungszustände beim Paarwechsel; nach abgeschlossener Speicherung und
+Neuladen bleiben Haken, Notiz und geöffneter Block erhalten. Desktop sowie
+responsive iframe-Ansichten 390/320 px visuell geprüft, kein Seitenüberlauf.
+Kein physisches Telefon/Safari getestet. Wie bisher vor Neuladen oder Schliessen
+auf „Alles gespeichert“ warten (bestehendes verzögertes Autosave).
+
+## Installation
+
+ZIP entpacken und Inhalt ins bestehende Repository hochladen oder den Pull
+Request übernehmen. Nach dem Deployment müssen v5.6.3 und „Code geladen ·
+v5.6.3“ erscheinen. Alle alten Assets bleiben enthalten. Keine Website-Daten
+löschen. Testdaten sind nicht im Paket enthalten.
+
+Rechte Entscheidungsleiste und Schlussbewertung folgen in Schritt 4.
+
+---
+
+## Vorherige Versionsdokumentation (historisch)
+
 # FX EdgeFinder Companion v5.6.2 – Paar-Screener, Schritt 2
 
 Die FX Paar-Makro-Checkliste startet mit einem kompakten Screener aller 28 Paare.

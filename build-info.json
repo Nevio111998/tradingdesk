@@ -1,17 +1,17 @@
 {
-  "version": "5.6.2",
+  "version": "5.6.3",
   "created": "2026-09-09",
-  "baseVersion": "5.6.1",
-  "notes": "Schritt 2: Paar-Screener, Suche/Filter/Sortierung und Detailzusammenfassung. Keine Datenmigration.",
+  "baseVersion": "5.6.2",
+  "notes": "Schritt 3: persistente Paar-Accordions, kompakte Rates und Qualitätsdetails. Keine Datenmigration.",
   "files": {
-    "README.md": "3025248f7be5b5e06b8cea4b8a1d277084fd0161670350388ea603849194e994",
-    "index.html": "7225a06ced64974fd25694c2ad158a6eaf11c5ef70ff9dbb539539d0df60b9af",
+    "README.md": "bec1d56a7d10e7c10a5cfb323989b0aae5448f327c3e76ff8dbe5227ee740d48",
+    "index.html": "a613245d1ef5672e7095a81703fc193723b4186467066afba34d4ab07f037882",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.6.2.js": "942efa75b7acb838f57e4207060bcdd190f4ff5e0dfc920260ad4e1c2b6437f7",
-    "data.v5.6.2.js": "5bd326d39d86acffb10a7f5b01453024f113715a823234347d4c08b4b42f4084",
-    "style.v5.6.2.css": "e98fed603e8d76abbe48c325e70aae01e949531d2e6fd6ca64937dc2dda3d805",
-    "tests/fx-screener.test.cjs": "ba08948464c1fe2f6ed885baad6861f15fb9f68310e9e7f108ff38d18d84a21c",
-    "package.json": "41012d0301355f941c361fde8f0410d975ec8659ffd18e42895fdbc0fb4ca162",
-    "package-lock.json": "7ebb89e650fdf18f3418ec8b8951a93944e26b6109918a6ba0204aec454cc195"
+    "app.v5.6.3.js": "0e2250bd7ac4f493059b992e4bfe9e843566aa48968699b99cdb3394d5650ed2",
+    "data.v5.6.3.js": "50251b8ed6410cf5b542b0adb0745114cfd4c77b2159b8d4cba33b185274406c",
+    "style.v5.6.3.css": "9e8936bb054e0b0026aab0a64abe22a2259b15c51e54622b2f82dc76da85fdc2",
+    "tests/fx-accordions.test.cjs": "446b2565f48e4a8af215c60b539d695e10687e5c2fc353a6e70a7e5d86c9ee8f",
+    "package.json": "9257088c310866317dd0aa9b27fbcbe961a87bbe46c1a98a4fcd6d28ebc63e82",
+    "package-lock.json": "a8402921bb527a2fef6274098740a8753013d60711fd0bf64f21c0087b23bb75"
   }
 }
