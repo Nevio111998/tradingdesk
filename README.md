@@ -1,3 +1,56 @@
+# FX EdgeFinder Companion v5.6.5 – Paar-Checklisten kürzen
+
+Die FX Paar-Makro-Checkliste besitzt nun eigene, kompakte Definitionen mit
+7 Blöcken und 17 Häkchen pro Paar. Die ursprünglichen gemeinsamen Definitionen
+für Trade-Ideen bleiben unverändert. Bestehende IDs, Paarobjekte, Häkchen,
+Fazitfelder, gespeicherte Daten und Berechnungsfunktionen werden nicht migriert
+oder gelöscht. IndexedDB bleibt Schema 1.
+
+- Der globale Paar-Checks-Zähler entfällt in Paarübersicht, Morgenüberblick und
+  Morgenanalyse-Listen. Stattdessen erscheinen Kandidaten bzw. die bestehenden
+  Statuszahlen. Der Fortschritt des ausgewählten Paars bleibt erhalten.
+- Event Risk: calendarToday (Wirtschaftskalender vollständig geprüft), speeches.
+- Zentralbanken: policyLatest, policyTone, policyMarket.
+- 2Y: ratesLevel, ratesChange (1 Tag / 5 Tage / 14 Tage), ratesCause, ratesQuality.
+- Market Driver: driverNews, driverRank.
+- Risk Sentiment: riskEquity, riskVix.
+- Intermarket: crossRelevant, crossActual, crossConflict (unverändert).
+- Positioning: cotLatest (Aktuelles COT geprüft).
+- Die Paarblöcke Real Yield und Neue Daten seit EdgeFinder-Check werden nicht
+  mehr angezeigt. Alle darin gespeicherten Daten bleiben im Analyseobjekt.
+- Hilfen zeigen ausschliesslich die verbliebenen Checklistenpunkte. Die
+  Quellenlisten der jeweiligen ursprünglichen Blöcke bleiben vollständig.
+- Vorhandene Paar-Fazitfelder, Währungsdaten, Rates-Matrix, manuelle Overrides,
+  Screener, Entscheidungsleiste, Trade-Übernahme und Trade-Checkliste bleiben.
+  Neu übernommene Paar-Häkchen stammen nur aus der verkürzten Auswahl; der
+  vollständige ursprüngliche Analysestand bleibt im Trade-Snapshot erhalten.
+
+## 2Y-Zeiträume
+
+Die Checklistenfrage verwendet nun 1/5/14 Tage. Die bisherigen gespeicherten
+Renditefelder (vor 1 und 2 Wochen) und ihre Formeln wurden nicht umgedeutet.
+Die 5-/14-Tage-Werte werden nicht aus Wochenwerten erfunden. Eine spätere
+Erweiterung um eigene datierte Tageshistorien ist ein separater Schritt.
+
+## Installation und Datenerhalt
+
+Vor dem Update in der bisherigen App auf „Alles gespeichert“ warten und ein
+vollständiges JSON-Backup erstellen. Alle Dateien des vollständigen ZIPs in
+das bestehende GitHub-Repository hochladen oder das Änderungs-ZIP mit den
+vorhandenen Dateien zusammenführen. Nicht den Repository-Inhalt löschen.
+Nach dem Deployment müssen v5.6.5 und „Code geladen · v5.6.5“ erscheinen.
+Keine Browser-/Website-Daten löschen. GitHub speichert nicht die persönlichen
+Analysen; sie liegen weiterhin in der bisherigen lokalen Browserdatenbank.
+
+## Prüfung
+
+`node tests/fx-pair-cleanup.test.cjs` prüft die Auswahl, sämtliche 28 Paare,
+alte Häkchen/Notizen/IDs, erhaltene Felder und Quellen, den Wegfall der
+Globalzähler, die unveränderten Trade-Definitionen, die Trade-Übernahme und
+unveränderte Rates-Berechnungen. Die bestehenden Tests bleiben im Repository.
+
+---
+
 # FX EdgeFinder Companion v5.6.4 – Entscheidung und Trade-Übernahme, Schritt 4
 
 Kompakte Entscheidungsleiste mit Bias, Confidence, Status, EdgeFinder,
