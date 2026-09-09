@@ -1,19 +1,17 @@
 {
-  "version": "5.5.5",
+  "version": "5.6.1",
   "created": "2026-09-09",
-  "baseVersion": "5.5.4",
-  "notes": "Schritt 5: Browserprüfung, direkte Rechneraktualisierung und Spaltenabstand. Keine Datenmigration.",
+  "baseVersion": "5.5.5",
+  "notes": "FX Paar-Makro-Checkliste Schritt 1: sieben CHF-Paare ergänzend, dynamische Zähler und Umbenennung. Keine Datenmigration.",
   "files": {
-    "README.md": "d1b17afe923b79ff0d24e02f120e0fb385204c5a84f3010c6607a2a7507c2674",
-    "index.html": "0d0b4bf987df8eca056407d09f612d7604be06a816689047b03d3a4822929e4d",
+    "README.md": "dc0367ed038536a0313dfa76d359e97ba96e7101d6507462accc8f1965288aba",
+    "index.html": "42cd9a4e983e15a72d259a194576f1d9a88efd93392185140b2c36c374566df1",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.5.5.js": "b8c1c4efc3ef3ee55627c80df6cbf072502c08360fd1eb8d7fd3d0dd3533531e",
-    "data.v5.5.5.js": "e7f844107e7de815a5760c2a88e2c4c82a24965473fb8cb9a805e192dd354a27",
-    "style.v5.5.5.css": "62da809bbfb4d9cf06702d8fadcfbf3effe5121ea5ce3a97cdaeb73953467e45",
-    "tests/currency-final.test.cjs": "c77d3d6db155cf799c84ce50ad7114136354819ccdd6a4e003837785f2b5e9f4",
-    "tests/responsive-preview.html": "1d1dfe207e821815c87b91fa2b01a897b9fee2f66f99228fbd14978f657f24a6",
-    "package.json": "fdfd3e7b272652257d89083211031c10a4b0429b019818f0ffd94bd44d808f37",
-    "package-lock.json": "cb61cfd5e618b1e2b4a10ca33603f2d4ee861d33fa21e5c3a7d2e6f9a7345edf",
-    "vite.config.mjs": "c23c1c6207d8e81d1f61de0f30e4e7aa0f00eef9bd7283baf3e057ebae41c964"
+    "app.v5.6.1.js": "591f4f5ef1682efb98f02a12117ff210a2d7c78e94964ae71c822176cb68ef6a",
+    "data.v5.6.1.js": "e6e704ca19cd83844387b161fbc18d2e09148355425a019caabb3b9142b57a6f",
+    "style.v5.6.1.css": "7bd1ba8ba33296bbe62d83b336cda518e5986899fe5635551250373c670d9057",
+    "tests/fx-chf-pairs.test.cjs": "c723ff9f6191b1d7e1618f794b173c63bddb6cd831c4a3d2e5a994abf878ffb3",
+    "package.json": "a99cfe9b9721d4f3dc21c0f98d582a9e9e5549af14fa5964ad9857decfa1bd33",
+    "package-lock.json": "6353033387d306818ad915497f7d995a9b9fa3b52635be056cf934e53d227413"
   }
 }

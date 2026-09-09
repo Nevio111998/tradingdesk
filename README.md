@@ -1,3 +1,49 @@
+# FX EdgeFinder Companion v5.6.1 – FX Paar-Makro-Checkliste, Schritt 1
+
+Der Bereich heisst jetzt überall in der aktiven Anwendung „FX Paar-Makro-Checkliste“.
+Die bisherigen 21 Paare werden um USDCHF, EURCHF, GBPCHF, AUDCHF, NZDCHF,
+CADCHF und CHFJPY ergänzt: 28 einzigartige Kombinationen aus acht Währungen.
+
+Bestehende Paarobjekte, IDs, Reihenfolge, Checkboxen, Notizen, Status und
+manuelle Overrides werden nicht neu aufgebaut. Fehlende Paare werden nur
+angehängt; wiederholtes Öffnen erzeugt keine Duplikate. Auch ein bereits
+vorhandenes CHF-Paar behält seine ID und Daten. Der historische interne
+ID-Präfix bleibt aus Kompatibilitätsgründen erhalten.
+
+CHF-Paare verwenden dieselben Währungsdaten, Rechenfunktionen, Checklisten,
+Statusfelder und Trade-Übernahme wie die bisherigen Paare. Fortschrittszähler
+werden aus den tatsächlich vorhandenen Paaren und Checklisten berechnet:
+aktuell 28 × 40 = 1’120 Checks. Ein Checklistenfortschritt setzt keinen Status
+auf „Bereit“. Es gibt keine Datenbankschemaänderung und keine Migration.
+
+## Prüfung
+
+`node tests/fx-chf-pairs.test.cjs`: 28 eindeutige Kombinationen ohne Umkehrduplikate;
+exakter Erhalt bestehender 21 Paarobjekte und IDs; vorhandenes CHF-Paar;
+idempotente Ergänzung; dynamische Checklistenanzahl; Bearbeitung und Checks;
+EURUSD, GBPUSD und alle sieben CHF-Paare; identische Rates-Funktionen und
+Trade-Snapshot mit CHF-Daten. Der Test verwendet simuliertes DOM/Speicher.
+
+Echter Chromium-Browser: vorhandenen Test-Snapshot geöffnet, 28 Paar-Buttons,
+neuen Namen und 0/1120 angezeigt; CHF-Renditen erfasst; USDCHF-Differential
++300 bp geprüft; Wechsel über GBPUSD, Neuladen mit erhaltenem USDCHF-Short-Bias
+und Watchlist-Status; USDCHF-Short-Trade-Idee erfolgreich übernommen.
+Persönliche Nutzerdaten waren nicht Teil der Testumgebung.
+
+Screener, kompakter Navigator, Accordions und Entscheidungsbereich folgen in
+den nächsten Schritten. Die umfassende Desktop-/Mobilprüfung folgt in Schritt 5.
+
+## Installation
+
+ZIP entpacken und den Inhalt wie gewohnt ins bestehende Repository hochladen,
+oder den zugehörigen Pull Request übernehmen. Nach dem Deployment müssen
+v5.6.1 und „Code geladen · v5.6.1“ erscheinen. Website-Daten nicht löschen.
+Alle bisherigen versionierten Assets sind im Paket enthalten; keine Testdaten.
+
+---
+
+## Vorherige Versionsdokumentation (historisch)
+
 # FX EdgeFinder Companion v5.5.5 – Schritt 5: Abschlussprüfung
 
 Die Überarbeitung von Währungen & Rates wurde mit dem bestehenden Code aus
