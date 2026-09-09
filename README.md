@@ -1,3 +1,46 @@
+# FX EdgeFinder Companion v5.6.4 – Entscheidung und Trade-Übernahme, Schritt 4
+
+Kompakte Entscheidungsleiste mit Bias, Confidence, Status, EdgeFinder,
+Rates, Market Driver, Technik und offenen Punkten. Bei ausreichend breitem
+und hohem Desktop bleibt sie beim Scrollen erreichbar. Quellen und Recherche
+sind einklappbar; mobile Geräte zeigen eine Spalte.
+
+Die Schlussbewertung bündelt These, Gegenargumente, Invalidierung, nächstes
+Ereignis, Fazit/Quellen und Status. Gegenargumente (`counterThesis`) und
+Ereignisnotiz (`nextEvent`) sind additive optionale Paarfelder. Bestehende
+IDs, Felder, Auswahlwerte, Daten und alle bisherigen Assets bleiben erhalten.
+Keine Datenmigration; IndexedDB-Schema bleibt 1.
+
+Status bleibt manuell: Kandidat, Watchlist, Bereit für Trade-Idee, Verworfen.
+Checklistenfortschritt setzt keinen Status. Offene Punkte sind Hinweise aus
+den dokumentierten Angaben und keine automatische Trade-Empfehlung.
+
+Trade-Übernahme verlangt eine bewusste Long-/Short-Auswahl. Gemischter oder
+ungeprüfter EdgeFinder wird nicht als Bestätigung gewertet; Gegenrichtung
+bei EdgeFinder/Rates wird als Widerspruch übernommen. Die neue Idee bleibt
+unbewertet. Paar-Checks und Blocknotizen werden in die Trade-Checkliste
+übertragen; vollständige Analysedaten bleiben im eingefrorenen Snapshot.
+Bestehende Trades werden nicht verändert.
+
+## Prüfung Schritt 4
+
+`node tests/fx-decision.test.cjs`: EURUSD, GBPUSD und USDCHF; Erhalt aller
+bisherigen Feldbindungen, unveränderte Quelldaten, Status und Rates-Formeln;
+Long/Short/Neutral, Gegenrichtungen, Snapshot-Isolation, Paar-Checks und Notizen.
+Browser mit künstlichen Daten: Paarwechsel zwischen diesen drei Paaren,
+Speicherung und Neuladen, USDCHF-Trade-Übernahme inklusive Widerspruch.
+Desktop und mobile 390-px-Ansicht kontrolliert, kein horizontaler Seitenüberlauf.
+Kein physisches Mobilgerät getestet. Vor Schliessen/Neuladen wie bisher auf
+„Alles gespeichert“ warten. Übergreifende Abschlussprüfung folgt in Schritt 5.
+
+## Installation
+
+ZIP entpacken und vollständigen Inhalt wie bisher hochladen. Kein Browser-
+Speicher löschen. Analysen liegen im bisherigen Browser, nicht in der ZIP;
+vor dem Update mit der bestehenden Backup-Funktion sichern.
+
+---
+
 # FX EdgeFinder Companion v5.6.3 – Checklisten und Rates-Details, Schritt 3
 
 Alle neun tatsächlich vorhandenen Paar-Checklistenblöcke sind einklappbar.
