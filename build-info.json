@@ -1,17 +1,17 @@
 {
-  "version": "5.6.1",
+  "version": "5.6.2",
   "created": "2026-09-09",
-  "baseVersion": "5.5.5",
-  "notes": "FX Paar-Makro-Checkliste Schritt 1: sieben CHF-Paare ergänzend, dynamische Zähler und Umbenennung. Keine Datenmigration.",
+  "baseVersion": "5.6.1",
+  "notes": "Schritt 2: Paar-Screener, Suche/Filter/Sortierung und Detailzusammenfassung. Keine Datenmigration.",
   "files": {
-    "README.md": "dc0367ed038536a0313dfa76d359e97ba96e7101d6507462accc8f1965288aba",
-    "index.html": "42cd9a4e983e15a72d259a194576f1d9a88efd93392185140b2c36c374566df1",
+    "README.md": "3025248f7be5b5e06b8cea4b8a1d277084fd0161670350388ea603849194e994",
+    "index.html": "7225a06ced64974fd25694c2ad158a6eaf11c5ef70ff9dbb539539d0df60b9af",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.6.1.js": "591f4f5ef1682efb98f02a12117ff210a2d7c78e94964ae71c822176cb68ef6a",
-    "data.v5.6.1.js": "e6e704ca19cd83844387b161fbc18d2e09148355425a019caabb3b9142b57a6f",
-    "style.v5.6.1.css": "7bd1ba8ba33296bbe62d83b336cda518e5986899fe5635551250373c670d9057",
-    "tests/fx-chf-pairs.test.cjs": "c723ff9f6191b1d7e1618f794b173c63bddb6cd831c4a3d2e5a994abf878ffb3",
-    "package.json": "a99cfe9b9721d4f3dc21c0f98d582a9e9e5549af14fa5964ad9857decfa1bd33",
-    "package-lock.json": "6353033387d306818ad915497f7d995a9b9fa3b52635be056cf934e53d227413"
+    "app.v5.6.2.js": "942efa75b7acb838f57e4207060bcdd190f4ff5e0dfc920260ad4e1c2b6437f7",
+    "data.v5.6.2.js": "5bd326d39d86acffb10a7f5b01453024f113715a823234347d4c08b4b42f4084",
+    "style.v5.6.2.css": "e98fed603e8d76abbe48c325e70aae01e949531d2e6fd6ca64937dc2dda3d805",
+    "tests/fx-screener.test.cjs": "ba08948464c1fe2f6ed885baad6861f15fb9f68310e9e7f108ff38d18d84a21c",
+    "package.json": "41012d0301355f941c361fde8f0410d975ec8659ffd18e42895fdbc0fb4ca162",
+    "package-lock.json": "7ebb89e650fdf18f3418ec8b8951a93944e26b6109918a6ba0204aec454cc195"
   }
 }
