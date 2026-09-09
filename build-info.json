@@ -1,11 +1,17 @@
 {
-  "version": "5.6.6",
+  "version": "5.6.7",
   "created": "2026-09-09",
-  "baseVersion": "5.6.5",
-  "notes": "Trade-Ideen-Checklisten bereinigt. Historische Analysedaten bleiben erhalten. Repository-Altversionen entfernt.",
+  "baseVersion": "5.6.6",
+  "notes": "Trade-Entscheidung, EdgeFinder-Übernahme und Catalyst-Erkennung korrigiert. Keine Datenmigration.",
+  "hashAlgorithm": "sha256",
   "files": {
-    "index.html": "a82e29d9b717bb83547f816bfdc2c803faca1eae",
-    "app.v5.6.6.js": "d795f86888795c04d069dd43d008c521f9914afc",
-    "data.v5.6.6.js": "c2e4e988f95252d4b992f34e27255e3ba29f7733"
+    "README.md": "4cc43baaace479fb9d0cb387d9937b08a9d394c54747b101eabfd7c7d3c3f1f0",
+    "index.html": "17cb4de2b39665365eeeef90de91d2ff412cf04bf568178a90774d34127f5d7a",
+    "app.v5.6.7.js": "ccb97ec92fa100577e9761fd25b901c7b2c88f1a3ce323af0b157e42907366fc",
+    "data.v5.6.7.js": "ee7c10d2c87e352f3fbbd92b722652a45be930cc4ae89a0523ae5ebc4b939bc5",
+    "style.v5.6.7.css": "989440119198efd1cae3b6457146ea7a041a57c6d5f5256fdb2a3baec609d562",
+    "package.json": "14e40ebe81f33b57688f7bbdb1629eb07119b42e10573ad10f680859cbd2e820",
+    "package-lock.json": "b2077358dd5c0f56358354b025c8fad337a9222294144246de3e373f06c650ed",
+    "tests/trade-flow-fixes.test.cjs": "3bdc47f2da5723be59db72f2cdb6533b31384dde5d31a1e5e251fb9df980ae06"
   }
 }
