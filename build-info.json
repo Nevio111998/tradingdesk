@@ -1,17 +1,17 @@
 {
-  "version": "5.6.3",
+  "version": "5.6.4",
   "created": "2026-09-09",
-  "baseVersion": "5.6.2",
-  "notes": "Schritt 3: persistente Paar-Accordions, kompakte Rates und Qualitätsdetails. Keine Datenmigration.",
+  "baseVersion": "5.6.3",
+  "notes": "Schritt 4: Entscheidungsleiste, Schlussbewertung und richtungstreue Trade-Übernahme. Keine Datenmigration.",
   "files": {
-    "README.md": "bec1d56a7d10e7c10a5cfb323989b0aae5448f327c3e76ff8dbe5227ee740d48",
-    "index.html": "a613245d1ef5672e7095a81703fc193723b4186467066afba34d4ab07f037882",
+    "README.md": "bbbd187f1f91c61ce6a26a61c4cf93399c29dadbb9a37ae8631e7d6a60cb2c93",
+    "index.html": "be371d78461e66f08f562d232b79ce2744acde738be12feca95ef429bc58350e",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.6.3.js": "0e2250bd7ac4f493059b992e4bfe9e843566aa48968699b99cdb3394d5650ed2",
-    "data.v5.6.3.js": "50251b8ed6410cf5b542b0adb0745114cfd4c77b2159b8d4cba33b185274406c",
-    "style.v5.6.3.css": "9e8936bb054e0b0026aab0a64abe22a2259b15c51e54622b2f82dc76da85fdc2",
-    "tests/fx-accordions.test.cjs": "446b2565f48e4a8af215c60b539d695e10687e5c2fc353a6e70a7e5d86c9ee8f",
-    "package.json": "9257088c310866317dd0aa9b27fbcbe961a87bbe46c1a98a4fcd6d28ebc63e82",
-    "package-lock.json": "a8402921bb527a2fef6274098740a8753013d60711fd0bf64f21c0087b23bb75"
+    "app.v5.6.4.js": "f530eac0331402fe7b5246b96ff626afb874f4e5b6b7669736a7ba24afb6d567",
+    "data.v5.6.4.js": "9bb3d47c5aa3dd3f527af14aa00aff9fa1d20e3b92825622ba81fd15b0d9fe53",
+    "style.v5.6.4.css": "989440119198efd1cae3b6457146ea7a041a57c6d5f5256fdb2a3baec609d562",
+    "tests/fx-decision.test.cjs": "78ccf4a8a129b3702e93e7381610ab6538cb291197bb742409bc8cf5903be122",
+    "package.json": "a47c7d9d9722ef4f18e36c4500fe924bd0b04d73b2349bef014c31494351a886",
+    "package-lock.json": "c6efdfffbf0094711bff551851c5267832529895416d697f091fab914a005e7e"
   }
 }
