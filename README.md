@@ -1,3 +1,54 @@
+# FX EdgeFinder Companion v5.6.2 – Paar-Screener, Schritt 2
+
+Die FX Paar-Makro-Checkliste startet mit einem kompakten Screener aller 28 Paare.
+Er zeigt Paar, manuellen Bias/Confidence, relatives Repricing, EdgeFinder-Bild,
+Status und das nächste gespeicherte relevante High-Impact-Ereignis ab dem
+Analyse-Datum. Vergangene, nicht relevante und niedrig eingestufte Ereignisse
+werden ausgeschlossen; es handelt sich nicht um einen Live-Kalender.
+
+Suche nach Paar oder Währung, Filter Alle/Kandidaten/Long/Short/Neutral/Bereit,
+Sortierung nach Paar, absolutem Repricing in bp oder Status (Bereit zuerst).
+Repricing verwendet die bestehende Berechnung inklusive manueller Overrides
+und Qualitätsregeln. Horizont und manuelle/indikative Werte sind gekennzeichnet;
+nicht berechnete Werte stehen zuletzt. Unterschiedliche Horizonte und Datenstände
+müssen weiterhin in den Rates-Details beurteilt werden. Kein neuer Gesamtscore
+und keine automatische Trade-Empfehlung oder Statusänderung.
+
+Die grosse Kartenübersicht und die 28 Navigationsbuttons sind durch Tabelle und
+kompakte Paarauswahl ersetzt. Paar anklicken, Detailzusammenfassung lesen und
+wie bisher bearbeiten. „Zum Paar-Screener“ führt zurück. Filter/Suche verändern
+keine Analysewerte und setzen die Auswahl nicht zurück, selbst wenn sie aus dem
+Filter fällt. Such-/Filterzustände gelten nur für die aktuelle Browsersitzung.
+
+Alle vorhandenen Detailfelder, Checklisten, Quellen, Notizen, manuellen Overrides
+und Trade-Funktionen bleiben erhalten. Keine Datenmigration, IndexedDB Schema 1.
+Auf schmalen Bildschirmen umbrechende Tabellenzeilen ohne seitlichen Überlauf.
+
+## Prüfung
+
+`node tests/fx-screener.test.cjs`: 28 Paare, CHF- und Paar-Suche, alle Filter,
+Sortierungen, fehlende Werte, Event-Relevanz/Datum, unveränderte gespeicherte
+Daten und Detailfelder von EURUSD/GBPUSD/USDCHF, synchronisierte Zusammenfassung.
+Test mit Anwendungscode und simuliertem DOM/Speicher.
+
+Chromium-Browser mit künstlichen Daten: CHF-Suche (7 Paare), Short-Filter,
+USDCHF-Auswahl, Statuswechsel auf Bereit, Synchronisation mit Screener,
+Paarwechsel über GBPUSD sowie Neuladen mit erhaltenem Status. Desktop visuell
+geprüft; responsive iframe-Ansichten mit 390/320 px ohne horizontalen Überlauf.
+Kein physisches Mobilgerät/Safari getestet. Die gesamte Abschlussprüfung,
+Accordions und weitere Detailverdichtung folgen in den nächsten Schritten.
+
+## Installation
+
+ZIP entpacken und Inhalt ins bestehende Repository hochladen oder den Pull
+Request übernehmen. Nach dem Deployment müssen v5.6.2 und „Code geladen ·
+v5.6.2“ erscheinen. Keine Website-Daten löschen. Alle alten Assets enthalten;
+keine Testdaten im Paket.
+
+---
+
+## Vorherige Versionsdokumentation (historisch)
+
 # FX EdgeFinder Companion v5.6.1 – FX Paar-Makro-Checkliste, Schritt 1
 
 Der Bereich heisst jetzt überall in der aktiven Anwendung „FX Paar-Makro-Checkliste“.
