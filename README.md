@@ -1,3 +1,71 @@
+# FX EdgeFinder Companion v5.6.6 – Trade-Ideen bereinigt
+
+Baut ausschliesslich auf v5.6.5 auf. Die 17 Paar-Häkchen, Währungsdaten,
+Rates-Formeln, Screener und Paar-Entscheidungsansicht bleiben unverändert.
+
+## Tradeübersicht
+
+Die zwei doppelten EdgeFinder-Textfelder „Was hat EdgeFinder bereits abgedeckt?“
+und „Welche Zusatzchecks bleiben offen?“ werden aus der Übersicht entfernt.
+Ihre gespeicherten Inhalte sowie die gleichnamigen Detailfelder bleiben erhalten.
+
+## Trade-Checkliste
+
+- Event Risk: nur calendarToday. Die drei Catalyst-Eingabefelder werden aus
+  diesem Block ausgeblendet; der eigenständige Catalysts-Bereich bleibt.
+- EdgeFinder Baseline: nur edgeComplete; alle anderen Felder bleiben.
+- Zentralbanken: nur policyLatest.
+- 2Y: nur ratesLevel.
+- Real Yield: keine Häkchen; Felder, Quellen und Daten bleiben.
+- Market Driver: nur driverNews.
+- Risk Sentiment: riskEquity und riskVix.
+- Intermarket: keine Häkchen; Felder und Quellen bleiben.
+- Positioning: keine Häkchen; Felder und Quellen bleiben.
+- Neue Daten seit EdgeFinder-Check und Currency Ranking: ganze Karten entfallen.
+- Fundamentale Trade-These: unverändert (3 Häkchen).
+- Invalidierung, Technische Analyse, Entry/Risiko/Execution: alle Häkchen weg;
+  Felder und Inhalte bleiben.
+- Korrelation & Gesamt-Exposure: ganze Checklistenkarte entfällt. Die separate
+  Entry-&-Risiko-Ansicht samt Positionsgrössenrechnung, Exposure- und Prop-Gates
+  bleibt unverändert.
+- Final Trade Validation: unverändert (7 Häkchen, inklusive Entscheidung).
+
+Die sichtbare Trade-Checkliste enthält 17 Häkchen. Nur diese zählen im Fortschritt,
+bei N/A-Begründungen und in der Trade-Übernahme. Die bestehenden fachlichen
+Readiness-Prüfungen für These, Invalidierung, Setup, Risiko, CRV, Faktoren und
+Final Validation bleiben erhalten. Eine entfernte Checkbox erzeugt keine
+zusätzliche Pflicht und wird nicht mehr als fehlender Punkt gemeldet.
+
+## Datenerhalt und Übernahme
+
+Keine Datenmigration; IndexedDB-Schema 1 bleibt. Original-IDs, historische Haken,
+Notizen, Analysefelder, Bilder, Journal und Snapshots werden nicht gelöscht.
+Alle bisherigen Felder bleiben im Datenmodell und in Backups. Beim erneuten
+Übernehmen eines Snapshots werden nur noch die aktiven Trade-Häkchen importiert.
+Eine Paar-Übernahme ignoriert die entfernten Paar-Häkchen und überträgt weiterhin
+die vollständigen Währungs- und Paardaten im eingefrorenen Snapshot. Bereits
+bestehende Trade-Ideen werden beim Update nicht automatisch verändert.
+
+## Installation
+
+In der bisherigen App auf „Alles gespeichert“ warten und ein JSON-Backup
+inklusive Screenshots erstellen. Das vollständige ZIP entpacken und den Inhalt
+ins bestehende GitHub-Repository (root) hochladen; vorhandene Dateien ersetzen,
+nicht das ganze Repository löschen. Alternativ die sechs Release-Dateien und den
+neuen Test aus dem Änderungs-ZIP hochladen. Keine Browserdaten löschen.
+Nach dem Deployment müssen v5.6.6 und „Code geladen · v5.6.6“ erscheinen.
+Die App speichert weiterhin lokal im selben Browser/unter derselben Website-URL.
+
+## Prüfung
+
+`node tests/fx-trade-cleanup.test.cjs` prüft aktive Blöcke, Felder und Häkchen,
+Fortschritt, Readiness, Übernahme, Datenerhalt und die unveränderte Paar-Auswahl.
+Die historischen Tests bleiben unverändert; ein neuer Regressionstest prüft die
+aktuelle Version. Browserprüfung erfolgt mit künstlichen Testdaten, nicht mit
+persönlichen Analysen. Änderungen werden nur durch einen Upload live.
+
+---
+
 # FX EdgeFinder Companion v5.6.5 – Paar-Checklisten kürzen
 
 Die FX Paar-Makro-Checkliste besitzt nun eigene, kompakte Definitionen mit
