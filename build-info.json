@@ -1,15 +1,19 @@
 {
-  "version": "5.5.4",
-  "created": "2026-09-08",
-  "baseVersion": "5.5.3",
-  "notes": "Schritt 4: kompakte Währungsübersicht, gespeicherte Termine und aufklappbare Quellen. Keine Datenmigration.",
+  "version": "5.5.5",
+  "created": "2026-09-09",
+  "baseVersion": "5.5.4",
+  "notes": "Schritt 5: Browserprüfung, direkte Rechneraktualisierung und Spaltenabstand. Keine Datenmigration.",
   "files": {
-    "README.md": "00635877eb17a26c12aa0e84f793f2ef4189df04ce8744bc9c8944d41753aaf3",
-    "index.html": "a3a9841aa71a890e0bf73934983aa6e7714132c5ddfcf77cafa9adefcc61b03f",
+    "README.md": "d1b17afe923b79ff0d24e02f120e0fb385204c5a84f3010c6607a2a7507c2674",
+    "index.html": "0d0b4bf987df8eca056407d09f612d7604be06a816689047b03d3a4822929e4d",
     "favicon.svg": "012bb926ae84a52887b388bee2cb1e8a799ef1054b2b4e9709ed262b45d99957",
-    "app.v5.5.4.js": "fd9884b8248dbe717610e534df2a90737ec22000c144cd5f40d3bd47bd6fdada",
-    "data.v5.5.4.js": "74be269608ed97845fa4be780dc3d8180f7fe159ce1056cfe6b26b4c5e053732",
-    "style.v5.5.4.css": "c2e91346271d6e54ecd83b06e69a2cd5c42bb2fceaf47d2c708d7926bb8d545f",
-    "tests/currency-sidebar.test.cjs": "71786a5bfbbb06441a561e1722bf77b9f54c0be16d82125c8f481d7c296f7fa5"
+    "app.v5.5.5.js": "b8c1c4efc3ef3ee55627c80df6cbf072502c08360fd1eb8d7fd3d0dd3533531e",
+    "data.v5.5.5.js": "e7f844107e7de815a5760c2a88e2c4c82a24965473fb8cb9a805e192dd354a27",
+    "style.v5.5.5.css": "62da809bbfb4d9cf06702d8fadcfbf3effe5121ea5ce3a97cdaeb73953467e45",
+    "tests/currency-final.test.cjs": "c77d3d6db155cf799c84ce50ad7114136354819ccdd6a4e003837785f2b5e9f4",
+    "tests/responsive-preview.html": "1d1dfe207e821815c87b91fa2b01a897b9fee2f66f99228fbd14978f657f24a6",
+    "package.json": "fdfd3e7b272652257d89083211031c10a4b0429b019818f0ffd94bd44d808f37",
+    "package-lock.json": "cb61cfd5e618b1e2b4a10ca33603f2d4ee861d33fa21e5c3a7d2e6f9a7345edf",
+    "vite.config.mjs": "c23c1c6207d8e81d1f61de0f30e4e7aa0f00eef9bd7283baf3e057ebae41c964"
   }
 }

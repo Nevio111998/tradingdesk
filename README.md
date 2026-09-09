@@ -1,3 +1,51 @@
+# FX EdgeFinder Companion v5.5.5 – Schritt 5: Abschlussprüfung
+
+Die Überarbeitung von Währungen & Rates wurde mit dem bestehenden Code aus
+v5.5.4 abschliessend geprüft. Zwei Korrekturen: Der Paarvergleich aktualisiert
+sich jetzt unmittelbar bei Währungseingaben; die Spaltenüberschriften der
+kompakten Währungsübersicht haben ausreichend Abstand.
+
+Alle acht Währungen, Eingabefelder, Optionen, Metadaten und bisherigen Assets
+bleiben erhalten. Rechenformeln und Speicherfunktionen sind unverändert.
+IndexedDB bleibt bei Schema 1; keine Migration und kein Zurücksetzen von Daten.
+
+## Prüfung
+
+- `node tests/currency-final.test.cjs`: Feld-/Options-/Quellenvergleich aller
+  acht Währungen gegen v5.5.4, Detailzustände, Datenerhalt mit simuliertem Speicher,
+  unveränderte Rechenfunktionen und Regressionstest für die Rechneraktualisierung.
+- Echter Chromium-Browser: USD, EUR und JPY mit künstlichen Daten eingegeben,
+  Währungen gewechselt und neu geladen. Leitzinsen, Renditen, Interpretation,
+  USD-Wahrscheinlichkeiten, Bias/Confidence und Referenzdefinition blieben erhalten.
+- USD/JPY: 300 bp 2Y-Differential und 100 bp Realzins-Differential. Nach Änderung
+  der JPY-Rendite auf 1.1 % sofort 290 bp; umgekehrt -290 bp und -100 bp Realzins.
+- Desktop hell/dunkel sowie responsive Chromium-Ansichten mit 390 und 320 px
+  visuell geprüft. Kein horizontaler Seitenüberlauf; Währungs-Tabs bleiben
+  erreichbar, Desktopübersicht bleibt unter den Tabs stehen.
+- Alte Dateien/Assets, JavaScript-Syntax und Release-Prüfsummen kontrolliert.
+
+Mobile Prüfung erfolgte in einer Chromium-iframe-Testansicht, nicht auf einem
+physischen Telefon oder in Safari. Bestehende persönliche Browserdaten waren
+nicht Teil der Testumgebung. Screenshot-Assets wurden im simulierten Speichertest
+auf Erhalt geprüft; kein vollständiger Backup-Import/Export-Browsertest.
+
+## Installation
+
+ZIP entpacken und den Inhalt wie gewohnt ins bestehende Repository hochladen,
+oder den zugehörigen Pull Request übernehmen. Nach dem Pages-Deployment müssen
+v5.5.5 und „Code geladen · v5.5.5“ erscheinen. Website-Daten nicht löschen.
+
+## Entwicklungsvorschau
+
+Optional `npm ci` und `npm run dev` für eine lokale Vite-Vorschau.
+GitHub Pages verwendet weiterhin direkt die statischen Dateien; kein Build nötig.
+`tests/responsive-preview.html` bietet feste Testbreiten für die Sichtprüfung.
+Testdaten sind nicht im Paket enthalten.
+
+---
+
+## Vorherige Versionsdokumentation (historisch)
+
 # FX EdgeFinder Companion v5.5.4 – Währungen & Rates, Schritt 4
 
 Die rechte Spalte enthält eine kompakte Übersicht aller acht Währungen mit
