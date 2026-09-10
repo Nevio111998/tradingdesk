@@ -4,7 +4,7 @@
   const ADDON_VERSION='5.6.12';
   const CORE_VERSION='5.6.10';
   const BANKS={USD:'Federal Reserve',EUR:'Europäische Zentralbank',GBP:'Bank of England',JPY:'Bank of Japan',AUD:'Reserve Bank of Australia',NZD:'Reserve Bank of New Zealand',CAD:'Bank of Canada',CHF:'Schweizerische Nationalbank'};
-  let dbPromise=null,timer=null,retryTimer=null;
+  let dbPromise=null,timer=null,retryTimer=null,lastSig='';
 
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const has=v=>v!==null&&v!==undefined&&String(v).trim()!=='';
@@ -48,8 +48,28 @@
     });
   }
   function tradeId(){const m=location.hash.match(/^#\/trade\/([a-zA-Z0-9-]+)/);return m?.[1]||''}
+  function macroId(){const m=location.hash.match(/^#\/macro\/([a-zA-Z0-9-]+)/);return m?.[1]||''}
 
-  function probCell(name,current,change){return `<div class="trade-prob-cell"><span>${esc(name)}</span><strong>${esc(pct(current))}</strong><small>Δ ggü. gestern ${esc(deltaPct(change))}</small></div>`}
+  async function seedYesterdayProbabilities(){
+    const id=macroId();if(!id)return;
+    const marker='fxdesk-prob-yesterday-seeded:'+id;if(localStorage.getItem(marker)==='1')return;
+    try{
+      const current=await getRecord(id);if(!current?.carriedFrom?.id)return;
+      const prior=await getRecord(current.carriedFrom.id);if(!prior?.currencies)return;
+      let changed=false;
+      for(const code of Object.keys(prior.currencies)){
+        for(const [hist,currentKey] of [['probHikeChange','probHike'],['probHoldChange','probHold'],['probCutChange','probCut']]){
+          const value=prior.currencies?.[code]?.[currentKey];if(!has(value))continue;
+          const input=document.querySelector(`[data-bind="currencies.${code}.${hist}"]`);if(!input)continue;
+          if(String(input.value)!==String(value)){input.value=String(value);input.dispatchEvent(new Event('input',{bubbles:true}));changed=true}
+        }
+      }
+      localStorage.setItem(marker,'1');
+      if(changed)console.info('v5.6.12: gestrige Sitzungswahrscheinlichkeiten aus der vorherigen Morgenanalyse übernommen.');
+    }catch(err){console.warn('v5.6.12 probability carry-forward:',err)}
+  }
+
+  function probCell(name,current,yesterday){return `<div class="trade-prob-cell"><span>${esc(name)}</span><strong>${esc(pct(current))}</strong><small>Gestern ${esc(pct(yesterday))}</small></div>`}
   function bankCard(code,d){
     const tone=has(d?.tone)?d.tone:'Nicht erfasst';
     const toneTone=/hawk/i.test(tone)?'good':/dov/i.test(tone)?'bad':'neutral';
@@ -139,14 +159,16 @@
         ${detailRow('2Y-Repricing vs. 2W',m.spreadDelta2,'Spread-Veränderung seit vor 2 Wochen','support',base,quote)}
         ${detailRow('Real-Yield-Differential',m.realDiff,'EdgeFinder Real Yield Base − Quote','level',base,quote)}
       </div></div></details>
-      <div class="trade-addon-heading trade-cb-title"><div><h3>Zentralbanken & Sitzungswahrscheinlichkeiten</h3><p>Aktueller Ton und Hike/Hold/Cut-Pricing beider Währungen. Die Veränderung zeigt den Stand gegenüber gestern in %.</p></div></div>
+      <div class="trade-addon-heading trade-cb-title"><div><h3>Zentralbanken & Sitzungswahrscheinlichkeiten</h3><p>Aktueller Ton und Hike/Hold/Cut-Pricing beider Währungen. Aktueller und gestriger Stand jeweils in %.</p></div></div>
       <div class="trade-cb-grid">${bankCard(base,a)}${bankCard(quote,b)}</div>
     </div>`;
   }
 
   function sourceSignature(t,source,isLive){
     const pair=String(t?.pair||'').toUpperCase().replace('/',''),base=pair.slice(0,3),quote=pair.slice(3,6),a=source?.currencies?.[base]||{},b=source?.currencies?.[quote]||{};
-    return JSON.stringify([ADDON_VERSION,t?.id,t?.macroId,isLive,source?.id,source?.date,source?.updatedAt,pair,a.bankRate,a.bankDate,a.nextMeetingDate,a.tone,a.pricingNext,a.probHike,a.probHold,a.probCut,a.probHikeChange,a.probHoldChange,a.probCutChange,a.pricing3m,a.pricing12m,a.pricingChange,a.pricingChangeHorizon,a.pricingChangeMethod,a.pricingMethod,a.yield2,a.yield2Prev,a.yield2Prev2,a.real,b.bankRate,b.bankDate,b.nextMeetingDate,b.tone,b.pricingNext,b.probHike,b.probHold,b.probCut,b.probHikeChange,b.probHoldChange,b.probCutChange,b.pricing3m,b.pricing12m,b.pricingChange,b.pricingChangeHorizon,b.pricingChangeMethod,b.pricingMethod,b.yield2,b.yield2Prev,b.yield2Prev2,b.real]);
+    return JSON.stringify([ADDON_VERSION,t?.id,t?.macroId,isLive,source?.id,source?.date,source?.updatedAt,pair,
+      a.bankRate,a.bankDate,a.nextMeetingDate,a.tone,a.pricingNext,a.probHike,a.probHold,a.probCut,a.probHikeChange,a.probHoldChange,a.probCutChange,a.pricing3m,a.pricing12m,a.pricingChange,a.pricingChangeHorizon,a.pricingChangeMethod,a.pricingMethod,a.yield2,a.yield2Prev,a.yield2Prev2,a.real,
+      b.bankRate,b.bankDate,b.nextMeetingDate,b.tone,b.pricingNext,b.probHike,b.probHold,b.probCut,b.probHikeChange,b.probHoldChange,b.probCutChange,b.pricing3m,b.pricing12m,b.pricingChange,b.pricingChangeHorizon,b.pricingChangeMethod,b.pricingMethod,b.yield2,b.yield2Prev,b.yield2Prev2,b.real]);
   }
 
   async function renderAddon(){
@@ -160,23 +182,34 @@
       const sig=sourceSignature(t,source,isLive),existing=document.getElementById('trade-fundamentals-v5612');
       if(existing?.dataset.signature===sig)return;
       const holder=document.createElement('div');holder.innerHTML=addonHtml(t,source,isLive).trim();const node=holder.firstElementChild;node.dataset.signature=sig;
-      document.getElementById('trade-fundamentals-v5611')?.remove();
+      const old=document.getElementById('trade-fundamentals-v5611');if(old)old.remove();
       if(existing)existing.replaceWith(node);else target.appendChild(node);
+      lastSig=sig;
     }catch(err){console.warn('v5.6.12 fundamentals add-on:',err)}
   }
 
   function patchProbabilityLabels(){
-    for(const p of document.querySelectorAll('.currency-section-note'))if(p.textContent.includes('Veränderung gegenüber Vorwoche in Prozentpunkten'))p.textContent='Aktuell in %, Veränderung gegenüber gestern in %.';
-    const replacements={'Hike Δ Vorwoche (pp)':'Hike Δ Gestern (%)','Hold Δ Vorwoche (pp)':'Hold Δ Gestern (%)','Cut Δ Vorwoche (pp)':'Cut Δ Gestern (%)'};
-    for(const label of document.querySelectorAll('.field label')){const key=label.textContent.trim();if(replacements[key])label.textContent=replacements[key]}
-    const heading=[...document.querySelectorAll('.currency-subsection h4')].find(h=>h.textContent.trim()==='Sitzungswahrscheinlichkeiten');
-    if(heading){const section=heading.closest('.currency-subsection');if(section&&!section.querySelector('.v5612-prob-note')){const note=document.createElement('p');note.className='currency-section-note v5612-prob-note';note.textContent='Ab v5.6.12 bedeutet Δ: Veränderung gegenüber dem gestrigen Stand. Ältere Analysen können noch Werte aus dem früheren Wochenvergleich enthalten.';section.appendChild(note)}}
+    for(const p of document.querySelectorAll('.currency-section-note')){
+      if(p.textContent.includes('Veränderung gegenüber Vorwoche in Prozentpunkten'))p.textContent='Aktueller und gestriger Stand jeweils in %.';
+    }
+    const replacements={
+      'Hike Δ Vorwoche (pp)':'Hike gestern (%)',
+      'Hold Δ Vorwoche (pp)':'Hold gestern (%)',
+      'Cut Δ Vorwoche (pp)':'Cut gestern (%)'
+    };
+    for(const label of document.querySelectorAll('.field label')){
+      const key=label.textContent.trim();if(replacements[key])label.textContent=replacements[key];
+    }
+    const subsection=[...document.querySelectorAll('.currency-subsection h4')].find(h=>h.textContent.trim()==='Sitzungswahrscheinlichkeiten');
+    if(subsection){const section=subsection.closest('.currency-subsection');if(section&&!section.querySelector('.v5612-prob-note')){const note=document.createElement('p');note.className='currency-section-note v5612-prob-note';note.textContent='Ab v5.6.12 wird das bisherige Vergleichsfeld als gestriger absoluter Wahrscheinlichkeitsstand in % verwendet. Bei einer fortgeführten Tagesanalyse wird es automatisch aus dem Vortag vorbelegt.';section.appendChild(note)}}
   }
 
   function makePairScreenCollapsible(){
-    const section=document.querySelector('section.pair-screen');if(!section||section.closest('details.pair-screen-collapsible'))return;
-    const details=document.createElement('details');details.className='pair-screen-collapsible';const saved=localStorage.getItem('fxdesk-pair-screen-open');details.open=saved===null?true:saved==='1';
-    const summary=document.createElement('summary');summary.innerHTML='<span><strong>Alle FX-Paare im Überblick</strong><small>Paar-Screener ein- oder ausklappen</small></span><span class="pair-screen-toggle" aria-hidden="true">+</span>';
+    const section=document.querySelector('section.pair-screen');
+    if(!section||section.closest('details.pair-screen-collapsible'))return;
+    const details=document.createElement('details');details.className='pair-screen-collapsible';
+    const saved=localStorage.getItem('fxdesk-pair-screen-open');details.open=saved===null?true:saved==='1';
+    const summary=document.createElement('summary');summary.innerHTML='<span><strong>Alle FX-Paare im Überblick</strong><small> Paar-Screener ein- oder ausklappen</small></span><span class="pair-screen-toggle" aria-hidden="true">+</span>';
     section.parentNode.insertBefore(details,section);details.appendChild(summary);details.appendChild(section);
     details.addEventListener('toggle',()=>{try{localStorage.setItem('fxdesk-pair-screen-open',details.open?'1':'0')}catch{}});
   }
@@ -188,7 +221,7 @@
     for(const h of document.querySelectorAll('.card-header h2'))if(h.textContent.includes('Version '+CORE_VERSION+' · Hinweise'))h.textContent=h.textContent.replace('Version '+CORE_VERSION,'Version '+ADDON_VERSION);
     window.FX_COMPANION_VERSION=ADDON_VERSION;
   }
-  function schedule(delay=120){clearTimeout(timer);timer=setTimeout(()=>{fixVersionLabels();patchProbabilityLabels();makePairScreenCollapsible();renderAddon()},delay)}
+  function schedule(delay=120){clearTimeout(timer);timer=setTimeout(()=>{fixVersionLabels();patchProbabilityLabels();makePairScreenCollapsible();seedYesterdayProbabilities();renderAddon()},delay)}
   const observer=new MutationObserver(()=>schedule());
   const start=()=>{const view=document.getElementById('view');if(view)observer.observe(view,{childList:true,subtree:true});fixVersionLabels();schedule(250);setInterval(()=>{if(tradeId())renderAddon()},1400)};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
