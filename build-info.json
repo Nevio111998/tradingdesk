@@ -1,15 +1,15 @@
 {
-  "version": "5.6.11",
+  "version": "5.6.12",
   "created": "2026-09-10",
   "baseVersion": "5.6.10",
-  "notes": "Trade-Übersicht erweitert: Rates-Bestätigungsmatrix, weitere Rates-Details sowie Zentralbank-Ton und Hike/Hold/Cut-Wahrscheinlichkeiten für Base und Quote direkt in der fundamentalen Einschätzung. Werte werden read-only aus dem eingefrorenen Makro-Snapshot des Trades gelesen. Sämtliche Funktionen von v5.6.10 bleiben unverändert erhalten.",
-  "architecture": "v5.6.10 core blobs are reused unchanged under v5.6.11 base filenames; app.v5.6.11.js adds the trade-overview layer.",
+  "notes": "Sitzungswahrscheinlichkeiten verwenden jetzt den gestrigen absoluten Prozentstand statt des Wochenvergleichs in pp. Bei fortgeführten Morgenanalysen werden Hike/Hold/Cut gestern automatisch aus dem aktuellen Stand des Vortags vorbelegt. Die Trade-Übersicht liest die verknüpfte Morgenanalyse live, damit Zentralbank-Ton und Sitzungswahrscheinlichkeiten aktuell bleiben. Der FX-Paar-Screener ist einklappbar.",
+  "architecture": "Unveränderter v5.6.10-Core unter v5.6.12-Basisdateien plus v5.6.12-Addon für die neue Darstellung und Tageslogik. Bestehende gespeicherte Daten werden nicht gelöscht.",
   "files": [
     "index.html",
-    "style.base.v5.6.11.css",
-    "style.v5.6.11.css",
-    "data.base.v5.6.11.js",
-    "app.base.v5.6.11.js",
-    "app.v5.6.11.js"
+    "style.base.v5.6.12.css",
+    "style.v5.6.12.css",
+    "data.base.v5.6.12.js",
+    "app.base.v5.6.12.js",
+    "app.v5.6.12.js"
   ]
 }
