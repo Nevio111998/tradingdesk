@@ -40,7 +40,7 @@ function runtime(version) {
   vm.runInContext(read(`data.v${version}.js`), context);
   const app = read(`app.v${version}.js`);
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings${version==='5.6.7'?',tradeFactorValue':''}};`;
+  const expose = `window.test={state,D,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings${version!=='5.6.6'?',tradeFactorValue':''}};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -53,7 +53,7 @@ function runtime(version) {
 
 
 (async()=>{
-const rt=runtime('5.6.7'),old=runtime('5.6.6');
+const rt=runtime(process.env.TRADINGDESK_TEST_VERSION||'5.6.7'),old=runtime('5.6.6');
 const select=t=>Object.assign(rt.state,{records:[t],record:t,id:t.id,route:t.kind==='trade'?'trade':'macro',tab:'overview'});
 const warnings=t=>rt.readiness(t).warnings;
 const snapshot=x=>JSON.stringify(x);

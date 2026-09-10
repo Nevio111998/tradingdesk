@@ -40,7 +40,7 @@ function runtime(version) {
   vm.runInContext(read(`data.v${version}.js`), context);
   const app = read(`app.v${version}.js`);
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings${version==='5.6.7'?',tradeFactorValue':''}};`;
+  const expose = `window.test={state,D,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings${version!=='5.6.6'?',tradeFactorValue':''}};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -54,7 +54,7 @@ function runtime(version) {
 
 
 (async()=>{
-const rt=runtime('5.6.8'),old=runtime('5.6.7');
+const rt=runtime(process.env.TRADINGDESK_TEST_VERSION||'5.6.8'),old=runtime('5.6.7');
 const bindings=h=>[...h.matchAll(/data-bind="([^"]+)"/g)].map(x=>x[1]);
 const allViews=(api,t)=>['overview','checklist','execution','events','screenshots','journal'].map(tab=>{api.state.tab=tab;return api.renderTrade(t)}).join('');
 for(const pair of ['EURUSD','GBPUSD','USDCHF']){

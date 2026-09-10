@@ -1,3 +1,58 @@
+# FX EdgeFinder Companion v5.6.9 – Neue Tagesanalyse aus bestehender Analyse
+
+Baut auf v5.6.8 auf. Die neue Aktion „Neue Tagesanalyse“ im Kopf jeder
+Morgenanalyse erstellt nach Auswahl des Datums einen eigenständigen Entwurf.
+Die Originalanalyse wird nicht überschrieben. Die bisherige Funktion
+„Duplizieren“ bleibt unverändert verfügbar.
+
+## Tageswechsel
+
+- Währungswerte aller acht Währungen, Quellen, Metadaten, historische
+  Wochenvergleiche, Notizen und Ereignisse werden übernommen. Datenstände
+  werden nicht auf heute gesetzt; Wochenwerte werden nicht verschoben.
+- Alle 28 Paarbewertungen starten mit Status „Ungeprüft“, leerem Bias und
+  leerer Confidence. EdgeFinder-, Rates- und Driver-Bewertungen werden für
+  den neuen Tag neu erfasst; der technische Blick beginnt ungeprüft.
+- Häkchen werden nur in der neuen Analyse auf offen gesetzt. Notizen,
+  Thesen, Gegenargumente, Invalidierungen und Quellen bleiben als
+  Ausgangspunkt editierbar erhalten.
+- Die vorherige Paarbewertung ist je Paar aufklappbar als Referenz verfügbar.
+  Vorherige manuelle Repricing-Overrides sind dort dokumentiert, aber in
+  der neuen Analyse nicht aktiv. Bei Bedarf neu prüfen und erneut eingeben.
+- Der Screener erhält den Filter „Ungeprüft“. Neue Tagesanalysen öffnen
+  ohne einen Filter von der vorherigen Sitzung zu übernehmen.
+- Ein Herkunftshinweis bleibt auf allen Analyse-Tabs sichtbar. Über
+  „Originalanalyse öffnen“ ist die Ausgangsanalyse erreichbar. Screenshots
+  bleiben dort erhalten und werden nicht dupliziert.
+- Backup-Importe übernehmen die Herkunft und passen die Verknüpfung beim
+  Zusammenführen mit ID-Konflikten an. IndexedDB bleibt Version 1;
+  bestehende Datensätze benötigen keine Migration.
+
+## Prüfung v5.6.9
+
+Automatisierte Tests mit dem tatsächlichen Anwendungscode und simuliertem
+DOM/IndexedDB: Original bleibt unverändert, 28 Paare und offene Zähler,
+Datumsvalidierung, drei Paare (EURUSD, GBPUSD, USDCHF), drei Währungen
+(USD, EUR, CHF), Metadaten, Quellenstände, Vorbewertung, deaktivierte
+Overrides, Filter, Navigation, Speicherung und Import mit ID-Konflikten.
+Die Regressionstests für Trade-Flows und zentrale Eingabeorte bestehen
+auch mit v5.6.9; alle 17 Trade-Checks und Berechnungsfunktionen bleiben erhalten.
+
+```sh
+node tests/daily-analysis.test.cjs
+TRADINGDESK_TEST_VERSION=5.6.9 node tests/trade-workflow.test.cjs
+TRADINGDESK_TEST_VERSION=5.6.9 node tests/trade-flow-fixes.test.cjs
+```
+
+Keine visuelle Desktop-/Mobilprüfung oder echte Browser-IndexedDB-Prüfung
+für diese Version: Der automatische Freigabeprozess hat die Browserprüfung
+wegen fehlender ausdrücklicher Beauftragung im aktuellen Auftrag blockiert.
+Die neue Hinweiszeile verwendet einen mobilen Umbruch; dieser ist noch
+visuell zu bestätigen. Keine Veröffentlichung oder Zusammenführung durch
+Codex. Persönliche Browserdaten wurden nicht geladen oder verändert.
+
+---
+
 # FX EdgeFinder Companion v5.6.8 – Paaranalyse und Trade-Planung klar getrennt
 
 Baut auf v5.6.7 auf. Alle 17 aktiven Trade-Häkchen, sieben Paarblöcke,
