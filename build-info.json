@@ -1,18 +1,15 @@
 {
-  "version": "5.6.10",
+  "version": "5.6.11",
   "created": "2026-09-10",
-  "baseVersion": "5.6.9",
-  "notes": "Paar-Prüfstand, vollständige Statusfilter und gemeinsam verwendete Catalysts mit gezielter Trade-Aktualisierung. Keine Datenmigration.",
-  "hashAlgorithm": "sha256",
-  "files": {
-    "README.md": "0bbd611ae790049f53c41a1ea4905a7df1a4af2a446b10b216ef5d04f9e6cf6e",
-    "index.html": "4643b2d575dbd3b876d21df8235a099a117f33380b607f48fc20c56c14f490fa",
-    "app.v5.6.10.js": "94d578f614e2f35a5ae60b1c5effc230915996d0e32d7cc9b0f604ca9aee6461",
-    "data.v5.6.10.js": "ed291ecccf21d75672e3bc810b037d75245bf48278931b599307e0448d6b2d94",
-    "style.v5.6.10.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
-    "package.json": "b1ef66bc52cb2b5decbaccf93655f1800c7efa0fb4d4820c3bdff5e5bc0fbd8d",
-    "package-lock.json": "f3cf9f4b7c2091eda7fd2439fdfd51eaf7883c0dabfd6d8e452de99624a926d9",
-    "tests/review-events.test.cjs": "c85d9ea236bf55cd9922ace6fecb26f4fcc7d9301d3bcc9e284992a20bbc4ff8",
-    "tests/daily-analysis.test.cjs": "b6e07328269b2185e299986f5108efc924637e8f4ae6c4a8060886390e9f2ed9"
-  }
+  "baseVersion": "5.6.10",
+  "notes": "Trade-Übersicht erweitert: Rates-Bestätigungsmatrix, weitere Rates-Details sowie Zentralbank-Ton und Hike/Hold/Cut-Wahrscheinlichkeiten für Base und Quote direkt in der fundamentalen Einschätzung. Werte werden read-only aus dem eingefrorenen Makro-Snapshot des Trades gelesen. Sämtliche Funktionen von v5.6.10 bleiben unverändert erhalten.",
+  "architecture": "v5.6.10 core blobs are reused unchanged under v5.6.11 base filenames; app.v5.6.11.js adds the trade-overview layer.",
+  "files": [
+    "index.html",
+    "style.base.v5.6.11.css",
+    "style.v5.6.11.css",
+    "data.base.v5.6.11.js",
+    "app.base.v5.6.11.js",
+    "app.v5.6.11.js"
+  ]
 }
