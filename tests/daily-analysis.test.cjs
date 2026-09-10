@@ -65,7 +65,7 @@ for(const p of original.pairs){Object.assign(p,{direction:'Long Bias',status:'Be
 const frozen=JSON.stringify(original),copy=rt.dailyMacroCopy(original,'2026-09-10');
 assert.equal(JSON.stringify(original),frozen,'Original untouched');
 assert.notEqual(copy.id,original.id);assert.equal(copy.date,'2026-09-10');assert.equal(copy.reviewed,false);
-assert.deepEqual(clone(copy.fields),original.fields);assert.deepEqual(clone(copy.currencies),clone(original.currencies));
+assert.deepEqual(clone(copy.fields),original.fields);const expectedCurrencies=clone(original.currencies);for(const d of Object.values(expectedCurrencies))Object.assign(d,{probHikeChange:'',probHoldChange:'',probCutChange:''});assert.deepEqual(clone(copy.currencies),expectedCurrencies);
 assert.equal(copy.images.length,0);assert.equal(original.images[0],'asset-original');
 assert.notEqual(copy.events[0].id,original.events[0].id);assert.equal(copy.events[0].at,original.events[0].at);
 assert.equal(copy.checklist.legacy,'todo');assert.equal(copy.checkNotes.legacy,'Keep old note');
@@ -115,5 +115,18 @@ assert.notEqual(importedSource.id,originalId);assert.notEqual(importedCopy.id,cr
 assert.equal(importedCopy.carriedFrom.id,importedSource.id);
 assert.equal(importedCopy.pairs[0].previousReview.status,'Bereit für Trade-Idee');
 assert.equal(rt.state.records[1].id,originalId);
+// One atomic carry-forward for all currencies, including numeric zero and missing values.
+const source=rt.defaultRecord('macro');source.date='2026-09-10';
+for(const c of Object.keys(rt.D.CURRENCIES))source.currencies[c]={probHike:0,probHold:'75',probCut:'25',probHikeChange:'old',probHoldChange:'old',probCutChange:'old',yield2Prev:'3.2',pricingChange:'12'};
+delete source.currencies.CHF.probCut;
+const unchanged=JSON.stringify(source),day=rt.dailyMacroCopy(source,'2026-09-11');
+assert.equal(JSON.stringify(source),unchanged);
+for(const [c,d] of Object.entries(day.currencies)){assert.equal(d.probHikeChange,0);assert.equal(d.probHoldChange,'75');assert.equal(d.probCutChange,c==='CHF'?'':'25');assert.equal(d.yield2Prev,'3.2');assert.equal(d.pricingChange,'12');}
+day.currencies.USD.probHoldChange='68';day.currencies.USD.probHold='80';
+Object.assign(rt.state,{records:[source,day],id:day.id,record:day,route:'macro',tab:'currencies'});
+for(const c of Object.keys(rt.D.CURRENCIES)){rt.state.currency=c;rt.renderMacro(day);}
+assert.equal(day.currencies.USD.probHoldChange,'68','Rendering never reseeds manual comparisons');
+rt.handleBound({dataset:{bind:'currencies.USD.probHoldChange'},value:'68',type:'number'});await rt.saveNow();assert.equal(rt.storage.records.get(day.id).currencies.USD.probHoldChange,'68');
+const following=rt.dailyMacroCopy(day,'2026-09-12');assert.equal(following.currencies.USD.probHoldChange,'80','Next day uses current value, never the older comparison');
 console.log('Daily analysis: 28 pairs, original preservation, dates, metadata, counters, filters, three pairs/currencies, navigation and persistence passed.');
 })().catch(e=>{console.error(e);process.exitCode=1});

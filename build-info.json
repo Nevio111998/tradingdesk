@@ -1,27 +1,24 @@
 {
-  "version": "5.6.12",
+  "version": "5.6.13",
   "created": "2026-09-10",
-  "baseVersion": "5.6.10",
-  "notes": "Sitzungswahrscheinlichkeiten verwenden jetzt den gestrigen absoluten Prozentstand statt des Wochenvergleichs in pp. Bei fortgeführten Morgenanalysen werden Hike/Hold/Cut gestern automatisch aus dem aktuellen Stand des Vortags vorbelegt. Die Trade-Übersicht liest die verknüpfte Morgenanalyse live, damit Zentralbank-Ton und Sitzungswahrscheinlichkeiten aktuell bleiben. Der FX-Paar-Screener ist einklappbar.",
-  "architecture": "Unveränderter v5.6.10-Core unter v5.6.12-Basisdateien plus v5.6.12-Addons für Trade-Fundamentals, Tageswahrscheinlichkeiten und einklappbaren Paar-Screener. Bestehende gespeicherte Daten werden nicht gelöscht.",
+  "baseVersion": "5.6.12",
+  "notes": "Klare Trennung aktueller Morgenanalyse und Übernahmestand; einmalige Wahrscheinlichkeitsübernahme im Tageswechsel.",
+  "architecture": "Aktiver Core mit einer Darstellungsergänzung; keine formularabhängige Wahrscheinlichkeitsvorbelegung.",
   "files": [
     "index.html",
-    "style.base.v5.6.12.css",
-    "style.v5.6.12.css",
-    "data.base.v5.6.12.js",
-    "app.base.v5.6.12.js",
-    "app.v5.6.12.js",
-    "daily-probabilities.v5.6.12.js"
+    "style.base.v5.6.13.css",
+    "style.v5.6.13.css",
+    "data.base.v5.6.13.js",
+    "app.base.v5.6.13.js",
+    "app.v5.6.13.js"
   ],
-  "maintenance": "Dateibaum auf aktive v5.6.12 bereinigt; historische Versionen nur in der Git-Historie. Laufzeitdateien unverändert.",
   "hashAlgorithm": "sha256",
   "sha256": {
-    "index.html": "d62a2e4c956938b9010ae67cc01feaef4af61ab4cf0957a34262cf28127e32b9",
-    "style.base.v5.6.12.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
-    "style.v5.6.12.css": "ddcd809710f250f81eb25e7d379f13e807d7ee05020d15dbc36cf285615442d7",
-    "data.base.v5.6.12.js": "ed291ecccf21d75672e3bc810b037d75245bf48278931b599307e0448d6b2d94",
-    "app.base.v5.6.12.js": "94d578f614e2f35a5ae60b1c5effc230915996d0e32d7cc9b0f604ca9aee6461",
-    "app.v5.6.12.js": "3fdf0bf50a1d580167ac0776a0366476b61b744946899167b032ed7ed26e8657",
-    "daily-probabilities.v5.6.12.js": "3afbf9f846590699c0d8988ebf86f31350191203c1201535a4c3598b6f0863d9"
+    "index.html": "8720c71eae290cbc1791a11f5fd16bf6505d6ee4d977d0cee50b46ddd3b9d37d",
+    "style.base.v5.6.13.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
+    "style.v5.6.13.css": "321c4ac02e1aa9462c6031a5d066c201ba3d5c99a6d288cf52f73149669eec0f",
+    "data.base.v5.6.13.js": "ed291ecccf21d75672e3bc810b037d75245bf48278931b599307e0448d6b2d94",
+    "app.base.v5.6.13.js": "98208bcbfc2ad9f0120ed1dc90a72d8bc83f7521f2c4a591433a75b95e7a65f9",
+    "app.v5.6.13.js": "c37e6a6d92e65f2e14bf614a39127894a702f24618029146a92cf2b2886bebc1"
   }
 }
