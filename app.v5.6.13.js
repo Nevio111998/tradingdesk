@@ -1,8 +1,8 @@
-/* Tradingdesk v5.6.12 add-on: live trade fundamentals, daily meeting-probability deltas and collapsible pair screener. */
+/* Tradingdesk v5.6.13 add-on: live trade fundamentals, daily meeting-probability deltas and collapsible pair screener. */
 'use strict';
 (() => {
-  const ADDON_VERSION='5.6.12';
-  const CORE_VERSION='5.6.10';
+  const ADDON_VERSION='5.6.13';
+  const CORE_VERSION='5.6.13';
   const BANKS={USD:'Federal Reserve',EUR:'Europäische Zentralbank',GBP:'Bank of England',JPY:'Bank of Japan',AUD:'Reserve Bank of Australia',NZD:'Reserve Bank of New Zealand',CAD:'Bank of Canada',CHF:'Schweizerische Nationalbank'};
   let dbPromise=null,timer=null,retryTimer=null,lastSig='';
 
@@ -49,25 +49,6 @@
   }
   function tradeId(){const m=location.hash.match(/^#\/trade\/([a-zA-Z0-9-]+)/);return m?.[1]||''}
   function macroId(){const m=location.hash.match(/^#\/macro\/([a-zA-Z0-9-]+)/);return m?.[1]||''}
-
-  async function seedYesterdayProbabilities(){
-    const id=macroId();if(!id)return;
-    const marker='fxdesk-prob-yesterday-seeded:'+id;if(localStorage.getItem(marker)==='1')return;
-    try{
-      const current=await getRecord(id);if(!current?.carriedFrom?.id)return;
-      const prior=await getRecord(current.carriedFrom.id);if(!prior?.currencies)return;
-      let changed=false;
-      for(const code of Object.keys(prior.currencies)){
-        for(const [hist,currentKey] of [['probHikeChange','probHike'],['probHoldChange','probHold'],['probCutChange','probCut']]){
-          const value=prior.currencies?.[code]?.[currentKey];if(!has(value))continue;
-          const input=document.querySelector(`[data-bind="currencies.${code}.${hist}"]`);if(!input)continue;
-          if(String(input.value)!==String(value)){input.value=String(value);input.dispatchEvent(new Event('input',{bubbles:true}));changed=true}
-        }
-      }
-      localStorage.setItem(marker,'1');
-      if(changed)console.info('v5.6.12: gestrige Sitzungswahrscheinlichkeiten aus der vorherigen Morgenanalyse übernommen.');
-    }catch(err){console.warn('v5.6.12 probability carry-forward:',err)}
-  }
 
   function probCell(name,current,yesterday){return `<div class="trade-prob-cell"><span>${esc(name)}</span><strong>${esc(pct(current))}</strong><small>Gestern ${esc(pct(yesterday))}</small></div>`}
   function bankCard(code,d){
@@ -134,11 +115,11 @@
     const pair=String(t?.pair||'').toUpperCase().replace('/',''),base=pair.slice(0,3),quote=pair.slice(3,6);
     if(!source?.currencies||pair.length!==6||!source.currencies[base]||!source.currencies[quote])return `<div id="trade-fundamentals-v5612" class="trade-fundamental-addon"><div class="divider"></div><h3>Rates & Zentralbanken</h3><div class="alert warn"><strong>Keine passende Morgenanalyse verfügbar.</strong><p>Verknüpfe eine Morgenanalyse mit diesem Trade. Danach erscheinen hier Rates-Matrix, Zentralbank-Ton und Sitzungswahrscheinlichkeiten für Base und Quote.</p></div></div>`;
     const a=source.currencies[base]||{},b=source.currencies[quote]||{},m=metrics(source,base,quote,a,b),warnings=qualityWarnings(a,b,m),repricingExtra=m.repricingIndicative?' · indikativ':'';
-    const sourceText=isLive?'Live aus der verknüpften Morgenanalyse':'Fallback: eingefrorener Makro-Snapshot';
-    const sourceTone=isLive?'good':'blue';
+    const sourceText=isLive?'Aktuelle Morgenanalyse':'Stand bei Trade-Übernahme';
+    const sourceTone=isLive?'neutral':'blue';
     return `<div id="trade-fundamentals-v5612" class="trade-fundamental-addon">
       <div class="divider"></div>
-      <div class="trade-addon-heading"><div><h3>Rates-Bestätigungsmatrix</h3><p>${esc(sourceText)} · ${esc(base)} vs. ${esc(quote)} · Analyse ${esc(dateFmt(source.date))}${source.updatedAt?' · aktualisiert '+esc(dateTimeFmt(source.updatedAt)):''}</p></div>${pill(isLive?'Live':'Snapshot',sourceTone)}</div>
+      <div class="trade-addon-heading"><div><h3>Rates-Bestätigungsmatrix</h3><p>${esc(sourceText)} · ${esc(base)} vs. ${esc(quote)} · Analyse ${esc(dateFmt(source.date))}${source.updatedAt?' · aktualisiert '+esc(dateTimeFmt(source.updatedAt)):''}${!isLive&&source.attachedAt?' · übernommen '+esc(dateTimeFmt(source.attachedAt)):''}</p></div>${pill(isLive?'Aktuelle Analyse':'Gespeicherter Stand',sourceTone)}</div><p class="text-small">${isLive?'Deine gespeicherten Angaben aus der verknüpften Morgenanalyse, kein automatischer Marktdatenfeed. Der Stand bei Trade-Übernahme bleibt separat erhalten.':'Die Originalanalyse ist nicht verfügbar. Angezeigt wird ausschliesslich die gespeicherte Kopie vom Übernahmezeitpunkt.'}</p>
       <div class="matrix-grid trade-rates-matrix">
         ${matrixCard('Zinsmomentum','Relatives Repricing',m.repricing,'support',base,quote,'bp',repricingExtra)}
         ${matrixCard('Zinsmomentum','2Y Δ 1W',m.spreadDelta1,'support',base,quote)}
@@ -185,7 +166,7 @@
       const old=document.getElementById('trade-fundamentals-v5611');if(old)old.remove();
       if(existing)existing.replaceWith(node);else target.appendChild(node);
       lastSig=sig;
-    }catch(err){console.warn('v5.6.12 fundamentals add-on:',err)}
+    }catch(err){console.warn('v5.6.13 fundamentals add-on:',err)}
   }
 
   function patchProbabilityLabels(){
@@ -201,7 +182,7 @@
       const key=label.textContent.trim();if(replacements[key])label.textContent=replacements[key];
     }
     const subsection=[...document.querySelectorAll('.currency-subsection h4')].find(h=>h.textContent.trim()==='Sitzungswahrscheinlichkeiten');
-    if(subsection){const section=subsection.closest('.currency-subsection');if(section&&!section.querySelector('.v5612-prob-note')){const note=document.createElement('p');note.className='currency-section-note v5612-prob-note';note.textContent='Ab v5.6.12 wird das bisherige Vergleichsfeld als gestriger absoluter Wahrscheinlichkeitsstand in % verwendet. Bei einer fortgeführten Tagesanalyse wird es automatisch aus dem Vortag vorbelegt.';section.appendChild(note)}}
+    if(subsection){const section=subsection.closest('.currency-subsection');if(section&&!section.querySelector('.v5612-prob-note')){const note=document.createElement('p');note.className='currency-section-note v5612-prob-note';note.textContent='Aktuell und gestern jeweils in %. Bei „Neue Tagesanalyse“ werden die Vergleichswerte einmalig aus der Ausgangsanalyse übernommen. Danach bleiben sie frei bearbeitbar.';section.appendChild(note)}}
   }
 
   function makePairScreenCollapsible(){
@@ -221,7 +202,7 @@
     for(const h of document.querySelectorAll('.card-header h2'))if(h.textContent.includes('Version '+CORE_VERSION+' · Hinweise'))h.textContent=h.textContent.replace('Version '+CORE_VERSION,'Version '+ADDON_VERSION);
     window.FX_COMPANION_VERSION=ADDON_VERSION;
   }
-  function schedule(delay=120){clearTimeout(timer);timer=setTimeout(()=>{fixVersionLabels();patchProbabilityLabels();makePairScreenCollapsible();seedYesterdayProbabilities();renderAddon()},delay)}
+  function schedule(delay=120){clearTimeout(timer);timer=setTimeout(()=>{fixVersionLabels();patchProbabilityLabels();makePairScreenCollapsible();renderAddon()},delay)}
   const observer=new MutationObserver(()=>schedule());
   const start=()=>{const view=document.getElementById('view');if(view)observer.observe(view,{childList:true,subtree:true});fixVersionLabels();schedule(250);setInterval(()=>{if(tradeId())renderAddon()},1400)};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();

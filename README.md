@@ -1,4 +1,4 @@
-# FX EdgeFinder Companion v5.6.12
+# FX EdgeFinder Companion v5.6.13
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
@@ -13,11 +13,15 @@ IndexedDB gespeichert. GitHub Pages speichert keine persönlichen Analysen.
 - Neue Tagesanalyse mit ungeprüften Bewertungen und erhaltener Originalanalyse.
 - Gemeinsame Catalysts und gezielte Terminübernahme in bestehende Trades.
 - Trade-Übersicht mit Rates-Matrix, Zentralbank-Ton und Sitzungswahrscheinlichkeiten
-  aus der verknüpften Morgenanalyse. „Live“ bedeutet hier laufend gelesene
-  lokale Analysedaten, keinen externen Marktdatenfeed. Fehlt die Originalanalyse,
+  unter „Aktuelle Morgenanalyse“. Der getrennte Bereich „Stand bei
+  Trade-Übernahme“ zeigt die gespeicherte Kopie mit Übernahmezeitpunkt.
+  Es gibt keinen externen Marktdatenfeed. Fehlt die Originalanalyse,
   verwendet die Ergänzung den eingefrorenen Makro-Snapshot.
-- Hike/Hold/Cut-Vergleichsfelder werden als gestrige absolute Prozentwerte
-  angezeigt und bei fortgeführten Analysen aus der Ausgangsanalyse vorbelegt.
+- Hike/Hold/Cut-Vergleichsfelder bleiben absolute Prozentwerte. Bei „Neue
+  Tagesanalyse“ werden sie einmalig für alle acht Währungen aus den aktuellen
+  Werten der Ausgangsanalyse gesetzt. Fehlende Werte bleiben leer; 0 % bleibt
+  erhalten. Bestehende Analysen und spätere manuelle Eingaben werden nicht
+  nachträglich verändert.
 
 ## Nur die aktive Version
 
@@ -27,17 +31,17 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.12.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.12.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.12.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `daily-probabilities.v5.6.12.js` | Vorbelegung der Vergleichswahrscheinlichkeiten je Währung |
-| `style.v5.6.12.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.12.css` | Basislayout |
+| `data.base.v5.6.13.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.13.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.13.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.13.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.13.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
-Der Kerncode stammt weiterhin aus v5.6.10; diese Herkunft ist keine zusätzlich
-benötigte alte Version. Die Dateibereinigung verändert keine der sieben oben
-aufgeführten Laufzeitdateien und keine gespeicherten Datensätze.
+Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
+Probability-Helfer und die zweite Vorbelegung im Darstellungsmodul entfallen.
+Der Tageswechsel übernimmt die Werte direkt vor Anzeige und Speicherung des
+neuen Datensatzes. Bestehende Datensätze benötigen keine Migration.
 
 Bei künftigen Updates zuerst alle aktiven HTML-/JS-/CSS-Abhängigkeiten prüfen,
 dann nicht mehr verwendete Versionsdateien entfernen. Paketversion, README,
@@ -59,14 +63,14 @@ Die Ergänzungen werden auf Einbindung und Syntax geprüft, nicht vollständig i
 Browser ausgeführt. Eine echte Desktop-/Mobilprüfung bleibt offen.
 `tests/responsive-preview.html` ist die beibehaltene manuelle Prüfansicht.
 
-## Bekannte Punkte zur gesonderten Prüfung
+## Prüfung der Änderungen in v5.6.13
 
-- Die früheren Wochenänderungsfelder werden nun als absolute Vortageswerte
-  beschriftet. Bestehende Werte sind dadurch nicht automatisch umgerechnet.
-- „Gestern“ wird aus der Ausgangsanalyse übernommen; diese kann älter als einen
-  Kalendertag sein. Vorbelegungen verwenden Browser-Marker und zwei aktive
-  Ergänzungen. Die Bereinigung führt keine Datenmigration oder Änderung
-  dieser bestehenden Logik durch.
+Die Tests prüfen zusätzlich die Beschriftung beider Analysequellen samt
+Fallback und einmalige Übernahme aller acht Währungen ohne Tabwechsel,
+0-Prozent-Werte, fehlende Werte, unveränderte Wochenvergleiche, spätere
+manuelle Bearbeitung und Speicherung sowie die nächste Tageskopie.
+Die alten Formular-Helfer sind nicht mehr eingebunden. Keine erneute
+Browserprüfung für diese Änderung.
 
 ## Daten und Veröffentlichung
 
