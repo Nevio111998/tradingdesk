@@ -8,7 +8,7 @@ const read = name => fs.readFileSync(path.join(root, name), 'utf8');
 const clone = value => JSON.parse(JSON.stringify(value));
 
 const preferences=new Map();
-function runtime(version) {
+function runtime() {
   const elements = new Map();
   const detailNodes = [];const syncNodes=[];
   const listeners = new Map();
@@ -37,10 +37,10 @@ function runtime(version) {
     localStorage:{getItem:k=>preferences.get(k)||null,setItem:(k,v)=>preferences.set(k,v)}, document, window: { addEventListener() {}, scrollTo() {} }, console,
     setTimeout: () => 0, clearTimeout() {}, URL, Intl
   });
-  vm.runInContext(read(`data.v${version}.js`), context);
-  const app = read(`app.v${version}.js`);
+  vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
+  const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings${version==='5.6.7'?',tradeFactorValue':''}};`;
+  const expose = `window.test={state,D,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -54,7 +54,7 @@ function runtime(version) {
 
 
 (async()=>{
-const rt=runtime('5.6.10');
+const rt=runtime();
 const m=rt.defaultRecord('macro');m.date='2026-09-10';
 const select=r=>Object.assign(rt.state,{records:[m,...(r===m?[]:[r])],id:r.id,record:r,route:r.kind==='macro'?'macro':'trade',tab:'overview'});
 select(m);
