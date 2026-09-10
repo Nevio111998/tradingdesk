@@ -54,7 +54,7 @@ function runtime(version) {
 
 
 (async()=>{
-const rt=runtime('5.6.9');
+const rt=runtime(process.env.TRADINGDESK_TEST_VERSION||'5.6.9');
 const original=rt.defaultRecord('macro');
 original.date='2026-09-09';original.title='Gestern';original.reviewed=true;
 original.fields={asOf:'2026-09-09T08:00',marketSummary:'Old context',overnight:'Old overnight',customLegacy:'keep'};

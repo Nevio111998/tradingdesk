@@ -1,19 +1,18 @@
 {
-  "version": "5.6.9",
+  "version": "5.6.10",
   "created": "2026-09-10",
-  "baseVersion": "5.6.8",
-  "notes": "Sicherer Tageswechsel mit ungeprüften Paaren, unveränderten Quellenständen und sichtbarer Vorbewertung. Keine Datenmigration.",
+  "baseVersion": "5.6.9",
+  "notes": "Paar-Prüfstand, vollständige Statusfilter und gemeinsam verwendete Catalysts mit gezielter Trade-Aktualisierung. Keine Datenmigration.",
   "hashAlgorithm": "sha256",
   "files": {
-    "README.md": "e7538478dfb3c8dfd99a9c687685c10b6ceab02b85f903f5ea93d9e778d4f09e",
-    "index.html": "5a88bcb2331b6f300f21056d3aced21820d2fe7a4f600a277e3322868e3debfe",
-    "app.v5.6.9.js": "025652ff0e22366fd6bbd235af194221f4b89c2197444ee4143352c610517c7c",
-    "data.v5.6.9.js": "af3ce7cd5ecddae2498e9b8f0eab84095759f2e877eec122c312353654afbcac",
-    "style.v5.6.9.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
-    "package.json": "b6dff6bb06c1f33f77497fd9a1289d705fc7a79966df498b6780f6391dae2447",
-    "package-lock.json": "266a3f19a30612b246d81396a1013ffae2807aebafe562f60a03b6c8a7220d65",
-    "tests/daily-analysis.test.cjs": "588433311197feae5d446cab81458e9be59f7441f5a16e0e03a2ad90e3e90953",
-    "tests/trade-workflow.test.cjs": "e13ae896dc62d614ce9dbc2b4b68adfef54ea70b18c2bca37f07c9b2752ccbdf",
-    "tests/trade-flow-fixes.test.cjs": "1064df392def6975c3a397a28f9f0cccb890b472b0162ac9acae3e9a917802ee"
+    "README.md": "0bbd611ae790049f53c41a1ea4905a7df1a4af2a446b10b216ef5d04f9e6cf6e",
+    "index.html": "4643b2d575dbd3b876d21df8235a099a117f33380b607f48fc20c56c14f490fa",
+    "app.v5.6.10.js": "94d578f614e2f35a5ae60b1c5effc230915996d0e32d7cc9b0f604ca9aee6461",
+    "data.v5.6.10.js": "ed291ecccf21d75672e3bc810b037d75245bf48278931b599307e0448d6b2d94",
+    "style.v5.6.10.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
+    "package.json": "b1ef66bc52cb2b5decbaccf93655f1800c7efa0fb4d4820c3bdff5e5bc0fbd8d",
+    "package-lock.json": "f3cf9f4b7c2091eda7fd2439fdfd51eaf7883c0dabfd6d8e452de99624a926d9",
+    "tests/review-events.test.cjs": "c85d9ea236bf55cd9922ace6fecb26f4fcc7d9301d3bcc9e284992a20bbc4ff8",
+    "tests/daily-analysis.test.cjs": "b6e07328269b2185e299986f5108efc924637e8f4ae6c4a8060886390e9f2ed9"
   }
 }
