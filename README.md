@@ -1,3 +1,55 @@
+# FX EdgeFinder Companion v5.6.8 – Paaranalyse und Trade-Planung klar getrennt
+
+Baut auf v5.6.7 auf. Alle 17 aktiven Trade-Häkchen, sieben Paarblöcke,
+Berechnungen und gespeicherten Angaben bleiben erhalten. Keine Datenmigration.
+
+## Oberfläche
+
+- Die Trade-Übersicht zeigt eine kompakte, eingefrorene Paaranalyse mit Bias,
+  Confidence, EdgeFinder, Rates, Driver und technischem Blick. These,
+  Gegenargumente, Invalidierung, Ereignis, Quellen und Blocknotizen aus dem
+  Snapshot sind unter „Analyse-Fazit & Quellen“ aufklappbar.
+- Aktuelle Trade-These und eingefrorener Analysestand sind klar getrennt.
+  Ein abweichendes Paar oder eine abweichende Richtung wird gekennzeichnet.
+- Die doppelte EdgeFinder-Eingabe in der Übersicht entfällt. Die bestehenden
+  sechs EdgeFinder-Felder bleiben in der Checkliste verfügbar.
+- Makrofelder in der Checkliste sind unter „Angaben prüfen / bearbeiten“
+  eingeklappt. Häkchen, N/A und Begründungen bleiben direkt erreichbar.
+  Bereiche ohne Häkchen werden als kompakte Detailbereiche angezeigt.
+- These, Catalyst, fundamentale Invalidierung und Confidence werden in der
+  Trade-Übersicht bearbeitet. Technik, Entry, Risiko und beide technischen
+  Handlungsplanfelder werden zentral unter „Entry & Risiko“ bearbeitet.
+  Entsprechende doppelte Formularblöcke entfallen aus der Checkliste.
+- Direkte Navigationsbuttons verbinden die Bearbeitungsorte. Die wiederholte
+  Prozessanleitung in der Trade-Seitenleiste entfällt; Karten werden nicht mehr
+  unnötig auf die Höhe der Nachbarspalte gestreckt.
+- Detailzustände bleiben pro Trade als Browser-Ansichtseinstellung gespeichert.
+  Manuell angelegte Trades ohne Snapshot können weiterhin alle Angaben erfassen.
+
+## Prüfung
+
+`node tests/trade-workflow.test.cjs`: EURUSD, GBPUSD und USDCHF, vollständiger
+Vergleich aller Feldbindungen über sämtliche Trade-Unteransichten gegen v5.6.7,
+17 unveränderte Häkchen, Snapshot-Isolation, aufklappbare Details, Speicherung,
+Navigation und unveränderte Readiness-/Rates-Logik. Simulierter DOM/IndexedDB.
+
+Browserprüfung mit künstlichen Daten: USDCHF-Paarübernahme, Snapshot-Notizen,
+Bearbeitung eines Zentralbankfelds und des verschobenen Handlungsplans,
+Tabwechsel sowie Wiederherstellung von Feldwert und offenem Detail nach Reload.
+Desktopansicht visuell kontrolliert; 390-px-Mobilansicht ohne horizontalen
+Seitenüberlauf geprüft. Kein physisches Mobilgerät/Safari getestet.
+Syntax, Index-Referenzen und ZIP-Prüfsummen zusätzlich kontrolliert.
+
+## Installation
+
+Auf „Alles gespeichert“ warten und wie bisher ein vollständiges JSON-Backup
+inklusive Bilder erstellen. ZIP entpacken und den Inhalt ins bestehende
+Repository hochladen. Browserdaten nicht löschen. Die neue Oberfläche zeigt
+v5.6.8. Bestehende Daten werden nicht umgeschrieben und v5.6.7-Assets bleiben
+unverändert. Die App bleibt ein Zusatztool für EdgeFinder.
+
+---
+
 # FX EdgeFinder Companion v5.6.7 – Trade-Übernahme und Entscheidung korrigiert
 
 Basiert auf v5.6.6. Die Kürzungen bleiben erhalten: sieben Paarblöcke,

@@ -1,17 +1,17 @@
 {
-  "version": "5.6.7",
-  "created": "2026-09-09",
-  "baseVersion": "5.6.6",
-  "notes": "Trade-Entscheidung, EdgeFinder-Übernahme und Catalyst-Erkennung korrigiert. Keine Datenmigration.",
+  "version": "5.6.8",
+  "created": "2026-09-10",
+  "baseVersion": "5.6.7",
+  "notes": "Kompakte Snapshot-Übersicht und zentrale Bearbeitungsorte für Trade-Angaben. Keine Datenmigration.",
   "hashAlgorithm": "sha256",
   "files": {
-    "README.md": "4cc43baaace479fb9d0cb387d9937b08a9d394c54747b101eabfd7c7d3c3f1f0",
-    "index.html": "17cb4de2b39665365eeeef90de91d2ff412cf04bf568178a90774d34127f5d7a",
-    "app.v5.6.7.js": "ccb97ec92fa100577e9761fd25b901c7b2c88f1a3ce323af0b157e42907366fc",
-    "data.v5.6.7.js": "ee7c10d2c87e352f3fbbd92b722652a45be930cc4ae89a0523ae5ebc4b939bc5",
-    "style.v5.6.7.css": "989440119198efd1cae3b6457146ea7a041a57c6d5f5256fdb2a3baec609d562",
-    "package.json": "14e40ebe81f33b57688f7bbdb1629eb07119b42e10573ad10f680859cbd2e820",
-    "package-lock.json": "b2077358dd5c0f56358354b025c8fad337a9222294144246de3e373f06c650ed",
-    "tests/trade-flow-fixes.test.cjs": "3bdc47f2da5723be59db72f2cdb6533b31384dde5d31a1e5e251fb9df980ae06"
+    "README.md": "de9366c26ae798e6be81468755ef85d64f744cd18e495a1db68dc45f327ef883",
+    "index.html": "e48fb39eae44addbe013bb60e35012c55536d6d184d8ed601dac5eb6886a8798",
+    "app.v5.6.8.js": "0ae2e73d535a90e958d56e89c7c8b4bf3554866160f37d3d413f7fedb28df1e5",
+    "data.v5.6.8.js": "497be0b8e6fe38a4a155cb1eaa488dee3915ee700b1fbc3680b3a068caba33a5",
+    "style.v5.6.8.css": "819382d2553bf18361acd4c46cc15ee3c4d749e28f8b4c45e2fe68fb4c08e60a",
+    "package.json": "1e1e27aed7413ed6c54b54d469208c8e2e3572e2f978d94e41e81241e7769524",
+    "package-lock.json": "a6c02e2d2f5e6241fa260376ec0941c6c019c721d23d4967f11d9c0db88d266c",
+    "tests/trade-workflow.test.cjs": "7791359b8a7a8fb22b7fcd0fa145dc30196a5d04c7091da09be4bf49cfc8e70c"
   }
 }
