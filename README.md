@@ -1,3 +1,70 @@
+# FX EdgeFinder Companion v5.6.10 – Prüfstand, Screener und Catalysts
+
+Baut auf v5.6.9 auf. Umsetzung der vereinbarten Punkte 2, 3 und 4.
+Bestehende Analysen, Eingaben und Assets bleiben erhalten; IndexedDB bleibt
+Version 1. Die Ergänzungen sind rückwärtskompatible Datensatzfelder.
+
+## Prüfstand der Paaranalyse
+
+- Änderungen an Währungswerten oder Metadaten markieren die betroffenen
+  Paaranalysen mit „Grundlage seit letzter Prüfung geändert“.
+- Hinweise stehen im Screener, in der Paar-Zusammenfassung, im Arbeitsbereich
+  und unter den offenen kritischen Punkten. Status, Bias und Häkchen werden
+  nicht zurückgesetzt. „Aktuellen Datenstand geprüft“ bestätigt die neue Basis.
+- Einzelne Häkchen oder Bewertungen bestätigen nicht automatisch sämtliche
+  Währungsänderungen. Unveränderte Eingaben und beim Rendern ergänzte
+  Standardwerte verursachen keine falschen Änderungshinweise.
+- Für bestehende Bewertungen wird vor der nächsten Währungsbearbeitung eine
+  Vergleichsbasis gesichert. Änderungen vor Installation dieser Version lassen
+  sich nicht nachträglich rekonstruieren. Der Vergleich betrifft die beiden
+  Währungen samt Metadaten, nicht eine automatische Überprüfung von Quellen.
+
+## Screener
+
+- Zusätzliche Filter „Watchlist“ und „Verworfen“.
+- Auch vollständig neue Morgenanalysen starten mit 28 ungeprüften Paaren,
+  leerem Bias und leerer Confidence. Bestehende Bewertungen bleiben erhalten.
+
+## Gemeinsame Catalysts
+
+- Pro Paar kann ein passendes Ereignis aus den bereits erfassten Catalysts
+  gewählt werden. Änderungen am zentralen Termin erscheinen direkt in der
+  Paaranalyse. Die chronologische High-Impact-Vorschau bleibt separat bestehen.
+- Die freie Ereignisnotiz bleibt erhalten und dient der Interpretation.
+- Neue Paar-Trades übernehmen relevante Base-/Quote-/globale Ereignisse. Der
+  gewählte Catalyst, ersatzweise der nächste relevante High-Impact-Termin,
+  erscheint in der Trade-Übersicht. Datum und Uhrzeit werden nicht zusätzlich
+  als automatisch erzeugte Kopie in ein freies Notizfeld geschrieben.
+- Bestehende Trades behalten ihre eigenen Ereignisse und eingefrorenen
+  Makro-Snapshots. Unter Catalysts lassen sich neue/abweichende Termine der
+  Originalanalyse gezielt auswählen und übernehmen. Lokale Änderungen werden
+  nur bei ausdrücklich ausgewählten Terminen ersetzt. Freie Termine bleiben.
+- Im Original entfernte Termine werden im Trade kenntlich gemacht und nicht
+  automatisch gelöscht. Tageskopien und Duplikate behalten ihre Auswahl über
+  neue Ereignis-IDs; Backup-Importe passen Herkunftsverknüpfungen an.
+
+## Prüfung v5.6.10
+
+Automatisierte Tests mit dem Anwendungscode und simuliertem DOM/IndexedDB:
+USD-Änderung betrifft EURUSD/GBPUSD/USDCHF, nicht AUDNZD; ausdrückliche
+Bestätigung, unveränderte Werte, Metadaten, Filter, Defaults, gemeinsame
+Ereignisse, selektive Synchronisierung, lokale Notizen, eingefrorene Snapshots,
+Tageskopien und Import bei ID-Konflikten. Die drei bisherigen Regressionstests
+bestehen ebenfalls gegen v5.6.10; Berechnungen und Eingabefelder bleiben erhalten.
+
+```sh
+node tests/review-events.test.cjs
+TRADINGDESK_TEST_VERSION=5.6.10 node tests/daily-analysis.test.cjs
+TRADINGDESK_TEST_VERSION=5.6.10 node tests/trade-workflow.test.cjs
+TRADINGDESK_TEST_VERSION=5.6.10 node tests/trade-flow-fixes.test.cjs
+```
+
+Der separat vereinbarte Punkt 1 (echte Browserprüfung auf Desktop/Mobil)
+ist weiterhin offen. In diesem Schritt wurden nur Punkte 2–4 umgesetzt;
+keine visuelle Browserprüfung, Veröffentlichung oder Zusammenführung.
+
+---
+
 # FX EdgeFinder Companion v5.6.9 – Neue Tagesanalyse aus bestehender Analyse
 
 Baut auf v5.6.8 auf. Die neue Aktion „Neue Tagesanalyse“ im Kopf jeder
