@@ -1,17 +1,19 @@
 {
-  "version": "5.6.8",
+  "version": "5.6.9",
   "created": "2026-09-10",
-  "baseVersion": "5.6.7",
-  "notes": "Kompakte Snapshot-Übersicht und zentrale Bearbeitungsorte für Trade-Angaben. Keine Datenmigration.",
+  "baseVersion": "5.6.8",
+  "notes": "Sicherer Tageswechsel mit ungeprüften Paaren, unveränderten Quellenständen und sichtbarer Vorbewertung. Keine Datenmigration.",
   "hashAlgorithm": "sha256",
   "files": {
-    "README.md": "de9366c26ae798e6be81468755ef85d64f744cd18e495a1db68dc45f327ef883",
-    "index.html": "e48fb39eae44addbe013bb60e35012c55536d6d184d8ed601dac5eb6886a8798",
-    "app.v5.6.8.js": "0ae2e73d535a90e958d56e89c7c8b4bf3554866160f37d3d413f7fedb28df1e5",
-    "data.v5.6.8.js": "497be0b8e6fe38a4a155cb1eaa488dee3915ee700b1fbc3680b3a068caba33a5",
-    "style.v5.6.8.css": "819382d2553bf18361acd4c46cc15ee3c4d749e28f8b4c45e2fe68fb4c08e60a",
-    "package.json": "1e1e27aed7413ed6c54b54d469208c8e2e3572e2f978d94e41e81241e7769524",
-    "package-lock.json": "a6c02e2d2f5e6241fa260376ec0941c6c019c721d23d4967f11d9c0db88d266c",
-    "tests/trade-workflow.test.cjs": "7791359b8a7a8fb22b7fcd0fa145dc30196a5d04c7091da09be4bf49cfc8e70c"
+    "README.md": "e7538478dfb3c8dfd99a9c687685c10b6ceab02b85f903f5ea93d9e778d4f09e",
+    "index.html": "5a88bcb2331b6f300f21056d3aced21820d2fe7a4f600a277e3322868e3debfe",
+    "app.v5.6.9.js": "025652ff0e22366fd6bbd235af194221f4b89c2197444ee4143352c610517c7c",
+    "data.v5.6.9.js": "af3ce7cd5ecddae2498e9b8f0eab84095759f2e877eec122c312353654afbcac",
+    "style.v5.6.9.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
+    "package.json": "b6dff6bb06c1f33f77497fd9a1289d705fc7a79966df498b6780f6391dae2447",
+    "package-lock.json": "266a3f19a30612b246d81396a1013ffae2807aebafe562f60a03b6c8a7220d65",
+    "tests/daily-analysis.test.cjs": "588433311197feae5d446cab81458e9be59f7441f5a16e0e03a2ad90e3e90953",
+    "tests/trade-workflow.test.cjs": "e13ae896dc62d614ce9dbc2b4b68adfef54ea70b18c2bca37f07c9b2752ccbdf",
+    "tests/trade-flow-fixes.test.cjs": "1064df392def6975c3a397a28f9f0cccb890b472b0162ac9acae3e9a917802ee"
   }
 }
