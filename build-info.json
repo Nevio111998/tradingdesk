@@ -2,23 +2,15 @@
   "version": "5.6.13",
   "created": "2026-09-10",
   "baseVersion": "5.6.12",
-  "notes": "Klare Trennung aktueller Morgenanalyse und Übernahmestand; einmalige Wahrscheinlichkeitsübernahme im Tageswechsel.",
-  "architecture": "Aktiver Core mit einer Darstellungsergänzung; keine formularabhängige Wahrscheinlichkeitsvorbelegung.",
+  "notes": "Klare Trennung aktueller Morgenanalyse und Übernahmestand; einmalige Wahrscheinlichkeitsübernahme im Tageswechsel. Hotfix: Startfehler durch Versionskonflikt zwischen aktivem Core 5.6.13 und unverändert wiederverwendeter Datendatei 5.6.10 behoben.",
+  "architecture": "Aktiver Core mit Darstellungsergänzung; version-bridge.v5.6.13.js normalisiert den eingebetteten Datenmarker vor Initialisierung des Core. Keine Datenmigration.",
   "files": [
     "index.html",
     "style.base.v5.6.13.css",
     "style.v5.6.13.css",
     "data.base.v5.6.13.js",
+    "version-bridge.v5.6.13.js",
     "app.base.v5.6.13.js",
     "app.v5.6.13.js"
-  ],
-  "hashAlgorithm": "sha256",
-  "sha256": {
-    "index.html": "8720c71eae290cbc1791a11f5fd16bf6505d6ee4d977d0cee50b46ddd3b9d37d",
-    "style.base.v5.6.13.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
-    "style.v5.6.13.css": "321c4ac02e1aa9462c6031a5d066c201ba3d5c99a6d288cf52f73149669eec0f",
-    "data.base.v5.6.13.js": "ed291ecccf21d75672e3bc810b037d75245bf48278931b599307e0448d6b2d94",
-    "app.base.v5.6.13.js": "98208bcbfc2ad9f0120ed1dc90a72d8bc83f7521f2c4a591433a75b95e7a65f9",
-    "app.v5.6.13.js": "c37e6a6d92e65f2e14bf614a39127894a702f24618029146a92cf2b2886bebc1"
-  }
+  ]
 }
