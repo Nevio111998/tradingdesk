@@ -3,13 +3,14 @@
   "created": "2026-09-10",
   "baseVersion": "5.6.10",
   "notes": "Sitzungswahrscheinlichkeiten verwenden jetzt den gestrigen absoluten Prozentstand statt des Wochenvergleichs in pp. Bei fortgeführten Morgenanalysen werden Hike/Hold/Cut gestern automatisch aus dem aktuellen Stand des Vortags vorbelegt. Die Trade-Übersicht liest die verknüpfte Morgenanalyse live, damit Zentralbank-Ton und Sitzungswahrscheinlichkeiten aktuell bleiben. Der FX-Paar-Screener ist einklappbar.",
-  "architecture": "Unveränderter v5.6.10-Core unter v5.6.12-Basisdateien plus v5.6.12-Addon für die neue Darstellung und Tageslogik. Bestehende gespeicherte Daten werden nicht gelöscht.",
+  "architecture": "Unveränderter v5.6.10-Core unter v5.6.12-Basisdateien plus v5.6.12-Addons für Trade-Fundamentals, Tageswahrscheinlichkeiten und einklappbaren Paar-Screener. Bestehende gespeicherte Daten werden nicht gelöscht.",
   "files": [
     "index.html",
     "style.base.v5.6.12.css",
     "style.v5.6.12.css",
     "data.base.v5.6.12.js",
     "app.base.v5.6.12.js",
-    "app.v5.6.12.js"
+    "app.v5.6.12.js",
+    "daily-probabilities.v5.6.12.js"
   ]
 }
