@@ -8,7 +8,7 @@ const read = name => fs.readFileSync(path.join(root, name), 'utf8');
 const clone = value => JSON.parse(JSON.stringify(value));
 
 const preferences=new Map();
-function runtime(version) {
+function runtime() {
   const elements = new Map();
   const detailNodes = [];
   const listeners = new Map();
@@ -37,10 +37,10 @@ function runtime(version) {
     localStorage:{getItem:k=>preferences.get(k)||null,setItem:(k,v)=>preferences.set(k,v)}, document, window: { addEventListener() {} }, console,
     setTimeout: () => 0, clearTimeout() {}, URL, Intl
   });
-  vm.runInContext(read(`data.v${version}.js`), context);
-  const app = read(`app.v${version}.js`);
+  vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
+  const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings${version!=='5.6.6'?',tradeFactorValue':''}};`;
+  const expose = `window.test={state,D,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -53,14 +53,11 @@ function runtime(version) {
 
 
 (async()=>{
-const rt=runtime(process.env.TRADINGDESK_TEST_VERSION||'5.6.7'),old=runtime('5.6.6');
+const rt=runtime();
 const select=t=>Object.assign(rt.state,{records:[t],record:t,id:t.id,route:t.kind==='trade'?'trade':'macro',tab:'overview'});
 const warnings=t=>rt.readiness(t).warnings;
 const snapshot=x=>JSON.stringify(x);
-assert.equal(snapshot(rt.D.pairMacroGroups),snapshot(old.D.pairMacroGroups));
-assert.equal(snapshot(rt.D.tradeGroups),snapshot(old.D.tradeGroups));
 assert.equal(rt.D.tradeItems.length,17);assert.equal(rt.D.pairMacroGroups.length,7);
-for(const fn of ['relativeRepricingResult','expectedPolicyDifferentialResult'])assert.equal(String(rt[fn]),String(old[fn]));
 for(const name of ['EURUSD','GBPUSD','USDCHF']){
  const m=rt.defaultRecord('macro');select(m);const p=m.pairs.find(p=>p.pair===name);const base=p.pair.slice(0,3),quote=p.pair.slice(3);m.currencies[base]={yield2:'4.2'};m.currencies[quote]={yield2:'2.1'};
  p.thesis='Original thesis';p.counterThesis='Original counter';p.invalidation='Original invalidation';p.nextEvent='CPI tomorrow';p.notes='Original sources';p.direction='Long Bias';

@@ -1,9 +1,10 @@
 {
   "name": "tradingdesk",
-  "version": "5.6.10",
+  "version": "5.6.12",
   "private": true,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "test": "node tests/active-release.test.cjs && node tests/trade-flow-fixes.test.cjs && node tests/trade-workflow.test.cjs && node tests/daily-analysis.test.cjs && node tests/review-events.test.cjs"
   },
   "devDependencies": {
     "vite": "8.2.2"
