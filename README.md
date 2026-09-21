@@ -1,8 +1,23 @@
-# FX EdgeFinder Companion v5.6.13
+# FX EdgeFinder Companion v5.6.14
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
 IndexedDB gespeichert. GitHub Pages speichert keine persönlichen Analysen.
+
+## Trade-Ideen und Journal
+
+- Trade-Ideen und die Startübersicht zeigen nur aktive Ideen und offene Positionen.
+- Der neue Menüpunkt Journal zeigt Geschlossen und Verworfen. Bestehende Einträge
+  werden unmittelbar anhand ihres Status einsortiert, ohne Kopie oder Migration.
+- Suche und Filter arbeiten nur innerhalb der jeweiligen Liste. Ein aktiver Status
+  bringt denselben Eintrag zurück zu Trade-Ideen; alle Felder, Screenshots,
+  Checklisten, Snapshots und Journalnotizen bleiben am Originaldatensatz erhalten.
+- Der Detailkopf führt zurück zur passenden Liste. Die Statistik zu geschlossenen
+  Trades bleibt erhalten.
+- Geprüft mit automatisierten Anwendungstests: Bestandsdaten, Schliessen/Verwerfen,
+  Wiederöffnen, Suche/Filter, Speicherung und leere Listen. Der Starttest prüft
+  zusätzlich Versionskennungen und Initialisierung mit vorhandenen Datensätzen.
+  Keine erneute visuelle Browserprüfung.
 
 ## Aktueller Stand
 
@@ -31,11 +46,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.13.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.13.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.13.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.13.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.13.css` | Basislayout |
+| `data.base.v5.6.14.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.14.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.14.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.14.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.14.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
@@ -63,7 +78,7 @@ Die Ergänzungen werden auf Einbindung und Syntax geprüft, nicht vollständig i
 Browser ausgeführt. Eine echte Desktop-/Mobilprüfung bleibt offen.
 `tests/responsive-preview.html` ist die beibehaltene manuelle Prüfansicht.
 
-## Prüfung der Änderungen in v5.6.13
+## Prüfung der Änderungen in v5.6.14
 
 Die Tests prüfen zusätzlich die Beschriftung beider Analysequellen samt
 Fallback und einmalige Übernahme aller acht Währungen ohne Tabwechsel,
