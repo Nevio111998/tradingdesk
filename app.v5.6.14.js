@@ -1,8 +1,8 @@
-/* Tradingdesk v5.6.13 add-on: live trade fundamentals, daily meeting-probability deltas and collapsible pair screener. */
+/* Tradingdesk v5.6.14 add-on: live trade fundamentals, daily meeting-probability deltas and collapsible pair screener. */
 'use strict';
 (() => {
-  const ADDON_VERSION='5.6.13';
-  const CORE_VERSION='5.6.13';
+  const ADDON_VERSION='5.6.14';
+  const CORE_VERSION='5.6.14';
   const BANKS={USD:'Federal Reserve',EUR:'Europäische Zentralbank',GBP:'Bank of England',JPY:'Bank of Japan',AUD:'Reserve Bank of Australia',NZD:'Reserve Bank of New Zealand',CAD:'Bank of Canada',CHF:'Schweizerische Nationalbank'};
   let dbPromise=null,timer=null,retryTimer=null,lastSig='';
 
@@ -166,7 +166,7 @@
       const old=document.getElementById('trade-fundamentals-v5611');if(old)old.remove();
       if(existing)existing.replaceWith(node);else target.appendChild(node);
       lastSig=sig;
-    }catch(err){console.warn('v5.6.13 fundamentals add-on:',err)}
+    }catch(err){console.warn('v5.6.14 fundamentals add-on:',err)}
   }
 
   function patchProbabilityLabels(){

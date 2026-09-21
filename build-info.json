@@ -1,16 +1,26 @@
 {
-  "version": "5.6.13",
-  "created": "2026-09-10",
-  "baseVersion": "5.6.12",
-  "notes": "Klare Trennung aktueller Morgenanalyse und Übernahmestand; einmalige Wahrscheinlichkeitsübernahme im Tageswechsel. Hotfix: Startfehler durch Versionskonflikt zwischen aktivem Core 5.6.13 und unverändert wiederverwendeter Datendatei 5.6.10 behoben.",
-  "architecture": "Aktiver Core mit Darstellungsergänzung; version-bridge.v5.6.13.js normalisiert den eingebetteten Datenmarker vor Initialisierung des Core. Keine Datenmigration.",
+  "version": "5.6.14",
+  "created": "2026-09-21",
+  "baseVersion": "5.6.13",
+  "notes": "Separate Listen für aktive Trade-Ideen und Journal (Geschlossen/Verworfen), ohne Datenmigration.",
+  "architecture": "Aktiver Core und Darstellungsergänzung. Datenmarker und Core stimmen auf Version 5.6.14 überein.",
   "files": [
     "index.html",
-    "style.base.v5.6.13.css",
-    "style.v5.6.13.css",
-    "data.base.v5.6.13.js",
-    "version-bridge.v5.6.13.js",
-    "app.base.v5.6.13.js",
-    "app.v5.6.13.js"
-  ]
+    "style.base.v5.6.14.css",
+    "style.v5.6.14.css",
+    "data.base.v5.6.14.js",
+    "version-bridge.v5.6.14.js",
+    "app.base.v5.6.14.js",
+    "app.v5.6.14.js"
+  ],
+  "hashAlgorithm": "sha256",
+  "sha256": {
+    "index.html": "2f90fdaa7f7e0f953377b70445563063ca48b6a0d3e7b920143cc1ee10c3f7e2",
+    "style.base.v5.6.14.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
+    "style.v5.6.14.css": "2fb85dc2a66be5f543fa793fdbcaca594a3e2c889dad1b370d23cff58880a30f",
+    "data.base.v5.6.14.js": "75b6e0aae54e80cc9d74cba5bd9bfccf6eda9497811bfd6f56138114cbe97dee",
+    "version-bridge.v5.6.14.js": "bf253d3e9bab90c107fa9856cd7ff1c8cfb8a85bd10cdcdc92eaa49f5bf3e231",
+    "app.base.v5.6.14.js": "98813478ade388b2dc6b8e543c8f11fbe3d00923708db5171d95bae6148b5d19",
+    "app.v5.6.14.js": "f8673716e618eee74e7c4b8cbfc5df4108773936df91525d1ebf49b7d3cc9bb5"
+  }
 }
