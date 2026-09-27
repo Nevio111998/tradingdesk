@@ -40,7 +40,7 @@ function runtime() {
   vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
   const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
+  const expose = `window.test={pairRatesMatrixHtml,pairScreenRates,spreadHtml,state,D,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -58,6 +58,20 @@ const rt=runtime();
 const m=rt.defaultRecord('macro');m.date='2026-09-10';
 const select=r=>Object.assign(rt.state,{records:[m,...(r===m?[]:[r])],id:r.id,record:r,route:r.kind==='macro'?'macro':'trade',tab:'overview'});
 select(m);
+// Render rates with missing metadata and retain real calculation blockers.
+for(const code of ['EUR','USD','CHF'])m.currencies[code]={bankRate:'3',pricing3m:'10',pricing12m:'20',pricingChange:'5',pricingChangeHorizon:'12M',yield2:'2',yield2Prev:'1.9',yield2Prev2:'1.8',real:'1'};
+for(const pair of ['EURUSD','USDCHF']){
+ const html=rt.pairRatesMatrixHtml(m,m.pairs.find(p=>p.pair===pair));
+ assert(!/indikativ|datenqualität|qualitätswarn|metadaten/i.test(html));
+ assert(html.includes('0.0 bp'));
+}
+assert(!/indikativ/i.test(rt.pairScreenRates({value:5,horizon:'12M',indicative:true,source:'auto'})));
+m.currencies.USD.pricingChangeHorizon='3M';
+assert(rt.pairRatesMatrixHtml(m,m.pairs.find(p=>p.pair==='EURUSD')).includes('Nicht berechnet'));
+m.currencies.USD.pricingChangeHorizon='12M';
+const preserved=JSON.stringify(m.currencies);
+rt.pairRatesMatrixHtml(m,m.pairs.find(p=>p.pair==='USDCHF'));
+assert.equal(JSON.stringify(m.currencies),preserved);
 assert.equal(m.pairs.length,28);assert(m.pairs.every(p=>p.status==='Ungeprüft'&&!p.direction&&!p.confidence));
 const eur=m.pairs.find(p=>p.pair==='EURUSD'),gbp=m.pairs.find(p=>p.pair==='GBPUSD'),chf=m.pairs.find(p=>p.pair==='USDCHF'),aud=m.pairs.find(p=>p.pair==='AUDNZD');
 for(const p of [eur,gbp,chf,aud]){p.status='Watchlist';p.direction='Long Bias';p.checks={test:'done'};}

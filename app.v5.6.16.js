@@ -1,8 +1,8 @@
-/* Tradingdesk v5.6.15 add-on: live trade fundamentals, daily meeting-probability deltas and collapsible pair screener. */
+/* Tradingdesk v5.6.16 add-on: live trade fundamentals, daily meeting-probability deltas and collapsible pair screener. */
 'use strict';
 (() => {
-  const ADDON_VERSION='5.6.15';
-  const CORE_VERSION='5.6.15';
+  const ADDON_VERSION='5.6.16';
+  const CORE_VERSION='5.6.16';
   const BANKS={USD:'Federal Reserve',EUR:'Europäische Zentralbank',GBP:'Bank of England',JPY:'Bank of Japan',AUD:'Reserve Bank of Australia',NZD:'Reserve Bank of New Zealand',CAD:'Bank of Canada',CHF:'Schweizerische Nationalbank'};
   let dbPromise=null,timer=null,retryTimer=null,lastSig='';
 
@@ -105,16 +105,13 @@
     for(const [labelName,av,bv] of [['3M Pricing',a?.pricing3m,b?.pricing3m],['12M Pricing',a?.pricing12m,b?.pricing12m],['2Y aktuell',a?.yield2,b?.yield2],['2Y vor 1 Woche',a?.yield2Prev,b?.yield2Prev],['2Y vor 2 Wochen',a?.yield2Prev2,b?.yield2Prev2],['Real Yield',a?.real,b?.real]]){
       const missing=[];if(n(av)===null)missing.push('Base');if(n(bv)===null)missing.push('Quote');if(missing.length)out.push(`${labelName}: Daten für ${missing.join(' und ')} fehlen.`);
     }
-    const am=methodGroup(a?.pricingChangeMethod||a?.pricingMethod),bm=methodGroup(b?.pricingChangeMethod||b?.pricingMethod);
-    if(am&&bm&&am!==bm)out.push(`Relatives Repricing: unterschiedliche Methoden (${am} vs. ${bm}); Vergleich indikativ.`);
-    if(m?.repricingIndicative)out.push('Relatives Repricing wird indikativ dargestellt.');
     return [...new Set(out)];
   }
 
   function addonHtml(t,source,isLive){
     const pair=String(t?.pair||'').toUpperCase().replace('/',''),base=pair.slice(0,3),quote=pair.slice(3,6);
     if(!source?.currencies||pair.length!==6||!source.currencies[base]||!source.currencies[quote])return `<div id="trade-fundamentals-v5612" class="trade-fundamental-addon"><div class="divider"></div><h3>Rates & Zentralbanken</h3><div class="alert warn"><strong>Keine passende Morgenanalyse verfügbar.</strong><p>Verknüpfe eine Morgenanalyse mit diesem Trade. Danach erscheinen hier Rates-Matrix, Zentralbank-Ton und Sitzungswahrscheinlichkeiten für Base und Quote.</p></div></div>`;
-    const a=source.currencies[base]||{},b=source.currencies[quote]||{},m=metrics(source,base,quote,a,b),warnings=qualityWarnings(a,b,m),repricingExtra=m.repricingIndicative?' · indikativ':'';
+    const a=source.currencies[base]||{},b=source.currencies[quote]||{},m=metrics(source,base,quote,a,b),warnings=qualityWarnings(a,b,m),repricingExtra=m.repricingNote.startsWith('Manueller Override')?' · manuell':'';
     const sourceText=isLive?'Aktuelle Morgenanalyse':'Stand bei Trade-Übernahme';
     const sourceTone=isLive?'neutral':'blue';
     return `<div id="trade-fundamentals-v5612" class="trade-fundamental-addon">
@@ -128,11 +125,11 @@
         ${matrixCard('Zinsniveau','12M Pricing',m.diff12,'tightening',base,quote)}
         ${matrixCard('Zinsniveau','Real Yield absolut',m.realDiff,'level',base,quote)}
       </div>
-      <details class="trade-addon-details"><summary>Datenqualität${warnings.length?' · '+warnings.length+' Hinweise':' · keine offensichtlichen Lücken'}</summary><div class="trade-addon-detail-body">${warnings.length?`<ul>${warnings.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p>Für die dargestellten Kernwerte sind keine offensichtlichen Datenlücken erkannt.</p>'}<p>${esc(m.repricingNote)}</p></div></details>
+      ${warnings.length?`<details class="trade-addon-details"><summary>Fehlende Berechnungswerte · ${warnings.length} Hinweise</summary><div class="trade-addon-detail-body"><ul>${warnings.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></details>`:''}
       <details class="trade-addon-details"><summary>Weitere Rates-Details</summary><div class="trade-addon-detail-body"><div class="mini-table">
         ${detailRow('3M-Pricing-Differential',m.diff3,'Base Pricing − Quote Pricing über 3M','tightening',base,quote)}
         ${detailRow('12M-Pricing-Differential',m.diff12,'Base Pricing − Quote Pricing über 12M','tightening',base,quote)}
-        ${detailRow('Relatives Repricing ggü. Vorwoche',m.repricing,m.repricingNote,'support',base,quote,m.repricingIndicative?' · indikativ':'')}
+        ${detailRow('Relatives Repricing ggü. Vorwoche',m.repricing,m.repricingNote,'support',base,quote,repricingExtra)}
         ${detailRow('Erwartetes Leitzins-Differential 3M',m.exp3,'Aktueller Leitzins-Spread + 3M Pricing-Differential','level',base,quote)}
         ${detailRow('Erwartetes Leitzins-Differential 12M',m.exp12,'Aktueller Leitzins-Spread + 12M Pricing-Differential','level',base,quote)}
         ${detailRow('2Y-Differential jetzt',m.currentSpread,'Base 2Y − Quote 2Y','level',base,quote)}
@@ -166,7 +163,7 @@
       const old=document.getElementById('trade-fundamentals-v5611');if(old)old.remove();
       if(existing)existing.replaceWith(node);else target.appendChild(node);
       lastSig=sig;
-    }catch(err){console.warn('v5.6.15 fundamentals add-on:',err)}
+    }catch(err){console.warn('v5.6.16 fundamentals add-on:',err)}
   }
 
   function patchProbabilityLabels(){
