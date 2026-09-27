@@ -1,7 +1,7 @@
 /* FX EdgeFinder Companion — standalone, offline-data-first browser application. */
 'use strict';
 (() => {
-const BUILD_VERSION='5.6.15';
+const BUILD_VERSION='5.6.16';
 window.FX_COMPANION_VERSION=BUILD_VERSION;
 const D=FXD, C=Object.keys(D.CURRENCIES), $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
 const state={db:null,records:[],assets:new Map(),route:'home',id:null,tab:'overview',currency:'USD',macroTab:'global',filter:'all',query:'',dirty:false,revision:0,saveTimer:null,saveChain:Promise.resolve(),saving:false,record:null,expanded:new Set(),imageUrls:new Map(),settings:{minRR:2,maxRisk:1,defaultRisk:0.5,accountCurrency:'CHF'},toastTimer:null};
@@ -239,9 +239,9 @@ function spreadHtml(m){
   const spread=now.value,delta1=spread!==null&&week.value!==null?spread-week.value:null,delta2=spread!==null&&two.value!==null?spread-two.value:null;
   const realQuality=realYieldQuality(x,y,a,b),realResult=pairValue('real','EdgeFinder Real Yield');
   const real=realQuality.ok?realResult.value:null;
-  const issues=[...new Set([...now.issues,...week.issues,...two.issues,...realResult.issues,...realQuality.issues,...realQuality.warnings])];
+  const issues=[...new Set([...now.issues,...week.issues,...two.issues,...realResult.issues,...realQuality.issues])];
   const constText=delta1===null?'Für die Veränderung fehlen die 1W-Vergleichswerte.':delta1>0?'Das 2Y-Differential bewegt sich seit letzter Woche zugunsten der Base.':delta1<0?'Das 2Y-Differential bewegt sich seit letzter Woche zugunsten der Quote.':'Das 2Y-Differential ist seit letzter Woche unverändert.';
-  return `<div class="metric-result triple"><div class="review-cell"><div class="label">${a} – ${b} · 2Y Spread jetzt</div><div class="value numeric-value">${spread===null?'Nicht berechnet':signed(spread,1)+' bp'}</div></div><div class="review-cell"><div class="label">Veränderung vs. vor 1 Woche</div><div class="value numeric-value">${delta1===null?'Nicht berechnet':signed(delta1,1)+' bp'}</div></div><div class="review-cell"><div class="label">Veränderung vs. vor 2 Wochen</div><div class="value numeric-value">${delta2===null?'Nicht berechnet':signed(delta2,1)+' bp'}</div></div></div><div class="form-note mt-16 no-margin">${spread===null?'Trage für beide Währungen vergleichbare 2Y-Renditen in % ein.':constText}${real!==null?' Vergleichbares Real-Yield-Differential: '+signed(real,1)+' bp'+(realQuality.indicative?' (indikativ)':'')+'.':''}</div>${issues.length?`<div class="alert warn mt-16"><strong>Datenqualität:</strong><ul>${issues.map(issue=>`<li>${esc(issue)}</li>`).join('')}</ul></div>`:''}`;
+  return `<div class="metric-result triple"><div class="review-cell"><div class="label">${a} – ${b} · 2Y Spread jetzt</div><div class="value numeric-value">${spread===null?'Nicht berechnet':signed(spread,1)+' bp'}</div></div><div class="review-cell"><div class="label">Veränderung vs. vor 1 Woche</div><div class="value numeric-value">${delta1===null?'Nicht berechnet':signed(delta1,1)+' bp'}</div></div><div class="review-cell"><div class="label">Veränderung vs. vor 2 Wochen</div><div class="value numeric-value">${delta2===null?'Nicht berechnet':signed(delta2,1)+' bp'}</div></div></div><div class="form-note mt-16 no-margin">${spread===null?'Trage für beide Währungen vergleichbare 2Y-Renditen in % ein.':constText}${real!==null?' Vergleichbares Real-Yield-Differential: '+signed(real,1)+' bp'+'.':''}</div>${issues.length?`<div class="alert warn mt-16"><strong>Berechnung nicht möglich:</strong><ul>${issues.map(issue=>`<li>${esc(issue)}</li>`).join('')}</ul></div>`:''}`;
 }
 function fxPairDefaults(){return FX_PAIRS.map((pair,i)=>({id:'g7-'+pair,pair,order:i+1,direction:'',status:'Ungeprüft',confidence:'',edge:'',rates:'',driver:'',technical:'Noch nicht geprüft',checks:{},thesis:'',invalidation:'',notes:''}))}
 // Add missing canonical pairs without rewriting existing analyses or their IDs.
@@ -326,7 +326,7 @@ function pairScreenRows(m){
   return a.p.pair.localeCompare(b.p.pair);
  });
 }
-function pairScreenRates(r){return r.value===null?'Nicht berechnet':signed(r.value,1)+' bp'+(r.horizon?' · '+r.horizon:'')+(r.source==='manual'?' · manuell':r.indicative?' · indikativ':'');}
+function pairScreenRates(r){return r.value===null?'Nicht berechnet':signed(r.value,1)+' bp'+(r.horizon?' · '+r.horizon:'')+(r.source==='manual'?' · manuell':'');}
 function pairScreenEvent(x){return x?esc(x.e.title||'High-Impact-Ereignis')+'<small>'+esc(x.date.dayOnly?dateFmt(x.e.at):dateTimeFmt(x.e.at))+'</small>':'Kein High-Impact-Termin erfasst';}
 function pairScreenTable(m){const rows=pairScreenRows(m);return `<p class="pair-screen-count" role="status">${rows.length} von ${pairList(m).length} Paaren · Auswahl: ${esc(pairData(m,state.pairId)?.pair||'–')}</p><table class="pair-screen-table"><caption class="sr-only">Alle Paare im Blick</caption><thead><tr><th>Paar</th><th>Bias / Confidence</th><th>Relatives Repricing</th><th>EdgeFinder</th><th>Status</th><th>Nächstes High-Impact-Ereignis</th></tr></thead><tbody>${rows.map(({p,rates,event})=>`<tr class="${p.id===state.pairId?'selected':''}"><td data-label="Paar"><button type="button" class="pair-screen-open" data-pair-tab="${attr(p.id)}" aria-pressed="${p.id===state.pairId}">${esc(p.pair)}</button></td><td data-label="Bias / Confidence">${esc(p.direction||'Unbewertet')}<small>${esc(p.confidence||'Nicht erfasst')}</small></td><td data-label="Relatives Repricing">${esc(pairScreenRates(rates))}</td><td data-label="EdgeFinder">${esc(p.edge||'Unbewertet')}</td><td data-label="Status">${esc(p.status||'Ungeprüft')}${pairNeedsReview(m,p)?'<small>Grundlage geändert · neu prüfen</small>':''}</td><td data-label="High Impact">${pairScreenEvent(event)}</td></tr>`).join('')||'<tr><td colspan="6">Keine Paare passen zur Auswahl. Suche oder Filter ändern.</td></tr>'}</tbody></table>`;}
 function pairScreenSummary(m,p){const {rates,event}=pairScreenData(m,p);return `${pairNeedsReview(m,p)?'<div class="form-note"><strong>Grundlage seit letzter Prüfung geändert</strong></div>':''}<button type="button" class="button button-ghost" data-pair-screen-back>← Zum Paar-Screener</button><h2>${esc(p.pair)} <span>Detailanalyse</span></h2><dl>${[['Bias',p.direction],['Confidence',p.confidence],['Status',p.status],['Rates-Bild',p.rates||'Unbewertet'],['Relatives Repricing',pairScreenRates(rates)],['EdgeFinder',p.edge||'Unbewertet']].map(([k,v])=>`<div><dt>${k}</dt><dd>${esc(v||'Nicht erfasst')}</dd></div>`).join('')}</dl><p class="pair-summary-event"><strong>Nächster High-Impact-Termin:</strong> ${pairScreenEvent(event)}</p>`;}
@@ -334,7 +334,7 @@ function refreshPairScreen(){const m=current();if(!m||m.kind!=='macro')return;co
 function renderPairShortlist(m){
  const pairs=pairList(m);state.pairId=pairs.some(p=>p.id===state.pairId)?state.pairId:pairs[0]?.id;
  const stats=macroPairStats(m),p=pairData(m,state.pairId);
- return `<div class="review-strip pair-review-strip">${[['Paare',stats.pairs],['Kandidaten',pairList(m).filter(p=>p.status==='Kandidat').length],['Watchlist',stats.watch],['Bereit',stats.ready]].map(([k,v])=>`<div class="review-cell"><div class="label">${k}</div><div class="value">${v}</div></div>`).join('')}</div><section class="card pair-screen"><h2>FX Paar-Screener</h2><p>Alle Paare im Blick. Bias und Status sind deine Bewertungen. Repricing zeigt die relative Erwartungsänderung; es ist keine Trade-Empfehlung.</p><div class="pair-screen-controls"><label>Paar suchen<input type="search" id="pair-screen-search" placeholder="z. B. CHF oder EURUSD" value="${attr(pairScreen.query)}"></label><label>Filter<select id="pair-screen-filter">${['Alle','Ungeprüft','Kandidaten','Watchlist','Long','Short','Neutral','Bereit','Verworfen'].map(x=>`<option${x===pairScreen.filter?' selected':''}>${x}</option>`).join('')}</select></label><label>Sortierung<select id="pair-screen-sort">${[['Paar','Paar A–Z'],['Repricing','Absolutes Repricing (bp)'],['Status','Status: Bereit zuerst']].map(([v,t])=>`<option value="${v}"${v===pairScreen.sort?' selected':''}>${t}</option>`).join('')}</select></label></div><p class="pair-screen-note">Repricing: Base minus Quote, nach Betrag sortiert. Nicht berechnete Werte stehen zuletzt. Horizonte und Datenqualität in den Rates-Details prüfen. Termine beziehen sich auf das Analyse-Datum ${esc(dateFmt(m.date))}.</p><div id="pair-screen-results">${pairScreenTable(m)}</div></section><label class="pair-navigator">Direkt zur Paaranalyse<select id="pair-screen-select">${pairs.map(x=>`<option value="${attr(x.id)}"${x.id===state.pairId?' selected':''}>${esc(x.pair)}</option>`).join('')}</select></label><section id="pair-screen-summary" class="card pair-screen-summary" tabindex="-1">${p?pairScreenSummary(m,p):''}</section>${p?renderSelectedPair(m,p.id):''}`;
+ return `<div class="review-strip pair-review-strip">${[['Paare',stats.pairs],['Kandidaten',pairList(m).filter(p=>p.status==='Kandidat').length],['Watchlist',stats.watch],['Bereit',stats.ready]].map(([k,v])=>`<div class="review-cell"><div class="label">${k}</div><div class="value">${v}</div></div>`).join('')}</div><section class="card pair-screen"><h2>FX Paar-Screener</h2><p>Alle Paare im Blick. Bias und Status sind deine Bewertungen. Repricing zeigt die relative Erwartungsänderung; es ist keine Trade-Empfehlung.</p><div class="pair-screen-controls"><label>Paar suchen<input type="search" id="pair-screen-search" placeholder="z. B. CHF oder EURUSD" value="${attr(pairScreen.query)}"></label><label>Filter<select id="pair-screen-filter">${['Alle','Ungeprüft','Kandidaten','Watchlist','Long','Short','Neutral','Bereit','Verworfen'].map(x=>`<option${x===pairScreen.filter?' selected':''}>${x}</option>`).join('')}</select></label><label>Sortierung<select id="pair-screen-sort">${[['Paar','Paar A–Z'],['Repricing','Absolutes Repricing (bp)'],['Status','Status: Bereit zuerst']].map(([v,t])=>`<option value="${v}"${v===pairScreen.sort?' selected':''}>${t}</option>`).join('')}</select></label></div><p class="pair-screen-note">Repricing: Base minus Quote, nach Betrag sortiert. Nicht berechnete Werte stehen zuletzt. Berechnungsdetails stehen unter Weitere Rates-Details. Termine beziehen sich auf das Analyse-Datum ${esc(dateFmt(m.date))}.</p><div id="pair-screen-results">${pairScreenTable(m)}</div></section><label class="pair-navigator">Direkt zur Paaranalyse<select id="pair-screen-select">${pairs.map(x=>`<option value="${attr(x.id)}"${x.id===state.pairId?' selected':''}>${esc(x.pair)}</option>`).join('')}</select></label><section id="pair-screen-summary" class="card pair-screen-summary" tabindex="-1">${p?pairScreenSummary(m,p):''}</section>${p?renderSelectedPair(m,p.id):''}`;
 }
 
 function pairDirectionalFactor(direction,value,longValue,shortValue){
@@ -744,12 +744,10 @@ function pairRatesMatrixHtml(m,p){
     const x=value(a,base,field,label),y=value(b,quote,field,label);
     return {value:issues.length?null:(x-y)*(unit==='%'?100:1),issues};
   };
-  const q3=pricingQuality('3M',a,b,'pricing3m',{context}),q12=pricingQuality('12M',a,b,'pricing12m',{context});
-  const policyQ=policyRateQuality(a,b,context),reprQ=repriceQuality(a,b,context);
   const p3=pairValue('pricing3m','3M-Pricing'),p12=pairValue('pricing12m','12M-Pricing');
   const diff3=p3.value,diff12=p12.value;
   const repriceResult=relativeRepricingResult(a,b,p,context),reprice=repriceResult.value;
-  const repriceText=reprice===null?'Nicht berechnet':signed(reprice,1)+' bp'+(repriceResult.source==='manual'?' · Manuell begründet':repriceResult.indicative?' · Indikativer Vergleich':'');
+  const repriceText=reprice===null?'Nicht berechnet':signed(reprice,1)+' bp'+(repriceResult.source==='manual'?' · Manuell begründet':'');
   const repriceLabel=directionLabel(reprice,'support');
   const exp3Result=expectedPolicyDifferentialResult(a,b,'3M',base,quote,context),exp12Result=expectedPolicyDifferentialResult(a,b,'12M',base,quote,context);
   const exp3=exp3Result.value,exp12=exp12Result.value;
@@ -760,34 +758,25 @@ function pairRatesMatrixHtml(m,p){
   const real=pairValue('real','EdgeFinder Real Yield','%');
   const realIssues=[...real.issues,...realQuality.issues];
   const realDiff=realIssues.length?null:real.value;
-  const realIndic=realDiff!==null&&realQuality.indicative;
-  const realText=realDiff===null?'Nicht berechnet':signed(realDiff,1)+' bp'+(realIndic?' · Indikativer Vergleich':'');
+  const realText=realDiff===null?'Nicht berechnet':signed(realDiff,1)+' bp';
   const row=(title,v,mode,note,issues=[])=>[title,v===null?'Nicht berechnet':signed(v,1)+' bp',...(v===null?['Nicht berechnet','neutral']:directionLabel(v,mode)),v===null?issues.join('; '):note];
   const expectedRow=(h,r)=>{
     const v=r.value;
-    return ['Erwartetes Leitzins-Differential '+h,v===null?'Nicht berechnet':signed(v,1)+' bp'+(r.indicative?' · indikativ':''),
+    return ['Erwartetes Leitzins-Differential '+h,v===null?'Nicht berechnet':signed(v,1)+' bp',
       ...(v===null?['Nicht berechnet','neutral']:directionLabel(v,'level')),
-      v===null?r.issues.join('; '):'Aktueller Leitzins-Spread ('+signed(r.currentSpread,1)+' bp) + '+h+'-Pricing-Differential ('+signed(r.pricingDifferential,1)+' bp)'+(r.indicative?' · Indikativ':'')];
+      v===null?r.issues.join('; '):'Aktueller Leitzins-Spread ('+signed(r.currentSpread,1)+' bp) + '+h+'-Pricing-Differential ('+signed(r.pricingDifferential,1)+' bp)'];
   };
   const rows=[
     row('3M-Pricing-Differential',diff3,'tightening','Base Pricing − Quote Pricing; relative erwartete Straffung, keine automatische Trade-Bestätigung',p3.issues),
     row('12M-Pricing-Differential',diff12,'tightening','Base Pricing − Quote Pricing über 12M',p12.issues),
     ['Relatives Repricing ggü. Vorwoche',repriceText,...(reprice===null?['Nicht berechnet','neutral']:repriceLabel),
-      repriceResult.source==='manual'?'Manuell begründet: '+repriceResult.reason+'; automatische Berechnung nicht möglich: '+repriceResult.issues.join('; '):reprice===null?repriceResult.issues.join('; '):'Base Wochenänderung − Quote Wochenänderung ('+repriceResult.horizon+'); '+(repriceResult.indicative?'Indikativer Vergleich – Qualitätswarnungen beachten':'automatisch berechnet')],
+      repriceResult.source==='manual'?'Manuell begründet: '+repriceResult.reason+'; automatische Berechnung nicht möglich: '+repriceResult.issues.join('; '):reprice===null?repriceResult.issues.join('; '):'Base Wochenänderung − Quote Wochenänderung ('+repriceResult.horizon+'); '+'automatisch berechnet'],
     expectedRow('3M',exp3Result),expectedRow('12M',exp12Result),
     row('2Y-Differential jetzt',spread,'level','Base 2Y − Quote 2Y',spreadNow.issues),
     row('2Y-Repricing vs. 1W',spreadDelta1,'support','Spread-Veränderung seit vor 1 Woche',[...spreadNow.issues,...spreadWeek.issues]),
     row('2Y-Repricing vs. 2W',spreadDelta2,'support','Spread-Veränderung seit vor 2 Wochen',[...spreadNow.issues,...spreadTwo.issues]),
-    ['Real-Yield-Differential',realText,...(realDiff===null?['Nicht berechnet','neutral']:directionLabel(realDiff,'level')),realDiff===null?realIssues.join('; '):'EdgeFinder Real Yield Base − Quote'+(realIndic?' · Indikativer Vergleich – Definitionen prüfen':'')]
+    ['Real-Yield-Differential',realText,...(realDiff===null?['Nicht berechnet','neutral']:directionLabel(realDiff,'level')),realDiff===null?realIssues.join('; '):'EdgeFinder Real Yield Base − Quote']
   ];
-  const reports=[q3,q12,policyQ,reprQ,exp3Result,exp12Result,repriceResult,realQuality];
-  const critical=[...new Set(reports.flatMap(r=>r.critical||[]))];
-  const warnings=[...new Set([
-    ...reports.flatMap(r=>[...(r.issues||[]),...(r.warnings||[]),...(r.indications||[])]),
-    ...p3.issues,...p12.issues,...spreadNow.issues,...spreadWeek.issues,...spreadTwo.issues,...realIssues,
-    ...(repriceResult.source==='manual'?['Relatives Repricing: Manuell begründet – '+repriceResult.reason+'. Der externe Wert wurde nicht automatisch verifiziert.']:[]),
-    ...(repriceResult.source==='none'&&manualReprice(p).attempted?manualReprice(p).issues:[])
-  ])].filter(w=>!critical.includes(w));
   const confirm=[
     ['Zinsmomentum','Relatives Repricing',repriceText,...(reprice===null?['Nicht berechnet','neutral']:repriceLabel)],
     ['Zinsmomentum','2Y Δ 1W',spreadDelta1===null?'Nicht berechnet':signed(spreadDelta1,1)+' bp',...(spreadDelta1===null?['Nicht berechnet','neutral']:directionLabel(spreadDelta1,'support'))],
@@ -796,12 +785,9 @@ function pairRatesMatrixHtml(m,p){
     ['Zinsniveau','12M Pricing',diff12===null?'Nicht berechnet':signed(diff12,1)+' bp',...(diff12===null?['Nicht berechnet','neutral']:directionLabel(diff12,'tightening'))],
     ['Zinsniveau','Real Yield absolut',realText,...(realDiff===null?['Nicht berechnet','neutral']:directionLabel(realDiff,'level'))]
   ];
-  const fullRows=`<div class="mini-table rates-matrix">${rows.map(([k,v,label,tone,note])=>`<div class="mini-row"><span>${esc(k)}<small>${v==='Nicht berechnet'?'Siehe Datenqualität':esc(note)}</small></span><strong>${esc(v)} ${badge(label,tone)}</strong></div>`).join('')}</div>`;
-  const qualityBody=`${critical.length?`<div class="alert danger mt-16"><strong>Wichtiger Ereignis-/Stichtagskonflikt:</strong><ul>${critical.map(w=>`<li>${esc(w)}</li>`).join('')}</ul><p>Die Berechnung bleibt indikativ. Prüfe, ob die Daten nach dem Ereignis neu bewertet werden müssen.</p></div>`:''}${warnings.length?`<div class="alert warn mt-16"><strong>Qualitätswarnungen:</strong><ul>${warnings.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div>`:`<div class="form-note mt-16">Keine weiteren Qualitätskonflikte anhand der gespeicherten Angaben erkannt.</div>`}<p class="form-note no-margin">Handelstage werden als Montag–Freitag gezählt; lokale Marktfeiertage werden nicht automatisch erkannt. Ereigniswarnungen verwenden ausschliesslich deine dokumentierten Catalysts und die letzte erfasste Zentralbankentscheidung. Der Kalender ist nicht vollständig und wird nicht live aktualisiert. Zeitangaben ohne Zeitzone werden als lokale Browserzeit interpretiert.</p>`;
-  const detailsBody=fullRows+`<div class="divider"></div><div class="form-grid">${pairField(p.id,'repriceOverrideValue','Manueller Override: relatives Repricing (bp)','number','Optional',null,'Nur als Ersatz bei tatsächlich nicht möglicher Auto-Berechnung. Wert in bp; Quelle, Horizont, Einheiten und Vergleichbarkeit in der Begründung dokumentieren.')} ${pairField(p.id,'repriceOverrideReason','Begründung manueller Override','textarea','Quelle, Stichtag, warum vergleichbar',null,'Ohne Begründung wird der Override ignoriert.','span-2')}</div>`;
-  const count=critical.length+warnings.length;
-  const qualityTitle=critical.length?'Datenqualität: Ereignis-/Stichtagskonflikt – '+count+' Hinweise':count?'Datenqualität unvollständig – '+count+' Hinweise':'Datenqualität: keine Hinweise erkannt';
-  return `<section class="card pair-rates-compact"><h2>Relative Rates & Repricing</h2><div class="pair-rates-metrics">${[rows[2],rows[5],rows[8]].map(([k,v])=>`<div><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('')}</div><p class="form-note">Automatisch aus Währungen & Rates. Fehlende Metadaten bleiben Hinweise; Horizont- und Einheitenkonflikte werden weiterhin geprüft.</p></section>${panel(`<div class="card-pad rates-confirmation">${sectionHeader('Rates-Bestätigungsmatrix','Kein Gesamtscore. Getrennt nach Zinsniveau und Zinsmomentum.')}<div class="matrix-grid">${confirm.map(([grp,k,v,label,tone])=>`<div class="matrix-item"><small>${esc(grp)}</small><strong>${esc(k)}</strong><span>${esc(v)}</span>${badge(label,tone)}</div>`).join('')}</div></div>`)}${pairDetailHtml(m.id,p.id,'quality',qualityTitle,qualityBody)}${pairDetailHtml(m.id,p.id,'rates','Weitere Rates-Details',detailsBody)}`;
+  const fullRows=`<div class="mini-table rates-matrix">${rows.map(([k,v,label,tone,note])=>`<div class="mini-row"><span>${esc(k)}<small>${esc(note)}</small></span><strong>${esc(v)} ${badge(label,tone)}</strong></div>`).join('')}</div>`;
+  const detailsBody=fullRows+`<div class="divider"></div><div class="form-grid">${pairField(p.id,'repriceOverrideValue','Manueller Override: relatives Repricing (bp)','number','Optional',null,'Nur als Ersatz bei tatsächlich nicht möglicher Auto-Berechnung. Wert in bp; kurz begründen, weshalb du den manuellen Wert verwendest.')} ${pairField(p.id,'repriceOverrideReason','Begründung manueller Override','textarea','Warum verwendest du diesen Wert?',null,'Ohne Begründung wird der Override ignoriert.','span-2')}</div>`;
+  return `<section class="card pair-rates-compact"><h2>Relative Rates & Repricing</h2><div class="pair-rates-metrics">${[rows[2],rows[5],rows[8]].map(([k,v])=>`<div><span>${esc(k)}</span><strong>${esc(v)}</strong></div>`).join('')}</div><p class="form-note">Automatisch aus Währungen & Rates. Fehlende Werte und nicht vergleichbare Horizonte werden in den Rates-Details angezeigt.</p></section>${panel(`<div class="card-pad rates-confirmation">${sectionHeader('Rates-Bestätigungsmatrix','Kein Gesamtscore. Getrennt nach Zinsniveau und Zinsmomentum.')}<div class="matrix-grid">${confirm.map(([grp,k,v,label,tone])=>`<div class="matrix-item"><small>${esc(grp)}</small><strong>${esc(k)}</strong><span>${esc(v)}</span>${badge(label,tone)}</div>`).join('')}</div></div>`)}${pairDetailHtml(m.id,p.id,'rates','Weitere Rates-Details',detailsBody)}`;
 }
 
 

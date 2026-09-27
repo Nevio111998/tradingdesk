@@ -1,26 +1,26 @@
 {
-  "version": "5.6.15",
+  "version": "5.6.16",
   "created": "2026-09-27",
-  "baseVersion": "5.6.14",
-  "notes": "Währungen & Rates ohne Referenzzins-/Datenqualitätsmaske und ohne zusätzliche Wochenänderungs-Metadaten. Gespeicherte Werte und Berechnungen bleiben erhalten.",
-  "architecture": "Aktiver Core und Darstellungsergänzung. Datenmarker und Core stimmen auf Version 5.6.15 überein.",
+  "baseVersion": "5.6.15",
+  "notes": "Rates-Anzeigen ohne Datenqualitätsblock oder Indikativ-Kennzeichnung. Rechenwerte, manuelle Kennzeichnung und notwendige Eingabeprüfungen bleiben erhalten.",
+  "architecture": "Aktiver Core und Darstellungsergänzung. Datenmarker und Core stimmen auf Version 5.6.16 überein.",
   "files": [
     "index.html",
-    "style.base.v5.6.15.css",
-    "style.v5.6.15.css",
-    "data.base.v5.6.15.js",
-    "version-bridge.v5.6.15.js",
-    "app.base.v5.6.15.js",
-    "app.v5.6.15.js"
+    "style.base.v5.6.16.css",
+    "style.v5.6.16.css",
+    "data.base.v5.6.16.js",
+    "version-bridge.v5.6.16.js",
+    "app.base.v5.6.16.js",
+    "app.v5.6.16.js"
   ],
   "hashAlgorithm": "sha256",
   "sha256": {
-    "index.html": "a9a9fb0b9f38e36692cfced71f8831ba5f20bfd28b870498f41279c404e5ab10",
-    "style.base.v5.6.15.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
-    "style.v5.6.15.css": "ba54120cb60573a937cb69a276216b7af9455100849e252a2311568bf24faabd",
-    "data.base.v5.6.15.js": "97ed6817e78695e97be5e06ec501ea80409b993ac761e17a7aa64affa8ead607",
-    "version-bridge.v5.6.15.js": "7919e634e2952782b77ef2be3e153a0ccedbf6df77b588e55f4b7cc6bb53a5a9",
-    "app.base.v5.6.15.js": "aed37b012049e7d8180d77056203a7db7f4f74691a475151f819d9d80adc0ff9",
-    "app.v5.6.15.js": "b7e5483ef9e3f021e69be6e43682a7d666fcef6ac80efd2f7b5a220917f4ca26"
+    "index.html": "bcf03f2c12d00f322a4a8cb278e2ca96d841005f605a6972ca5d4d17370417be",
+    "style.base.v5.6.16.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
+    "style.v5.6.16.css": "eb4b990852e9781b90ab65df2159507fbd40e3e5957d86c80d66054d0261e0fe",
+    "data.base.v5.6.16.js": "1dda17edfe509d90c5f3a254951ce6ded9aee43225a3a8b2bc530f162f35a2d2",
+    "version-bridge.v5.6.16.js": "d568e11bff75d1b6b3d807c8902bba83ac4c080f6d02bf9a6b4cda29a8a26f40",
+    "app.base.v5.6.16.js": "e21c1f11d430fe0bc366de7319935f687e557a12d4177dfabeeb61e6fda3fe53",
+    "app.v5.6.16.js": "e92699ce6fd2d671073ebf39905bf469b03851a68566bf12b778773542fbe8f8"
   }
 }

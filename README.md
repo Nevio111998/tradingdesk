@@ -1,4 +1,4 @@
-# FX EdgeFinder Companion v5.6.15
+# FX EdgeFinder Companion v5.6.16
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
@@ -46,11 +46,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.15.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.15.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.15.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.15.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.15.css` | Basislayout |
+| `data.base.v5.6.16.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.16.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.16.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.16.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.16.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
@@ -78,7 +78,7 @@ Die Ergänzungen werden auf Einbindung und Syntax geprüft, nicht vollständig i
 Browser ausgeführt. Eine echte Desktop-/Mobilprüfung bleibt offen.
 `tests/responsive-preview.html` ist die beibehaltene manuelle Prüfansicht.
 
-## Prüfung der Änderungen in v5.6.15
+## Prüfung der Änderungen in v5.6.16
 
 Die Tests prüfen zusätzlich die Beschriftung beider Analysequellen samt
 Fallback und einmalige Übernahme aller acht Währungen ohne Tabwechsel,
@@ -96,6 +96,10 @@ Für GitHub Pages wird `index.html` mit ihren aktiven Abhängigkeiten benötigt;
 `npm run dev` dient nur der Entwicklung. Keine Brokeranbindung und keine
 automatischen Orders.
 
-## v5.6.15 – Vereinfachte Rates-Eingabe
+## v5.6.16 – Vereinfachte Rates-Eingabe
 
 Der Block „Referenzzinsen & Datenqualität“ entfällt in Währungen & Rates. Bei der Erwartungsänderung gegenüber Vorwoche entfallen historischer Vergleichs-Datenstand, Kontrakt/Kurve und zusätzliche Einheiten-Auswahl. Die Eingabe bleibt in bp; der Berechnungshorizont bleibt auswählbar. Bestehende Metadaten bleiben in Datensätzen und Backups erhalten. Keine Migration oder Änderung der Berechnungslogik.
+
+## Rates-Anzeigen v5.6.16
+
+Paar-Screener, Paaranalyse, Paarvergleich und Trade-Rates zeigen keine Indikativ-Kennzeichnung oder Metadatenwarnungen mehr. Fehlende/ungültige Werte und inkompatible Horizonte bzw. Berechnungsgrundlagen bleiben sichtbar. Manuelle Overrides sind weiterhin als manuell gekennzeichnet. Gespeicherte Daten und Berechnungen unverändert.
