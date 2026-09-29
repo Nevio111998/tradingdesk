@@ -1,8 +1,65 @@
-# FX EdgeFinder Companion v5.6.17
+# FX EdgeFinder Companion v5.6.18
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
 IndexedDB gespeichert. GitHub Pages speichert keine persönlichen Analysen.
+
+## v5.6.18 – Edge Analytics
+
+Die bestehende Auswertung wird erweitert, ohne bestehende Einträge umzuschreiben:
+
+- Confidence: High / Medium / Low und „Keine Daten“, ausschliesslich aus dem
+  Entry-Snapshot. Confidence aus alten v5.6.17-Snapshots bleibt auswertbar.
+- Long Currency / Short Currency aus Paar und Richtung. AUDNZD Short bedeutet
+  Long NZD / Short AUD. Pro Tabelle wird jeder Trade einmal gezählt; die beiden
+  Tabellen dürfen nicht addiert werden.
+- Einzelbewertungen für EdgeFinder, Rates, Market Driver und Risk sowie vier
+  Kombinationen: EdgeFinder + Rates, Rates + Market Driver, Rates + Risk,
+  EdgeFinder + Rates + Market Driver. Keine automatischen Empfehlungen.
+- Tabellen zeigen Trades insgesamt, Sample mit R, fehlende Ergebnisse, Win Rate,
+  Ø R, Gesamt-R, Profit Factor und historische Expectancy. Die Übersicht zeigt
+  zusätzlich Ø Gewinner und Ø Verlierer. Expectancy ist der empirische Ø R,
+  keine zusätzliche unabhängige Kennzahl. Break-even zählt im Nenner mit.
+- Kumulative R-Kurve bleibt erhalten; zusätzliche negative Drawdown-Kurve
+  (R-Summe minus bisheriger Höchststand). Beide starten bei 0 in der aktuellen
+  Filterauswahl, berücksichtigen ausschliesslich datierte Abschlüsse und bilden
+  weder offene Buchverluste noch einen Konto-Drawdown ab.
+- Filter: Paar, Richtung, Abschlusszeitraum, Confidence, Long/Short Currency und
+  alle vier Faktorbewertungen. „Keine Daten“ ist gezielt auswählbar. Verworfene
+  Ideen bleiben vom Abschlusszeitraum unabhängig; alle anderen Filter gelten.
+- Unter 5 Ergebnissen wird eine Gruppe als sehr klein markiert, unter 20 als
+  klein. Dies ist eine Orientierung und kein Signifikanztest. Grössere Gruppen
+  beweisen ebenfalls keinen kausalen Vorteil eines Filters.
+
+### Zusätzliche Entry-Werte
+
+Beim ersten Wechsel auf **Offen** bleiben `analyticsEntry.version: 1`, der
+Zeitpunkt und alle bisherigen Felder erhalten. Neue Snapshots ergänzen optional
+`detailsVersion: 1` und `fundamentals`. Bereits existierende Snapshots werden
+niemals nachträglich ergänzt, auch wenn der Trade heute mehr Felder enthält.
+
+| Trade-Feld | Zusätzlich eingefrorener Wert |
+| --- | --- |
+| `edgeBase`, `edgeQuote` | EdgeFinder Base-/Quote-Bias |
+| `edgeScoreBase`, `edgeScoreQuote` | Einzelwerte und Differenz Base minus Quote, nur wenn beide vorhanden |
+| `yieldBase`, `yieldQuote` | Base-/Quote-2Y in %, Spread in bp = (Base − Quote) × 100 |
+| `yieldPrev`, `yieldPrev2` | Bereits vorhandener Spread vor 1W / 2W in bp |
+| `driverMain`, `riskRegime` | Vorhandener Driver-Text und Risk-Regime |
+| `factors`, `fields.confidence` | Weiterhin vorhandene Faktorbewertungen und Confidence |
+
+Es werden nur beim Öffnen vorhandene Trade-Felder gelesen, keine späteren
+Morgenanalysen oder Live-Werte. Leere/unbekannte Werte bleiben null beziehungsweise
+„Keine Daten“; echte Nullen bleiben erhalten. Vorhandene Felder können in der
+Trade-Checkliste gepflegt werden, Bewertungen und Confidence in der Trade-Übersicht.
+Details sind unter „Ergebnisse nachvollziehen → Historische Entry-Werte ansehen“
+pro Trade aufklappbar. Weitere Faktortabellen betrachten Base-/Quote-Bias und das
+Vorzeichen von Score-/2Y-Differenzen sowie 1W-Spread-Veränderung in Handelsrichtung.
+
+Bestehende R-Ergebnisse, v5.6.17-Snapshots, IndexedDB, Bilder und Backups bleiben
+kompatibel, ohne Migration. Neue Tests decken alte/neue Snapshots, unveränderliche
+Werte, fehlende Daten, Exposure, alle Filter, Kombinationen, Kennzahlen,
+Drawdown-/Zeitsortierung und Backup-Import ab. Eine visuelle Browserprüfung bleibt
+in dieser Umgebung offen (Browser-Download bereits in v5.6.17 fehlgeschlagen).
 
 ## v5.6.17 – Journal-Auswertung
 
@@ -30,7 +87,7 @@ Der neue Menüpunkt **Auswertung** nutzt bestehende lokale Trade-Datensätze:
 - Bestehende Datensätze, Bilder und Backups bleiben kompatibel. Keine Migration,
   neue Datenbank, Marktdatenabfrage oder Cloud-Speicherung.
 
-`analytics.v5.6.17.js` enthält die read-only Auswertung und das Festhalten der
+`analytics.v5.6.18.js` enthält die read-only Auswertung und das Festhalten der
 Bewertungen; die Navigation und Statuswechsel bleiben im aktiven Core.
 Die automatisierten Tests prüfen Zahlen, Datumsfilter, fehlende Werte,
 Bestandsdaten, Statuswechsel, Duplikate, Speicherung und HTML-Escaping.
@@ -79,11 +136,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.17.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.17.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.17.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.17.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.17.css` | Basislayout |
+| `data.base.v5.6.18.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.18.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.18.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.18.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.18.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche

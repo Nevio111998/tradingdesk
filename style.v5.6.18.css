@@ -1,6 +1,6 @@
-@import url('./style.base.v5.6.17.css');
+@import url('./style.base.v5.6.18.css');
 
-/* v5.6.17 trade overview add-on */
+/* v5.6.18 trade overview add-on */
 .trade-fundamental-addon{margin-top:22px}
 .trade-fundamental-addon>.divider{margin:22px 0}
 .trade-addon-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}
@@ -66,3 +66,18 @@
 .analytics-zero{stroke:var(--muted);stroke-dasharray:4 4;opacity:.45}
 .analytics .stat-value{font-size:clamp(21px,2.4vw,30px)}
 @media(max-width:600px){.analytics-filters .field{flex-basis:40%;min-width:0}.analytics .card-pad{padding:16px}.analytics-table{min-width:620px}}
+
+/* Compact extensions to the existing analytics area. */
+.analytics-charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.analytics-dd{stroke:var(--red)}
+.analytics-fold{border-top:1px solid var(--line);padding:12px 0}
+.analytics-fold summary{cursor:pointer;font-weight:600;padding:4px 0}
+.analytics-sample{display:block;color:var(--muted);font-size:11px;min-width:85px}
+.analytics-table th:first-child{min-width:150px;max-width:340px;overflow-wrap:anywhere}
+.analytics-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.analytics-filters select,.analytics-filters input{min-width:0;width:100%}
+@media(max-width:1000px){.analytics-filters{grid-template-columns:repeat(3,minmax(0,1fr))}.analytics-charts{grid-template-columns:1fr}}
+@media(max-width:600px){.analytics-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.analytics-entry-values{display:grid;grid-template-columns:minmax(100px,1fr) minmax(100px,1fr);gap:8px 16px;min-width:260px;margin:12px 0}
+.analytics-entry-values dt{color:var(--muted)}
+.analytics-entry-values dd{margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
