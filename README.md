@@ -1,8 +1,12 @@
-# FX EdgeFinder Companion v5.6.18
+# FX EdgeFinder Companion v5.6.19
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
 IndexedDB gespeichert. GitHub Pages speichert keine persönlichen Analysen.
+
+## v5.6.19 – Schlankere Formulare
+
+Entfernt: Gesamtfazit und weitere Notizen im Morgenüberblick; Trade-These, Pip-Wert/Lots-Schätzung, Kosten- und Managementfelder, technisches Setup und Exposure/Prop-Regeln in Trade-Ideen. Zugehörige Readiness-, Risk-Gate- und Checklistenpflichten entfallen ebenso wie die technische Faktorbewertung. Die vier fundamentalen Faktoren und Edge Analytics bleiben erhalten. Gespeicherte historische Werte und Snapshots werden nicht gelöscht oder migriert.
 
 ## v5.6.18 – Edge Analytics
 
@@ -87,7 +91,7 @@ Der neue Menüpunkt **Auswertung** nutzt bestehende lokale Trade-Datensätze:
 - Bestehende Datensätze, Bilder und Backups bleiben kompatibel. Keine Migration,
   neue Datenbank, Marktdatenabfrage oder Cloud-Speicherung.
 
-`analytics.v5.6.18.js` enthält die read-only Auswertung und das Festhalten der
+`analytics.v5.6.19.js` enthält die read-only Auswertung und das Festhalten der
 Bewertungen; die Navigation und Statuswechsel bleiben im aktiven Core.
 Die automatisierten Tests prüfen Zahlen, Datumsfilter, fehlende Werte,
 Bestandsdaten, Statuswechsel, Duplikate, Speicherung und HTML-Escaping.
@@ -136,11 +140,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.18.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.18.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.18.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.18.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.18.css` | Basislayout |
+| `data.base.v5.6.19.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.19.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.19.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.19.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.19.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche

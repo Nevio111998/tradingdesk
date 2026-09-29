@@ -1,28 +1,28 @@
 {
-  "version": "5.6.18",
+  "version": "5.6.19",
   "created": "2026-09-29",
-  "baseVersion": "5.6.17",
-  "notes": "Edge Analytics: Confidence, Currency-Exposure, Faktoren und Kombinationen, erweiterte Entry-Werte, Filter und Drawdown-Kurve. Alte Snapshots bleiben unverändert.",
-  "architecture": "Bestehender Core und Analytics-Modul erweitert. Keine Datenbankmigration; Versionsmarker 5.6.18.",
+  "baseVersion": "5.6.18",
+  "notes": "Screenshot-Felder samt Trade-Pflichtprüfungen entfernt; Altdaten und Entry-Snapshots unverändert.",
+  "architecture": "Bestehender Core und Analytics-Modul erweitert. Keine Datenbankmigration; Versionsmarker 5.6.19.",
   "files": [
     "index.html",
-    "style.base.v5.6.18.css",
-    "style.v5.6.18.css",
-    "data.base.v5.6.18.js",
-    "version-bridge.v5.6.18.js",
-    "app.base.v5.6.18.js",
-    "app.v5.6.18.js",
-    "analytics.v5.6.18.js"
+    "style.base.v5.6.19.css",
+    "style.v5.6.19.css",
+    "data.base.v5.6.19.js",
+    "version-bridge.v5.6.19.js",
+    "app.base.v5.6.19.js",
+    "app.v5.6.19.js",
+    "analytics.v5.6.19.js"
   ],
   "hashAlgorithm": "sha256",
   "sha256": {
-    "index.html": "a7f3c602af056bfb10185328ca32e38f43cf6bc711071bafab6974a7733d3296",
-    "style.base.v5.6.18.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
-    "style.v5.6.18.css": "e93c794f7e131286ee4c7778e3b9ac8ee39e088693d3ed5d40bdba494ce08131",
-    "data.base.v5.6.18.js": "b289efa7bcfaa5eb1713db6642f1cecac1f69c6108ee3ceb28cf94974c39b4e9",
-    "version-bridge.v5.6.18.js": "1e9698abef9223223cec0c3edbaf51b18efb34d5d323cb73f27fe4672591e5d7",
-    "app.base.v5.6.18.js": "ae7df2966d6893e5f21ac0e0adfa6017dc8c1375098b4202a461ef6acf5b7f71",
-    "app.v5.6.18.js": "b34113df23b91257111d8664b140eaff7fb77b6a08a98b1024170af7c8b83c44",
-    "analytics.v5.6.18.js": "c06211ffcf57c6d0a3b1b89f932ddabf7a9b2d8b493b6f2e5a9b927cc71a8d16"
+    "index.html": "4d5da67ad5fb8664a1c987f02ac9720a65e98b57ef76197f1ecd29e59d5a2687",
+    "style.base.v5.6.19.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
+    "style.v5.6.19.css": "59ce287d21108eb9556a13798ce07653357a53d071de100199ca75db3cac1778",
+    "data.base.v5.6.19.js": "f02a2db113917e407cc4e3859948146b12533dc45409807bbe7b2f451fc15289",
+    "version-bridge.v5.6.19.js": "7d76bebd582d273cb5a041fd93a53c752e16672d4f327916969e3d518bfc2aae",
+    "app.base.v5.6.19.js": "28133dd427d16c3974cc0e3de17d9037a22ffd63c80df41103d25e0a551a58b3",
+    "app.v5.6.19.js": "11d989de93d2ec74739aad99b958e3ac8757513ecdc62d1af8d9b7a108e0ae26",
+    "analytics.v5.6.19.js": "c06211ffcf57c6d0a3b1b89f932ddabf7a9b2d8b493b6f2e5a9b927cc71a8d16"
   }
 }

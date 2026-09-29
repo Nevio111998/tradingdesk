@@ -57,7 +57,7 @@ const rt=runtime();
 const select=t=>Object.assign(rt.state,{records:[t],record:t,id:t.id,route:t.kind==='trade'?'trade':'macro',tab:'overview'});
 const warnings=t=>rt.readiness(t).warnings;
 const snapshot=x=>JSON.stringify(x);
-assert.equal(rt.D.tradeItems.length,17);assert.equal(rt.D.pairMacroGroups.length,7);
+assert.equal(rt.D.tradeItems.length,15);assert.equal(rt.D.pairMacroGroups.length,7);
 for(const name of ['EURUSD','GBPUSD','USDCHF']){
  const m=rt.defaultRecord('macro');select(m);const p=m.pairs.find(p=>p.pair===name);const base=p.pair.slice(0,3),quote=p.pair.slice(3);m.currencies[base]={yield2:'4.2'};m.currencies[quote]={yield2:'2.1'};
  p.thesis='Original thesis';p.counterThesis='Original counter';p.invalidation='Original invalidation';p.nextEvent='CPI tomorrow';p.notes='Original sources';p.direction='Long Bias';
@@ -89,5 +89,5 @@ rt.element('#approval-decision').value='Invalid';rt.saveApproval();assert.equal(
 Object.assign(pending,{status:'Bereit',decision:'Trade geplant',approvalAt:'previous'});pending.checklist.finalDecision='done';rt.handleBound({dataset:{bind:'decision'},value:'Offen'});assert.equal(pending.status,'Watchlist');assert.equal(pending.approvalAt,'');assert.equal(pending.checklist.finalDecision,'todo');
 for(const kind of ['macro','trade']){const doc=rt.defaultRecord(kind);select(doc);for(const tab of kind==='macro'?['overview','currencies','pairs','events','screenshots']:['overview','checklist','execution','events','screenshots','journal']){rt.state.tab=tab;assert((kind==='macro'?rt.renderMacro(doc):rt.renderTrade(doc)).length>100);}}
 assert(rt.renderHome().length>100);assert(rt.renderSources().length>100);assert(rt.renderSettings().length>100);
-console.log('PASS: 3 pairs, directional/legacy EdgeFinder, catalyst detection, 18 decision transitions, persistence, all page renderers; 17 checks and rates unchanged.');
+console.log('PASS: 3 pairs, directional/legacy EdgeFinder, catalyst detection, 18 decision transitions, persistence, all page renderers; 15 checks and rates unchanged.');
 })().catch(e=>{console.error(e);process.exitCode=1});
