@@ -53,7 +53,7 @@ const edgeOptions=['Strong Bullish','Bullish','Neutral','Bearish','Strong Bearis
 const confirmOptions=['Bestätigt','Neutral','Widerspricht','Nicht verfügbar'];
 const fields={
  event:[F('nextEvent','Nächster relevanter Catalyst'),F('nextEventAt','Datum / Uhrzeit','datetime-local'),F('eventPlan','Was tue ich vor und nach dem Event?','textarea','Risiko reduzieren, abwarten, kein Entry vor der Veröffentlichung …')],
- edge:[F('edgeBase','EdgeFinder Base-Bias','select','',edgeOptions),F('edgeQuote','EdgeFinder Quote-Bias','select','',edgeOptions),F('edgeScoreBase','Base EdgeFinder Score','number','Optional'),F('edgeScoreQuote','Quote EdgeFinder Score','number','Optional'),F('edgeIncluded','Was ist im EdgeFinder bereits abgedeckt?','textarea','Growth, Jobs, Inflation/Rates, COT, Retail Sentiment, Technical, Real Yield Proxy …'),F('edgeGap','Was muss ich zusätzlich prüfen?','textarea','OIS/Futures-Repricing, 2Y-Differential, dominanter Market Driver, Event-Risiko, konkrete Zentralbank-Kommunikation …')],
+ edge:[F('edgePairScore','EdgeFinder Paar-Score','number','z. B. -3, 0 oder 5',null,'Originalscore für genau dieses Paar, inklusive Vorzeichen. Nicht an Long/Short anpassen.'),F('edgeIncluded','Was ist im EdgeFinder bereits abgedeckt?','textarea','Growth, Jobs, Inflation/Rates, COT, Retail Sentiment, Technical, Real Yield Proxy …'),F('edgeGap','Was muss ich zusätzlich prüfen?','textarea','OIS/Futures-Repricing, 2Y-Differential, dominanter Market Driver, Event-Risiko, konkrete Zentralbank-Kommunikation …')],
  policy:[F('policyBase','Base-Zentralbank / aktueller Leitzins','text','z. B. Fed, … %'),F('policyQuote','Quote-Zentralbank / aktueller Leitzins','text','z. B. BoJ, … %'),F('policyPricing','Zusatzcheck: Marktpricing nächste Sitzung / 3–12 Monate','textarea','OIS/Futures/broker data: erwartete bp, Vergleich zu letzter Woche, wichtigste Überraschung'),F('policyChange','Zentralbank vs. Markterwartung','textarea','Ist die Zentralbank hawkisher/dovisher als eingepreist? Was wurde neu repriced?')],
  rates:[F('yieldBase','Base 2Y (%)','number','0.000'),F('yieldQuote','Quote 2Y (%)','number','0.000'),F('yieldPrev','2Y-Spread vor 1 Woche (bp)','number','Optional'),F('yieldPrev2','2Y-Spread vor 2 Wochen (bp)','number','Optional'),F('yieldSource','Quelle / Datenzeitpunkt','text','Anbieter und Stand'),F('yieldNotes','Warum bewegt sich der Spread?','textarea','Monetary Policy, Wachstum, Inflation, Fiskalprämie …')],
  real:[F('realBase','Base EdgeFinder-Realzins (%)','number','Optional'),F('realQuote','Quote EdgeFinder-Realzins (%)','number','Optional'),F('realTenor','Definition / Methode','text','EdgeFinder: Leitzins − CPI YoY (ex-post Realzins-Proxy; keine Anleihelaufzeit)'),F('realSource','Quelle / Datenzeitpunkt','text','EdgeFinder Screenshot / Stand'),F('realNotes','Interpretation und Einschränkungen','textarea','Dieser Wert ist im EdgeFinder enthalten und wird nicht nochmals als unabhängige Bestätigung gezählt.')],
@@ -273,7 +273,7 @@ const tradeItems=tradeGroups.flatMap(g=>g.items);
 const tradeCheckIds=new Set(tradeItems.map(item=>item.id));
 
 const FACTORS=[
-{id:'edgefinder',title:'EdgeFinder Baseline',description:'Gesamtbias und relative Stärke aus EdgeFinder. Zählt als Ausgangslage, nicht als kompletter Trade.'},
+{id:'edgefinder',title:'EdgeFinder Baseline',description:'Originaler EdgeFinder-Score für dieses Währungspaar. Zählt als Ausgangslage, nicht als kompletter Trade.'},
 {id:'rates',title:'Rates / 2Y / Repricing',description:'Zusatzcheck: OIS/Futures, 2Y-Differential und Veränderung der Zinserwartungen als eine Rates-Säule.'},
 {id:'narrative',title:'Market Driver',description:'Der aktuell dominierende Treiber, der die nächsten Tage wirklich relevant ist.'},
 {id:'risk',title:'Risk / Positioning / Cross-Asset',description:'Risk-Regime, relevante Intermarket-Signale, COT/Retail und Crowding.'}
@@ -285,4 +285,4 @@ const allItems=groups.flatMap(g=>g.items);
 return {S,CURRENCIES,fields,groups,pairMacroGroups,tradeGroups,tradeItems,tradeCheckIds,FACTORS,outcomes,bias,status,allItems};
 })();
 
-window.FX_COMPANION_DATA_VERSION='5.6.19';
+window.FX_COMPANION_DATA_VERSION='5.6.20';

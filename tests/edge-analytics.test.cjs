@@ -4,22 +4,22 @@ const context=vm.createContext({window:{},Intl});vm.runInContext(fs.readFileSync
 const A=context.window.FXAnalytics,clone=x=>JSON.parse(JSON.stringify(x));
 const near=(a,b)=>assert(Math.abs(a-b)<1e-10,`${a} != ${b}`);
 function open(id,confidence='High',direction='Long',symbol='AUDNZD'){
- const t={id,kind:'trade',status:'Idee',pair:symbol,direction,closedAt:'',realizedR:'',fields:{confidence,edgeBase:'Bullish',edgeQuote:'Bearish',edgeScoreBase:'4',edgeScoreQuote:'-2',yieldBase:'4.1',yieldQuote:'3.4',yieldPrev:'50',yieldPrev2:'40',driverMain:'RBA / RBNZ',riskRegime:'Risk-On'},factors:{edgefinder:'Bestätigt',rates:'Bestätigt',narrative:'Neutral',risk:'Widerspricht'}};
+ const t={id,kind:'trade',status:'Idee',pair:symbol,direction,closedAt:'',realizedR:'',fields:{confidence,edgePairScore:'5',edgeBase:'Bullish',edgeQuote:'Bearish',edgeScoreBase:'4',edgeScoreQuote:'-2',yieldBase:'4.1',yieldQuote:'3.4',yieldPrev:'50',yieldPrev2:'40',driverMain:'RBA / RBNZ',riskRegime:'Risk-On'},factors:{edgefinder:'Bestätigt',rates:'Bestätigt',narrative:'Neutral',risk:'Widerspricht'}};
  A.capture(t,'Idee','Offen','2026-09-10T08:00:00Z');t.status='Offen';return t;
 }
 function close(t,r,date='2026-09-20T15:00'){A.capture(t,'Offen','Geschlossen','2026-09-20T14:00:00Z');t.status='Geschlossen';t.realizedR=r;t.closedAt=date;return t}
 const t=open('new');const details=t.analyticsEntry.fundamentals;
-assert.equal(t.analyticsEntry.version,1);assert.equal(t.analyticsEntry.detailsVersion,1);
-assert.equal(details.edgeBaseBias,'Bullish');assert.equal(details.edgeQuoteBias,'Bearish');assert.equal(details.edgeScoreDifference,6);
+assert.equal(t.analyticsEntry.version,1);assert.equal(t.analyticsEntry.detailsVersion,2);
+assert.equal(details.edgePairScore,5);assert(!('edgeScoreDifference' in details));assert(!('edgeBaseScore' in details));
 assert.equal(details.base2y,4.1);assert.equal(details.quote2y,3.4);near(details.spread2yBp,70);assert.equal(details.previousSpread2yBp,50);assert.equal(details.marketDriver,'RBA / RBNZ');assert.equal(details.riskRegime,'Risk-On');
-const before=JSON.stringify(t.analyticsEntry);t.fields.confidence='Low';t.fields.yieldBase='10';t.fields.edgeScoreBase='-100';t.factors.rates='Widerspricht';t.macroSnapshot={currencies:{AUD:{yield2:99}}};close(t,2);A.capture(t,'Watchlist','Offen','2026-09-22T10:00:00Z');assert.equal(JSON.stringify(t.analyticsEntry),before);
+const before=JSON.stringify(t.analyticsEntry);t.fields.confidence='Low';t.fields.yieldBase='10';t.fields.edgePairScore='-100';t.factors.rates='Widerspricht';t.macroSnapshot={currencies:{AUD:{yield2:99}}};close(t,2);A.capture(t,'Watchlist','Offen','2026-09-22T10:00:00Z');assert.equal(JSON.stringify(t.analyticsEntry),before);
 assert.equal(A.confidence(t),'High');assert.equal(A.rating(t,'rates'),'Bestätigt');near(A.detail(t,'spread2yBp'),70);
 // Exact old v5.6.17 shape, including mutable fields which must never backfill it.
 const old={...clone(t),id:'v5617',analyticsEntry:{version:1,capturedAt:'2026-09-01T12:00:00Z',pair:'AUDNZD',direction:'Long',confidence:'Medium',factors:{edgefinder:'Bestätigt',rates:'Widerspricht',narrative:'Bestätigt',risk:'Neutral'}}};
 const oldBefore=JSON.stringify(old);assert.equal(A.confidence(old),'Medium');assert.equal(A.rating(old,'narrative'),'Bestätigt');assert.equal(A.detail(old,'base2y'),null);A.render([old]);assert.equal(JSON.stringify(old),oldBefore);
 const noSnapshot={...clone(old),id:'pre-snapshot'};delete noSnapshot.analyticsEntry;assert.equal(A.confidence(noSnapshot),'Keine Daten');assert.equal(A.rating(noSnapshot,'rates'),'Keine Daten');assert.equal(A.detail(noSnapshot,'base2y'),null);
 const incomplete=open('empty');delete incomplete.analyticsEntry.confidence;delete incomplete.analyticsEntry.factors.risk;assert.equal(A.confidence(incomplete),'Keine Daten');assert.equal(A.rating(incomplete,'risk'),'Keine Daten');
-const missing={kind:'trade',status:'Idee',pair:'USDCHF',direction:'Long',fields:{edgeScoreBase:'0',edgeScoreQuote:'',yieldBase:'0',yieldQuote:'0',yieldPrev:'0'},factors:{}};A.capture(missing,'Idee','Offen','2026-09-10T08:00:00Z');assert.equal(missing.analyticsEntry.fundamentals.edgeScoreDifference,null);assert.equal(missing.analyticsEntry.fundamentals.base2y,0);assert.equal(missing.analyticsEntry.fundamentals.spread2yBp,0);assert.equal(missing.analyticsEntry.fundamentals.previousSpread2yBp,0);
+const missing={kind:'trade',status:'Idee',pair:'USDCHF',direction:'Long',fields:{edgeScoreBase:'0',edgeScoreQuote:'',yieldBase:'0',yieldQuote:'0',yieldPrev:'0'},factors:{}};A.capture(missing,'Idee','Offen','2026-09-10T08:00:00Z');assert.equal(missing.analyticsEntry.fundamentals.edgePairScore,null);assert.equal(missing.analyticsEntry.fundamentals.base2y,0);assert.equal(missing.analyticsEntry.fundamentals.spread2yBp,0);assert.equal(missing.analyticsEntry.fundamentals.previousSpread2yBp,0);
 assert.equal(A.fundamentals({fields:{yieldBase:'',yieldQuote:'2',edgeScoreBase:'x',edgeScoreQuote:2}}).spread2yBp,null);
 assert.equal(A.fundamentals({fields:{yieldBase:'-0.25',yieldQuote:'0'}}).spread2yBp,-25);
 for(const currency of ['USD','EUR','GBP','JPY','AUD','NZD','CAD','CHF']){
@@ -51,4 +51,21 @@ for(const key of A.FILTER_KEYS)assert(html.includes(`id="analytics-${key}"`));
 for(const label of ['Confidence beim Öffnen','Long Currency','Short Currency','Market Driver beim Öffnen','Risk beim Öffnen','Rates + Market Driver','Rates + Risk','EdgeFinder + Rates + Market Driver','Drawdown der R-Summe','Sehr kleine Gruppe','Expectancy','Historische Entry-Werte ansehen'])assert(html.includes(label),label);
 assert.equal((html.match(/<svg /g)||[]).length,2);assert(!html.includes('NaN'));assert(!html.includes('Infinity'));assert.equal(JSON.stringify(old),oldBefore);
 const reset=A.emptyFilters();assert(Object.values(reset).every(v=>v===''));assert.equal(A.select(rows,reset).closed.length,rows.length);
+// Pair scores are original signed values, never reconstructed from currency scores.
+for(const value of ['0','-3','4.5','',undefined,'invalid']){
+ const trade={kind:'trade',pair:'EURCHF',direction:'Short',fields:{edgePairScore:value,edgeScoreBase:9,edgeScoreQuote:1},factors:{}};
+ A.capture(trade,'Idee','Offen','2026-09-10T08:00:00Z');
+ assert.equal(trade.analyticsEntry.fundamentals.edgePairScore,A.number(value));
+ const snap=JSON.stringify(trade.analyticsEntry);trade.fields.edgePairScore=10;A.capture(trade,'Watchlist','Offen','2026-09-11T08:00:00Z');assert.equal(JSON.stringify(trade.analyticsEntry),snap);
+}
+const legacy18=clone(old);legacy18.analyticsEntry.detailsVersion=1;legacy18.analyticsEntry.fundamentals={edgeBaseScore:4,edgeQuoteScore:-2,edgeScoreDifference:6,base2y:4.1};legacy18.fields.edgePairScore=7;
+const legacyBefore=JSON.stringify(legacy18);assert.equal(A.detail(legacy18,'edgePairScore'),null);A.render([legacy18]);assert.equal(JSON.stringify(legacy18),legacyBefore);
+const longScore=close(open('longscore'),1),shortScore=close(open('shortscore','High','Short'),-1);shortScore.analyticsEntry.fundamentals.edgePairScore=-5;
+const pairHtml=A.render([longScore,shortScore,legacy18]);
+assert(pairHtml.includes('EdgeFinder Paar-Score beim Öffnen'));assert(pairHtml.includes('Paar-Score in Handelsrichtung'));assert(!pairHtml.includes('Score-Differenz'));assert(!pairHtml.includes('EdgeFinder Base Bias'));
+// Each score table contains both trades once; short orientation never mutates the original score.
+const rawTable=pairHtml.split('<caption>EdgeFinder Paar-Score beim Öffnen</caption>')[1].split('</table>')[0];assert(rawTable.includes('>5</th>'));assert(rawTable.includes('>-5</th>'));assert(rawTable.includes('Keine Daten'));
+const directionTable=pairHtml.split('<caption>Paar-Score in Handelsrichtung')[1].split('</table>')[0];assert(directionTable.includes('Positiv</th><td>2</td>'));
+assert.equal(shortScore.analyticsEntry.fundamentals.edgePairScore,-5);
+console.log('PASS: signed/zero/missing pair scores, frozen values, legacy v5.6.18 preservation, no currency-score fallback and direction-aware score tables.');
 console.log('PASS: extended and v5.6.17 snapshots, no historical backfill, eight-currency exposure, all filters, combinations, expectancy/win/loss metrics, drawdown, timezone ordering and compact rendering.');
