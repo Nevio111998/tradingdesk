@@ -1,28 +1,28 @@
 {
-  "version": "5.6.17",
+  "version": "5.6.18",
   "created": "2026-09-29",
-  "baseVersion": "5.6.16",
-  "notes": "Journal-Auswertung mit R-Kennzahlen, Filtervergleich, Ergebnisverlauf und getrennten verworfenen Ideen. Bestehende Browserdaten bleiben erhalten.",
-  "architecture": "Aktiver Core, Darstellungsergänzung und read-only Analytics-Modul; Versionsmarker 5.6.17.",
+  "baseVersion": "5.6.17",
+  "notes": "Edge Analytics: Confidence, Currency-Exposure, Faktoren und Kombinationen, erweiterte Entry-Werte, Filter und Drawdown-Kurve. Alte Snapshots bleiben unverändert.",
+  "architecture": "Bestehender Core und Analytics-Modul erweitert. Keine Datenbankmigration; Versionsmarker 5.6.18.",
   "files": [
     "index.html",
-    "style.base.v5.6.17.css",
-    "style.v5.6.17.css",
-    "data.base.v5.6.17.js",
-    "version-bridge.v5.6.17.js",
-    "app.base.v5.6.17.js",
-    "app.v5.6.17.js",
-    "analytics.v5.6.17.js"
+    "style.base.v5.6.18.css",
+    "style.v5.6.18.css",
+    "data.base.v5.6.18.js",
+    "version-bridge.v5.6.18.js",
+    "app.base.v5.6.18.js",
+    "app.v5.6.18.js",
+    "analytics.v5.6.18.js"
   ],
   "hashAlgorithm": "sha256",
   "sha256": {
-    "index.html": "41784563c9db1044c7c312f41af41eac06218752717d5c8cc55033489d41c749",
-    "style.base.v5.6.17.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
-    "style.v5.6.17.css": "88caeaf8d464cef1f24e69ecac4b2a6322b0f5ac55e3a1fc9116bed09f8e50ab",
-    "data.base.v5.6.17.js": "8f3a7f5cf246ff35a2911c46c89d5fd3f2c64c242d84328af01789bec2739543",
-    "version-bridge.v5.6.17.js": "3911985ce4595b26555d49d0ce6faf5a2c0868f36053e12db9f5ad3848309909",
-    "app.base.v5.6.17.js": "cce99931d8d54103a1dbb4bb9ea10defbedf5e8744b669631948f3ff94397db8",
-    "app.v5.6.17.js": "dbf593d033d8fa87aad4c777561ce9df5c7ad8332b4149e9d41f2b46e45c880a",
-    "analytics.v5.6.17.js": "cbca1e45479171b5083a76ae76a9d1fc4dcf4090b8d809e49135e63acbb695b3"
+    "index.html": "a7f3c602af056bfb10185328ca32e38f43cf6bc711071bafab6974a7733d3296",
+    "style.base.v5.6.18.css": "1728585860a4fed48649a3a2e09a74401e4b0610cdd2189ec39318a963daf9b2",
+    "style.v5.6.18.css": "e93c794f7e131286ee4c7778e3b9ac8ee39e088693d3ed5d40bdba494ce08131",
+    "data.base.v5.6.18.js": "b289efa7bcfaa5eb1713db6642f1cecac1f69c6108ee3ceb28cf94974c39b4e9",
+    "version-bridge.v5.6.18.js": "1e9698abef9223223cec0c3edbaf51b18efb34d5d323cb73f27fe4672591e5d7",
+    "app.base.v5.6.18.js": "ae7df2966d6893e5f21ac0e0adfa6017dc8c1375098b4202a461ef6acf5b7f71",
+    "app.v5.6.18.js": "b34113df23b91257111d8664b140eaff7fb77b6a08a98b1024170af7c8b83c44",
+    "analytics.v5.6.18.js": "c06211ffcf57c6d0a3b1b89f932ddabf7a9b2d8b493b6f2e5a9b927cc71a8d16"
   }
 }
