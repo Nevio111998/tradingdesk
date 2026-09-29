@@ -66,7 +66,7 @@ for(const pair of ['EURUSD','GBPUSD','USDCHF']){
  const checks=h=>[...h.matchAll(/data-check="([^"]+)"/g)].map(x=>x[1]);assert.equal(checks(after).length,15);
  const overview=rt.renderTradeOverview(t),check=rt.renderChecklists(t),execution=rt.renderExecution(t);
  assert(overview.includes('Frozen thesis'));assert(overview.includes('Frozen counter'));assert(!overview.includes('Current changed thesis'));assert(overview.includes('Frozen driver note'));
- assert(!bindings(overview).includes('fields.edgeBase'));assert(bindings(check).includes('fields.edgeBase'));
+ assert(!bindings(overview).includes('fields.edgeBase'));assert(bindings(check).includes('fields.edgePairScore'));
  for(const key of ['fields.entry','fields.stop']){assert(!bindings(check).includes(key));assert(bindings(execution).includes(key));}
  for(const key of ['fields.catalyst','fields.fundamentalInvalidation','fields.confidence']){assert(!bindings(check).includes(key));assert(bindings(overview).includes(key));}
  const key=JSON.stringify(['trade:'+t.id,'view','fields-policy']);rt.rememberPairDetail({dataset:{pairDetail:key},open:true,isConnected:true});assert(rt.renderChecklists(t).includes('data-pair-detail="'+key.replaceAll('"','&quot;')+'" open'));assert.equal(JSON.stringify(t),before);
@@ -75,7 +75,7 @@ for(const pair of ['EURUSD','GBPUSD','USDCHF']){
 }
 const standalone=rt.defaultRecord('trade');Object.assign(rt.state,{records:[standalone],id:standalone.id,record:standalone,route:'trade'});assert(rt.renderTradeOverview(standalone).includes('Noch keine Morgenanalyse übernommen'));assert(rt.renderChecklists(standalone).includes('fields.edgeIncluded'));
 // Removed inputs must stay absent for new AND legacy records, including their gates.
-const removed=['thesis','pipValue','costs','executionPlan','technicalInvalidation','exitPlan','d1Bias','h4Structure','setup','technicalNotes','openExposure','totalRisk','gapRisk'];
+const removed=['thesis','pipValue','costs','executionPlan','technicalInvalidation','exitPlan','d1Bias','h4Structure','setup','technicalNotes','openExposure','totalRisk','gapRisk','edgeBase','edgeQuote','edgeScoreBase','edgeScoreQuote'];
 const ready=rt.defaultRecord('trade');Object.assign(ready,{pair:'EURUSD',direction:'Long',macroSnapshot:{date:new Date().toISOString().slice(0,10)},fields:{entry:'1.1',stop:'1.09',target:'1.13',riskPercent:'0.5',account:'10000',fundamentalInvalidation:'Repricing reversal',catalyst:'CPI'}});
 for(const f of rt.D.FACTORS)ready.factors[f.id]='Bestätigt';
 for(const i of rt.D.tradeItems)ready.checklist[i.id]='done';

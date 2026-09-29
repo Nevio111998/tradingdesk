@@ -1,7 +1,7 @@
 /* FX EdgeFinder Companion — standalone, offline-data-first browser application. */
 'use strict';
 (() => {
-const BUILD_VERSION='5.6.19';
+const BUILD_VERSION='5.6.20';
 window.FX_COMPANION_VERSION=BUILD_VERSION;
 const D=FXD, C=Object.keys(D.CURRENCIES), $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
 const state={db:null,records:[],assets:new Map(),route:'home',id:null,tab:'overview',currency:'USD',macroTab:'global',filter:'all',query:'',dirty:false,revision:0,saveTimer:null,saveChain:Promise.resolve(),saving:false,record:null,expanded:new Set(),imageUrls:new Map(),settings:{minRR:2,maxRisk:1,defaultRisk:0.5,accountCurrency:'CHF'},toastTimer:null};
