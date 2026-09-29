@@ -1,8 +1,41 @@
-# FX EdgeFinder Companion v5.6.16
+# FX EdgeFinder Companion v5.6.17
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
 IndexedDB gespeichert. GitHub Pages speichert keine persönlichen Analysen.
+
+## v5.6.17 – Journal-Auswertung
+
+Der neue Menüpunkt **Auswertung** nutzt bestehende lokale Trade-Datensätze:
+
+- Anzahl geschlossener Trades, Summe und Durchschnitt realisierter R,
+  Trefferquote (Gewinne / alle Ergebnisse inklusive Break-even), Profitfaktor
+  auf R-Basis und maximaler Rückgang der kumulierten realisierten R.
+- Verlauf nach Abschlussdatum, Filter nach Paar, Richtung und Abschlusszeitraum.
+  Fehlende oder ungültige Ergebnisse sind kein Null-Trade. Ohne Verlust-R ist
+  der Profitfaktor nicht berechenbar. Der R-Rückgang ist kein Konto-Drawdown.
+- Gruppenvergleich EdgeFinder/Rates sowie Paar/Richtung; Stichprobengrösse und
+  fehlende Ergebnisse bleiben sichtbar. Gruppenvergleiche sind beschreibend,
+  keine kausale Erfolgsprüfung eines Filters.
+- Beim ersten Statuswechsel von einer Idee zu **Offen** werden Paar, Richtung,
+  fundamentale Bewertungen und Confidence in `analyticsEntry` festgehalten.
+  Spätere Faktoränderungen überschreiben diesen Stand nicht. Paar-/Richtungs-
+  Änderungen machen ihn für die Gruppenzuordnung unpassend. Beim Duplizieren
+  wird er entfernt. Historische oder direkt geschlossen erfasste Trades erhalten
+  keinen nachträglich erfundenen Bewertungsstand; ihre Ergebnisse zählen weiter.
+- Verworfene Trade-Ideen erscheinen separat, ohne hypothetisches Ergebnis.
+  Im Journal kann ein Ablehnungsgrund ergänzt werden. Diese Übersicht folgt
+  Paar/Richtung, aber nicht dem Abschlusszeitraum. Verworfene Paarbewertungen
+  aus Tagesanalysen werden nicht als eigene Trades gezählt.
+- Bestehende Datensätze, Bilder und Backups bleiben kompatibel. Keine Migration,
+  neue Datenbank, Marktdatenabfrage oder Cloud-Speicherung.
+
+`analytics.v5.6.17.js` enthält die read-only Auswertung und das Festhalten der
+Bewertungen; die Navigation und Statuswechsel bleiben im aktiven Core.
+Die automatisierten Tests prüfen Zahlen, Datumsfilter, fehlende Werte,
+Bestandsdaten, Statuswechsel, Duplikate, Speicherung und HTML-Escaping.
+Eine echte Desktop-/Mobil-Sichtprüfung war in dieser Umgebung nicht möglich:
+Der Browser-Download lieferte kein gültiges Installationsarchiv.
 
 ## Trade-Ideen und Journal
 
@@ -46,11 +79,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.16.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.16.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.16.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.16.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.16.css` | Basislayout |
+| `data.base.v5.6.17.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.17.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.17.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.17.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.17.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
