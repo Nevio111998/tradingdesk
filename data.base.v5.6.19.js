@@ -246,29 +246,27 @@ const TRADE_CHECK_SELECTION = {
   "intermarket": [],
   "positioning": [],
   "thesis": [
-    "thesisClear",
     "thesisCatalyst",
     "thesisConflicts"
   ],
   "invalidation": [],
-  "technical": [],
   "execution": [],
   "final": [
     "finalEvidence",
     "finalDrivers",
     "finalContradictions",
     "finalEvent",
-    "finalSetup",
     "finalIndependent",
     "finalDecision"
   ]
 };
 const tradeGroups = groups.filter(g=>Object.hasOwn(TRADE_CHECK_SELECTION,g.id)).map((g,index)=>{
   const selected=new Set(TRADE_CHECK_SELECTION[g.id]);
-  const items=g.items.filter(item=>selected.has(item.id));
+  const items=g.items.filter(item=>selected.has(item.id)).map(item=>item.id==='finalEvent'?{...item,label:'Event-Risiko ist akzeptabel'}:item);
   if(items.length!==selected.size)throw new Error('Unbekannte Trade-Checklisten-ID: '+g.id);
-  const fields=g.id==='event'?[]:g.fields;
-  return {...g,number:String(index+1).padStart(2,'0'),items,fields,
+  const removedFields=new Set(["thesis", "pipValue", "costs", "executionPlan", "technicalInvalidation", "exitPlan", "d1Bias", "h4Structure", "setup", "technicalNotes", "openExposure", "totalRisk", "gapRisk"]);
+  const fields=g.id==='event'?[]:(g.fields||[]).filter(f=>!removedFields.has(f.id));
+  return {...g,...(g.id==='thesis'?{title:'Catalyst & Gegenargumente',subtitle:'Treiber und mögliche Gegenargumente prüfen.'}:{}),number:String(index+1).padStart(2,'0'),items,fields,
     sourceLinks:[...new Set(g.items.flatMap(item=>item.links||[]))]};
 });
 const tradeItems=tradeGroups.flatMap(g=>g.items);
@@ -278,8 +276,7 @@ const FACTORS=[
 {id:'edgefinder',title:'EdgeFinder Baseline',description:'Gesamtbias und relative Stärke aus EdgeFinder. Zählt als Ausgangslage, nicht als kompletter Trade.'},
 {id:'rates',title:'Rates / 2Y / Repricing',description:'Zusatzcheck: OIS/Futures, 2Y-Differential und Veränderung der Zinserwartungen als eine Rates-Säule.'},
 {id:'narrative',title:'Market Driver',description:'Der aktuell dominierende Treiber, der die nächsten Tage wirklich relevant ist.'},
-{id:'risk',title:'Risk / Positioning / Cross-Asset',description:'Risk-Regime, relevante Intermarket-Signale, COT/Retail und Crowding.'},
-{id:'technical',title:'Technical Structure',description:'D1/H4/M15, Invalidierung und konkreter Entry-Trigger.'}
+{id:'risk',title:'Risk / Positioning / Cross-Asset',description:'Risk-Regime, relevante Intermarket-Signale, COT/Retail und Crowding.'}
 ];
 const outcomes=['Unbewertet','Bestätigt','Neutral','Widerspricht','Nicht verfügbar'];
 const bias=['Unbewertet','Strong Bullish','Bullish','Slightly Bullish','Neutral','Slightly Bearish','Bearish','Strong Bearish'];
@@ -288,4 +285,4 @@ const allItems=groups.flatMap(g=>g.items);
 return {S,CURRENCIES,fields,groups,pairMacroGroups,tradeGroups,tradeItems,tradeCheckIds,FACTORS,outcomes,bias,status,allItems};
 })();
 
-window.FX_COMPANION_DATA_VERSION='5.6.18';
+window.FX_COMPANION_DATA_VERSION='5.6.19';
