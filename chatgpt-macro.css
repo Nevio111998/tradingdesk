@@ -1,1 +1,25 @@
-.chat-macro{max-width:1150px;margin:auto;display:grid;gap:18px}.chat-macro header h1{font-size:1.7rem;margin:0}.chat-macro header p,.cm-hint{color:var(--muted,#9ba9b5)}.cm-row,.cm-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.cm-row select{padding:9px;background:var(--surface,#17202a);color:inherit;border:1px solid #607080;border-radius:8px}.chat-macro textarea{width:100%;box-sizing:border-box;padding:14px;min-height:135px;border-radius:9px;border:1px solid #607080;background:var(--surface,#17202a);color:inherit;font:inherit}.cm-report{border:1px solid #566575;border-radius:12px;padding:20px}.cm-report h2{margin:0}.cm-driver{border-bottom:1px solid #45515e;padding:10px 0}.cm-driver a{color:#69afff;word-break:break-all}.cm-report ul{padding-left:22px}
+.chat-macro{max-width:1150px;margin:auto;display:grid;gap:18px}
+.chat-macro header h1{font-size:1.7rem;margin:0}
+.chat-macro header small{font-size:.65em;opacity:.7;font-weight:400}
+.chat-macro header p,.cm-hint{color:var(--muted,#9ba9b5)}
+.cm-row,.cm-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.cm-row select,.chat-macro select{padding:9px;background:var(--surface,#17202a);color:inherit;border:1px solid #607080;border-radius:8px;max-width:100%}
+.chat-macro textarea{width:100%;box-sizing:border-box;padding:14px;min-height:135px;border-radius:9px;border:1px solid #607080;background:var(--surface,#17202a);color:inherit;font:inherit}
+.cm-report,.cm-panel{border:1px solid #566575;border-radius:12px;padding:18px;min-width:0}
+.cm-report{display:grid;gap:14px}
+.cm-report h2,.cm-panel h3{margin:0}
+.cm-driver{border-bottom:1px solid #45515e;padding:10px 0;overflow-wrap:anywhere}
+.cm-driver a,.cm-finding a{color:#69afff;word-break:break-word}
+.cm-report ul{padding-left:22px;margin:8px 0}
+.cm-module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+.cm-module{border:1px solid #45515e;border-radius:10px;padding:14px;min-width:0}
+.cm-module h3{margin:0 0 8px}
+.cm-top-driver{border-left:3px solid #78a8d2;padding:8px 12px;background:rgba(120,168,210,.07)}
+.cm-top-driver p{margin:5px 0}
+.cm-chip{font-size:.8em;border:1px solid #607080;border-radius:20px;padding:4px 9px}
+.cm-unknown{opacity:.75}
+.cm-note{font-size:.86em;opacity:.8}
+.cm-review-status{font-weight:600;padding:10px;border-radius:8px;border:1px solid #72849a}
+.cm-finding{border-top:1px solid #45515e;padding:10px 0;overflow-wrap:anywhere}
+.cm-finding p{margin:5px 0}
+@media(max-width:600px){.cm-report,.cm-panel{padding:12px}.chat-macro header h1{font-size:1.35rem}.cm-actions .button{max-width:100%;white-space:normal}}
