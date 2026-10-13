@@ -1,4 +1,4 @@
-# FX EdgeFinder Companion v5.6.20
+# FX EdgeFinder Companion v5.6.21
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
@@ -95,7 +95,7 @@ Der neue Menüpunkt **Auswertung** nutzt bestehende lokale Trade-Datensätze:
 - Bestehende Datensätze, Bilder und Backups bleiben kompatibel. Keine Migration,
   neue Datenbank, Marktdatenabfrage oder Cloud-Speicherung.
 
-`analytics.v5.6.20.js` enthält die read-only Auswertung und das Festhalten der
+`analytics.v5.6.21.js` enthält die read-only Auswertung und das Festhalten der
 Bewertungen; die Navigation und Statuswechsel bleiben im aktiven Core.
 Die automatisierten Tests prüfen Zahlen, Datumsfilter, fehlende Werte,
 Bestandsdaten, Statuswechsel, Duplikate, Speicherung und HTML-Escaping.
@@ -144,11 +144,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.20.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.20.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.20.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.20.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.20.css` | Basislayout |
+| `data.base.v5.6.21.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.21.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.21.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.21.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.21.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
@@ -201,3 +201,34 @@ Der Block „Referenzzinsen & Datenqualität“ entfällt in Währungen & Rates.
 ## Rates-Anzeigen v5.6.16
 
 Paar-Screener, Paaranalyse, Paarvergleich und Trade-Rates zeigen keine Indikativ-Kennzeichnung oder Metadatenwarnungen mehr. Fehlende/ungültige Werte und inkompatible Horizonte bzw. Berechnungsgrundlagen bleiben sichtbar. Manuelle Overrides sind weiterhin als manuell gekennzeichnet. Gespeicherte Daten und Berechnungen unverändert.
+
+## v5.6.21 – News & Market Driver
+
+- Eigenständige Navigation mit Währungs-, Themen-, Zeitraum- und Suchfiltern.
+- RSS-Schlagzeilen der acht Zentralbanken sowie BBC Business/World: Quelle,
+  Veröffentlichungszeit und Link zum Original. Zuordnung nach Quelle/Schlagworten;
+  keine vollständige Relevanzanalyse oder automatische Handelsrichtung.
+- WorldMonitor Finance und globale Lage als externe Recherchelinks. Kein Zugriff
+  auf die kostenpflichtige WorldMonitor-API und keine Übernahme ihres Quellcodes.
+- Übernahme in eine ausgewählte Morgenanalyse und deren Paar: eigene Einordnung,
+  Duplikatschutz und lokaler Snapshot unter `pairs[].news`. Erhalten im normalen
+  JSON-Backup, in Tageskopien (mit ursprünglichem Datum) und im Trade-Snapshot.
+  IndexedDB bleibt unverändert. Bestehende Notizen und Bewertungen bleiben erhalten.
+- `scripts/refresh_news.py`: Standardbibliothek, RSS 1.0/2.0 und Atom, begrenzte
+  Abrufe, sichere URLs, Duplikatbereinigung, maximal 30 Tage/600 Schlagzeilen.
+  Keine Artikelvolltexte, API-Schlüssel oder persönlichen Daten.
+- `.github/workflows/news.yml`: auf main bei Einrichtung, manuell und geplant
+  jeweils um Minute 17/47. GitHub kann geplante Läufe verzögern oder deaktivieren.
+  Schreibt ausschliesslich `feeds/news.json`; benötigt `contents: write`.
+- Browser lädt die JSON-Datei von raw.githubusercontent.com, dann als Fallback aus
+  der Website. So sind neue Feeds ohne Pages-Neubuild verfügbar (Commits des
+  GITHUB_TOKEN starten keinen weiteren Pages-Workflow). Letzter Abruf bleibt sichtbar;
+  bei Fehlern bleiben vorherige Nachrichten mit ihrem ursprünglichen Datum erhalten.
+  Feed über zwei Stunden alt wird als älterer Stand markiert. „Feed neu laden“ lädt
+  den veröffentlichten Feed, startet keinen neuen Abruf bei den Nachrichtenquellen.
+- Der öffentliche Feed wird im Browser zwischengespeichert. Die Auswahl einer
+  Währung, eigene Einordnungen und Paaranalysen werden nicht nach GitHub gesendet.
+
+Prüfung: `npm test` und `npm run test:news-feeds`. Die Tests decken Feeds/Atom/RDF,
+Zeitpunkte, Ausfälle, Duplikate, Filter, HTML/URL-Sicherheit, lokale Speicherung,
+Paaransicht und unveränderte Trade-Snapshots ab.

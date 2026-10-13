@@ -285,4 +285,4 @@ const allItems=groups.flatMap(g=>g.items);
 return {S,CURRENCIES,fields,groups,pairMacroGroups,tradeGroups,tradeItems,tradeCheckIds,FACTORS,outcomes,bias,status,allItems};
 })();
 
-window.FX_COMPANION_DATA_VERSION='5.6.20';
+window.FX_COMPANION_DATA_VERSION='5.6.21';

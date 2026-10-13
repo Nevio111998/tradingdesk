@@ -1,0 +1,2890 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-13T12:28:02.788291Z",
+  "sources": [
+    {
+      "id": "fed",
+      "name": "Federal Reserve",
+      "url": "https://www.federalreserve.gov/newsevents.htm",
+      "feedUrl": "https://www.federalreserve.gov/feeds/press_all.xml",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "ecb",
+      "name": "EZB",
+      "url": "https://www.ecb.europa.eu/press/html/index.en.html",
+      "feedUrl": "https://www.ecb.europa.eu/rss/press.html",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "boe",
+      "name": "Bank of England",
+      "url": "https://www.bankofengland.co.uk/news",
+      "feedUrl": "https://www.bankofengland.co.uk/rss/news",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "boj",
+      "name": "Bank of Japan",
+      "url": "https://www.boj.or.jp/en/whatsnew/",
+      "feedUrl": "https://www.boj.or.jp/en/rss/whatsnew.xml",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "rba",
+      "name": "Reserve Bank of Australia",
+      "url": "https://www.rba.gov.au/media-releases/",
+      "feedUrl": "https://www.rba.gov.au/rss/rss-cb-media-releases.xml",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "rbnz",
+      "name": "Reserve Bank of New Zealand",
+      "url": "https://www.rbnz.govt.nz/news-and-events",
+      "feedUrl": "https://www.rbnz.govt.nz/feeds/news",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "boc",
+      "name": "Bank of Canada",
+      "url": "https://www.bankofcanada.ca/press/",
+      "feedUrl": "https://www.bankofcanada.ca/feed/",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "snb",
+      "name": "Schweizerische Nationalbank",
+      "url": "https://www.snb.ch/en/news-publications",
+      "feedUrl": "https://www.snb.ch/public/rss/en/mopo",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "bbc-business",
+      "name": "BBC Business",
+      "url": "https://www.bbc.com/news/business",
+      "feedUrl": "https://feeds.bbci.co.uk/news/business/rss.xml",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    },
+    {
+      "id": "bbc-world",
+      "name": "BBC World",
+      "url": "https://www.bbc.com/news/world",
+      "feedUrl": "https://feeds.bbci.co.uk/news/world/rss.xml",
+      "checkedAt": "2026-10-13T12:28:02.788291Z",
+      "lastSuccessAt": "2026-10-13T12:28:02.788291Z",
+      "status": "ok"
+    }
+  ],
+  "items": [
+    {
+      "id": "36cd3c034800949469389dad",
+      "title": "Car finance compensation payments delayed until next year",
+      "url": "https://www.bbc.co.uk/news/articles/c2l9vvj097lo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T12:27:36Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "8367d6f6f5f92243e3fcfcf4",
+      "title": "Poundland in rescue talks as owners seek buyer",
+      "url": "https://www.bbc.co.uk/news/articles/ckr5ydvvln0mo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T12:17:17Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "fb245af0673954a9f2b78b42",
+      "title": "Bulgaria summons Russian ambassador after ship sinks in Black Sea drone attack",
+      "url": "https://www.bbc.co.uk/news/articles/cmn06w5x9g25o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T12:10:54Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "1697c0accd91f236677afa10",
+      "title": "Three things we've learnt about the UK economy from the IMF",
+      "url": "https://www.bbc.co.uk/news/articles/cmly05l1g15yo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T11:58:43Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "ed5542977064987822faa349",
+      "title": "BA flight forced to turn back over cracked window",
+      "url": "https://www.bbc.co.uk/news/articles/cj1dwrxq1wndo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T11:48:07Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "7949ed2f7a7cd4441e93c1d1",
+      "title": "Ex-president named leader of new DR Congo rebel coalition",
+      "url": "https://www.bbc.co.uk/news/articles/c8y56re7ldqyo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T11:23:55Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "dee802d670005d78a734c20b",
+      "title": "Super El Niño sets another record as it strengthens to 'unprecedented levels'",
+      "url": "https://www.bbc.co.uk/weather/articles/cmlye0d7q7zno?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T11:18:44Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "41f1b1d51f2a574b3c2daf27",
+      "title": "Immigration agents search congresswoman Ilhan Omar's home",
+      "url": "https://www.bbc.co.uk/news/articles/cvp8glg97393o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T10:37:39Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "cf7d8c25c889146289da9b87",
+      "title": "One dead and several hurt after rollercoaster incident at Six Flags",
+      "url": "https://www.bbc.co.uk/news/articles/c6n4ejx8x1z7o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T10:28:07Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "9e03930a6513f8cb9d94e67b",
+      "title": "UK growth forecast upgraded but higher energy prices to hit economy next year",
+      "url": "https://www.bbc.co.uk/news/articles/cmglw0r21zexo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T09:38:54Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "a814e655ef43ac12ffebd827",
+      "title": "Phase Eight and Hobbs owner hit by cyber-attack, as H&M probes separate hack claim",
+      "url": "https://www.bbc.co.uk/news/articles/cwly38gjkejko?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T09:34:43Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "30bb6be88afb3047a73dfc85",
+      "title": "US emergency call records reveal confusion after failed execution of Christa Pike",
+      "url": "https://www.bbc.co.uk/news/articles/ck1exg6qjdz3o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T09:11:08Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "16b45dda4b6dc08619388264",
+      "title": "Breaking Bad actor RJ Mitte dies aged 34",
+      "url": "https://www.bbc.co.uk/news/articles/cmn045en7d88o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T08:03:34Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "6670eced7b265aa37b8d7177",
+      "title": "India 'cockroach' leaders detained after entering barricaded protest site",
+      "url": "https://www.bbc.co.uk/news/articles/cqz0v11n2vj5o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T07:31:10Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "f8d7d0690f305a5ee5a7bd94",
+      "title": "Basic Figures on Fails (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/set/bffail/sjgb2609.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-13T07:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "5402af5f39cb96c6fad82068",
+      "title": "Cost of living struggles inspire 'social supermarket'",
+      "url": "https://www.bbc.co.uk/news/articles/cq4g1enm58npo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T05:32:23Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "543fc75e6450e9219d805742",
+      "title": "Death threats and isolation - the cost of fighting sexual violence in Iraq",
+      "url": "https://www.bbc.co.uk/news/articles/cqd089r55vp3o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T05:02:57Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "ebf339358c81ac7d7193df79",
+      "title": "Where the US midterm elections will be won and lost",
+      "url": "https://www.bbc.co.uk/news/articles/cr20wlp09gn3o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T05:02:44Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "157b5c5b02cd66606f36340a",
+      "title": "Russia's offensive ability is broken, Kyiv's former top general tells BBC",
+      "url": "https://www.bbc.co.uk/news/articles/c9y7lgg2vdggo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T05:02:34Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "0202ae2f375421a155ade9ba",
+      "title": "Saudi minister vows 'serious response' to Houthi attacks on airports",
+      "url": "https://www.bbc.co.uk/news/articles/cjly0zqq27e4o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T04:30:09Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "32723988ed3ae6c394ceb2b0",
+      "title": "Results of the 107th Opinion Survey on the General Public's Views and Behavior",
+      "url": "https://www.boj.or.jp/en/research/o_survey/ishiki2610.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-13T04:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "d3d86283ba9c7eb9cf859e7f",
+      "title": "BBC's Orla Guerin travels with Yemen's southern national security forces through desert battlefield",
+      "url": "https://www.bbc.co.uk/news/videos/cqx298yx4k48o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T04:27:22Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "75e700bf611889a249c31042",
+      "title": "Watch: US man eyes pumpkin world record after fifth contest win",
+      "url": "https://www.bbc.co.uk/news/videos/c80405zkgyqvo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-13T04:04:57Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "0b28be7298fc2a3b734a6a9f",
+      "title": "Dating app Bumble in $1bn takeover talks, say reports",
+      "url": "https://www.bbc.co.uk/news/articles/cm9qzwjgnjxlo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-13T01:50:47Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "3c087fb7a5fe62447e85ce40",
+      "title": "Principal Figures of Financial Institutions (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/dl/depo/kashi/kasi2609.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-12T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "f79fa007b3878fc026379eea",
+      "title": "Corporate Goods Price Index (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/pi/cgpi_release/cgpi2609.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-12T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "82fbdd27e64a27c45387f141",
+      "title": "Publicly owned rail is popular. But is it making the trains run on time?",
+      "url": "https://www.bbc.co.uk/news/articles/ck5yn0n14r8do?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T23:37:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "0e4985cf634310efb44e2df6",
+      "title": "Boardroom feud tests trusted Indian business empire",
+      "url": "https://www.bbc.co.uk/news/articles/c54g1mp7lz7zo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T23:10:32Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "a8dcae6b1c52ec2bfedfa6b4",
+      "title": "Heating oil customers face tough winter despite shake-up promise",
+      "url": "https://www.bbc.co.uk/news/articles/cxnv0z09r882o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T23:02:24Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "f6f4389fe2f6f6ced3b618da",
+      "title": "I earn £120,000 a year making social media videos go viral",
+      "url": "https://www.bbc.co.uk/news/articles/c84g12v3lk20o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T23:01:45Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "8980d94a3bd55d836fc5599b",
+      "title": "The island where locals say data centres are taking their water",
+      "url": "https://www.bbc.co.uk/news/articles/cqj6j7wlxd5eo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T22:30:55Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "858a145164c4b0536cbb2c02",
+      "title": "Six Ukrainian energy sites hit by Russia since Trump announced ceasefire, Zelensky says",
+      "url": "https://www.bbc.co.uk/news/articles/cvlyd4pdlwkxo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T21:20:51Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Geopolitik",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "4725a39aeee2a5e75254c261",
+      "title": "Analysis: Trump's global headaches worsen weeks before crucial elections",
+      "url": "https://www.bbc.co.uk/news/articles/cqgm087rkze2o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T21:07:25Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "50ecb1bc610f70c60f9e8de6",
+      "title": "Qantas flight grounded after bedbug outbreak",
+      "url": "https://www.bbc.co.uk/news/articles/cr62yzypnw7no?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T21:01:45Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "d8b2e2b81bbb6b138e185e65",
+      "title": "Pupil arrested after two teachers shot at French school",
+      "url": "https://www.bbc.co.uk/news/articles/cm2keg7910gvo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T21:01:28Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "8e6d2a07fa9c13d91ddcfdff",
+      "title": "Why Moscow is staying tight-lipped on Trump's energy ceasefire",
+      "url": "https://www.bbc.co.uk/news/articles/cjx2359qekrdo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T20:17:37Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Geopolitik",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "f01b2978388106ae470bb299",
+      "title": "Fridges in French supermarkets hit by cyber attack",
+      "url": "https://www.bbc.co.uk/news/articles/crq5nzxv9q4yo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T18:31:32Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "a988f720de23b8d1f89321da",
+      "title": "What are your rights on auto-renew subscriptions?",
+      "url": "https://www.bbc.co.uk/news/videos/c63dj8gx1jkno?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T17:08:32Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "29e2d90f0b1e254fb9cd9b82",
+      "title": "South Africa's deputy police chief resigns after being charged with sexual offences",
+      "url": "https://www.bbc.co.uk/news/articles/c8wy9d940pyko?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T16:46:49Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "92f27a6603f8f7778c6bda54",
+      "title": "Watch: What could Trump's energy ceasefire mean for Ukraine?",
+      "url": "https://www.bbc.co.uk/news/videos/crd9321ygqw8o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T15:51:30Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Geopolitik",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "d4b06c0c7351d7c48d9d0264",
+      "title": "Why some have no choice but to pay costly oil prices",
+      "url": "https://www.bbc.co.uk/news/videos/cq4g1dn81y9xo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T15:34:48Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "2f0532d8a80302496b63c319",
+      "title": "Thousands march to Indian Supreme Court to demand election chief resign",
+      "url": "https://www.bbc.co.uk/news/articles/cwr5y2lgr4gdo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T15:19:17Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "46087bb9b492e6fa57523290",
+      "title": "AI minister warns 'likely' UK's cyber defences will be breached",
+      "url": "https://www.bbc.co.uk/news/articles/cr78pe09y05xo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T15:03:42Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "ce2e9881c1380770c727c33b",
+      "title": "Why the US is bringing back firing squads",
+      "url": "https://www.bbc.co.uk/news/articles/cmpwg28vrexzo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T14:56:43Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "18bfcc933495052065515c4e",
+      "title": "Tom Cruise film Digger forecast to become one of Hollywood's biggest flops",
+      "url": "https://www.bbc.co.uk/news/articles/cke8re5v1pgmo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T14:11:27Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "5f162883c0efd13c27b9884f",
+      "title": "US detains man accused in multi-billion Venezuelan money laundering scheme",
+      "url": "https://www.bbc.co.uk/news/articles/crp3gy0x0dd1o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T13:49:05Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "cc1852ad81be8243caf0f8c4",
+      "title": "Why is it so hard to fight the Houthis?",
+      "url": "https://www.bbc.co.uk/news/videos/cmy56nzd6y69o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T12:15:01Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "7a17dffa24825917f5cc8256",
+      "title": "HMV to close Oxford Street store after three years",
+      "url": "https://www.bbc.co.uk/news/articles/cjzxl7ee4e9xo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T10:36:39Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "917d0d5917edb6b0361abb47",
+      "title": "Women's billion-dollar boom leaves players behind, says Fifpro",
+      "url": "https://www.bbc.co.uk/sport/football/articles/cmd7qn1g0xrxo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T10:04:50Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "2bf0b713d1d22bf2d4e16725",
+      "title": "Watch: CCTV shows people take cover as missile hits Riyadh airport",
+      "url": "https://www.bbc.co.uk/news/videos/cj4g17wz7gv0o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-12T09:38:03Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "9d2e3538f5941923e54674be",
+      "title": "How to avoid getting stung if you miss credit card payments",
+      "url": "https://www.bbc.co.uk/news/articles/c84g1xz1l9ddo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T09:11:46Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "6490f52bc4e27312714a75a7",
+      "title": "Healey faces £35bn Budget challenge to meet spending pledges, says think tank",
+      "url": "https://www.bbc.co.uk/news/articles/cm78pwdp3n5qo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T08:50:22Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "1aff4bf29ee2a8bdccd23262",
+      "title": "AI is less regulated than milk, says Microsoft president",
+      "url": "https://www.bbc.co.uk/news/articles/c6rmy7zmvx3lo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T07:47:37Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "9260364d7cc64745bc85dd97",
+      "title": "Documents falsified to evade tax on Abramovich's wealth, BBC finds",
+      "url": "https://www.bbc.co.uk/news/articles/c64g1l5389kvo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-12T05:00:52Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "9de3998d20ead81ff4b837e6",
+      "title": "Watch: Endangered orangutans released back into the wild after Borneo fires",
+      "url": "https://www.bbc.co.uk/news/videos/c6073z5rvrk3o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-11T23:48:25Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "a4702e76b2a8f50f44198505",
+      "title": "Roofing scammers con homeowners out of thousands of pounds",
+      "url": "https://www.bbc.co.uk/news/articles/c6x29kydnzv0o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-11T23:19:49Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "c85d70cd1e15bc1003a06250",
+      "title": "Trump faces growing backlash over plans to import diesel from Russia",
+      "url": "https://www.bbc.co.uk/news/articles/cjn5v21py07vo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-11T23:18:45Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "d969e1731fd072c5487e490c",
+      "title": "American ranchers wrestle with soaring costs - and their loyalty to Trump",
+      "url": "https://www.bbc.co.uk/news/articles/c6d7q5z17gp5o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-11T23:13:51Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "0caeab95bb6afe294a6ed6d9",
+      "title": "Mourners killed by Kenya police at ex-PM's national farewell not part of violence, BBC finds",
+      "url": "https://www.bbc.co.uk/news/articles/c962y4ld1d7do?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-11T23:13:20Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "09cec1f6e809608c5b20ff9b",
+      "title": "Poland detains man suspected of planning assassination of PM Tusk",
+      "url": "https://www.bbc.co.uk/news/articles/c6n9rvynl5p5o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-11T17:27:24Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "1c0a28c71f388243671549df",
+      "title": "Citroen revives the 2CV for an electric age",
+      "url": "https://www.bbc.co.uk/news/articles/c620r33plgppo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-11T17:00:05Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "247efd53ed44311dd3cd2009",
+      "title": "Children among 139 dead after boat capsizes off Djibouti, UN says",
+      "url": "https://www.bbc.co.uk/news/articles/cwy7lxx60dg5o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-11T15:32:23Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "3b36d17aa5f97a0985b06911",
+      "title": "Poland stabbings driven by online glorification of violence, Tusk says",
+      "url": "https://www.bbc.co.uk/news/articles/ckp8gyd65z2go?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-10-11T15:18:52Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "6051a59784aaab81619050b3",
+      "title": "Money Box",
+      "url": "https://www.bbc.co.uk/sounds/play/m0032qlk?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-10T11:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "0d84bbab316fddb29a8359e7",
+      "title": "Federal Reserve Board releases results of the 2025 Survey of Consumer Finances, which provides the public and policymakers with detailed insights into the economic condition of American families",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/other20261009a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-10-09T14:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "1319ea6a20f99dabe488ea7b",
+      "title": "Why are there so many sports subscriptions?",
+      "url": "https://www.bbc.co.uk/sport/football/videos/cj20vkpd61kqo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-09T10:07:13Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "1a340c9e6e7ed83e405672e1",
+      "title": "CMORG holds sector-wide cloud outage simulation exercise",
+      "url": "https://www.bankofengland.co.uk/news/2026/october/cmorg-holds-sector-wide-cloud-outage-simulation-exercise",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-09T09:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "334a8c95963f635b5581aabd",
+      "title": "Twenty-fifth Meeting of the \"Council for Cooperation on Financial Stability\"",
+      "url": "https://www.boj.or.jp/en/finsys/macpru/mac261009a.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-09T09:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "e5b43c791993fd919ba0e4b3",
+      "title": "Amendment to \"Prices of Eligible Collateral\"",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/mpr261009a.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-09T07:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a81be7787428b4c742855a73",
+      "title": "IMES Discussion Paper Series (2026)",
+      "url": "https://www.boj.or.jp/en/research/imes/dps/dps26.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-09T02:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "66662a00a700c4c4d880c592",
+      "title": "Why are more roofs not made of solar tiles?",
+      "url": "https://www.bbc.co.uk/news/articles/cdr7n610rmzo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-08T23:09:56Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "3cc89b1fcc6c74e54c4950f5",
+      "title": "Business Daily",
+      "url": "https://www.bbc.co.uk/sounds/play/w3ct8g9x?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-08T23:01:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "8fbb18afd13a46e5b4eb2632",
+      "title": "Federal Reserve Board announces enforcement action against American Express Company to address, among other things, the firm’s failure to sufficiently detect and report certain suspicious activity related to money laundering",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261008a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-10-08T20:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "8560aa33eacd8979841c71f5",
+      "title": "How soon into dating do you talk about your salary?",
+      "url": "https://www.bbc.co.uk/news/videos/cry4x353vz2eo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-08T18:26:41Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "a37490dc6bf90744a929d6f2",
+      "title": "Meeting of 9-10 September 2026",
+      "url": "https://www.ecb.europa.eu//press/accounts/2026/html/ecb.mg261008~a10153d090.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-08T11:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "69f37d867634f06885b56d58",
+      "title": "Piero Cipollone: Interview with Corriere della Sera",
+      "url": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in261008~3184e7d0d0.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-08T06:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a5b0c7279c5ec736991694b3",
+      "title": "Regional Economic Report (Summary) (Oct. 2026)",
+      "url": "https://www.boj.or.jp/en/research/brp/rer/rer261008.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-08T05:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "52cc8d80f9c20ac148b1fa9b",
+      "title": "Direct Investment by Region and Industry (2nd quarter 2026)",
+      "url": "https://www.boj.or.jp/en/statistics/br/bop_06/bpdata/diiqcy.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-07T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "94facf81bc4dc241f9d3cc1e",
+      "title": "How oil-rich Alberta's economy might fare if it broke away from Canada",
+      "url": "https://www.bbc.co.uk/news/articles/cy745jznvxpo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-07T23:10:13Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "CAD"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "21a34805d18645c2addfbb20",
+      "title": "Bank of England announces the four animals that will feature on our next series of banknotes",
+      "url": "https://www.bankofengland.co.uk/news/2026/october/boe-announces-the-four-animals-that-will-feature-on-next-series-of-banknotes",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-07T23:01:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "08dfdbdaa9ce20cc125a1535",
+      "title": "Minutes of the Federal Open Market Committee, September 15-16, 2026",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-10-07T18:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "9b8dcb79d3587e725ad976f3",
+      "title": "Minutes of the London FXJSC Legal Sub Committee Meeting – 16 June 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/june/fxjsc-legal-sub-committee-meeting-16-june-26",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-07T13:36:25Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "3c4371d8ac3a22e4df5eb805",
+      "title": "Recruitment for two new Assistant Governors and Chief of Staff underway",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/recruitment-for-two-new-assistant-governors-and-chief-of-staff-underway",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-10-07T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "3efbf1ab18c4bc00b313b5b2",
+      "title": "Minutes of the London FXJSC Operations Sub-Committee Meeting – 16 June 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/june/fxjsc-operations-sub-committee-meeting-16-june-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-07T09:49:25Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "e26b104d2c5f5597ee270751",
+      "title": "Minutes of the London FXJSC Main Committee Meeting – 24 June 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/june/fxjsc-main-committee-meeting-24-june-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-07T09:08:40Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "d40d5a497153736db5224b48",
+      "title": "Regulatory thresholds set to shift to automatic increases",
+      "url": "https://www.bankofengland.co.uk/news/2026/october/regulatory-thresholds-set-to-shift-to-automatic-increases",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-07T09:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a8eb6bf790b72864987dd0b3",
+      "title": "Results of the September 2026 survey on credit terms and conditions in euro-denominated securities financing and OTC derivatives markets (SESFOD)",
+      "url": "https://www.ecb.europa.eu//press/pr/date/2026/html/ecb.pr261007~6447350434.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-07T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "f07f8294f68786d697d5bcb4",
+      "title": "Rainmakers: The drones used to seed clouds",
+      "url": "https://www.bbc.co.uk/news/articles/c64g71j4lgyjo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-10-07T07:09:32Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "d32a861dfe53cadc3f143b0b",
+      "title": "Amounts Outstanding in the Call Money Market (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/market/short/call/call.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-07T06:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "1a1dd3ab1595cef5005b86fd",
+      "title": "Consumption Activity Index",
+      "url": "https://www.boj.or.jp/en/research/research_data/cai/index.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-07T05:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "21bc24ed8a9e9eff2b61653c",
+      "title": "Bank of Japan Accounts (September 30)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/acmai/release/2026/ac260930.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-07T01:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "26d99600992d38c16315499c",
+      "title": "Monetary Base and the Bank of Japan's Transactions (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/mbt/mbt2609.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-06T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "caa3548ac1ca495d3c1db2ce",
+      "title": "Bank of Japan's Transactions with the Government (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/tseifu/release/2026/seifu2609.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-06T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "6541858c4d2c46a14bf50172",
+      "title": "Market Operations by the Bank of Japan (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/fm/ope/m_release/2026/ope2609.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-06T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a3fca2d4e4de897afe61d901",
+      "title": "Minutes of the UK Money Markets Code Sub-Committee – September 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/september/uk-money-markets-committee-minutes-september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-06T13:07:03Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "28500ac6a43a82aa5bb0d213",
+      "title": "Frank Elderson: Effective supervision through timely remediation",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261006_1~0df91e4e44.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-06T13:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "83020bb1c63ef28c45f7e9a8",
+      "title": "Piero Cipollone: Money in the digital age: digital euro, tokenisation and the role of central banks",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261006~0da978f159.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-06T13:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "6e91d203ed24e708737570e4",
+      "title": "Philip R. Lane: Interview with Ansa",
+      "url": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in261006~bc94400297.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-06T07:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "1bc4132b3f0326c5bc0edadf",
+      "title": "Federal Reserve Board announces approval of application by Isabella Bank Corporation",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20261005a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-10-05T20:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "938e45333109110aa040004e",
+      "title": "Updates to the October Monetary Policy Review and November Financial Stability Report",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/updates-to-the-october-mpr-and-november-fsr",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-10-05T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "f4c67ec69a48b6b67d66a94e",
+      "title": "Philip R. Lane: Diagnostic Challenges for ECB Monetary Policy",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261005~1d8d998ef4.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-05T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "e053838ef128284c449e9f19",
+      "title": "Output Gap, Potential Growth Rate, and Labor Market Indicators",
+      "url": "https://www.boj.or.jp/en/research/research_data/gap/index.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-05T05:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "275b20f892e054bac4c19d54",
+      "title": "8th Conference on Nontraditional Data, Machine Learning, and Natural Language Processing in Macroeconomics (ECONDAT 2026 Fall Meeting)",
+      "url": "https://www.boj.or.jp/en/research/conf/conf2610a.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-05T00:20:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "c8187697efbb2f5cf4279799",
+      "title": "Sources of Changes in Current Account Balances (Projections for Oct.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/fm/juqp/juqp2610.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-04T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "5d4b355ec3292efce1cfee3e",
+      "title": "Federal Reserve Board announces approval of application by Fleur Capital Corporation",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20261002a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-10-02T20:45:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "8f9bf8f9d80dc8af113fb099",
+      "title": "Federal Reserve Board announces it will extend, until November 4, the comment period on its proposal to modernize Regulation O",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20261002a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-10-02T20:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "b441ff6c63c6936c873ff365",
+      "title": "Federal Reserve Board issues enforcement action with Ontario Bancorporation, Inc.",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20261002a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-10-02T15:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "2837bd77bb1bb24927148f39",
+      "title": "Decisions taken by the Governing Council of the ECB (in addition to decisions setting interest rates)",
+      "url": "https://www.ecb.europa.eu//press/govcdec/otherdec/2026/html/ecb.gc261002~54c6b5672b.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-02T13:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "17fa26efe52cb0c248ff9885",
+      "title": "Boris Vujčić: Resilience, integration and competitiveness: building the future of European banking",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261002_1~419efe18e0.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-02T11:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "42eaa919de8145cbf4c75468",
+      "title": "Appointment of members of the Enforcement Decision Making Committee (EDMC)",
+      "url": "https://www.bankofengland.co.uk/news/2026/october/appointment-of-members-of-the-edmc",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-02T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "96c5e75bdb8831209eca588c",
+      "title": "Japanese Government Bonds Held by the Bank of Japan",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/mei/release/2026/mei260930.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-02T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "b0c173db4c57bc5f726784a7",
+      "title": "Collateral Accepted by the Bank of Japan (End of Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/col/col2609.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-02T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "9863d88f2874ee35dfa79439",
+      "title": "Average Contract Interest Rates on Loans and Discounts (Aug.)",
+      "url": "https://www.boj.or.jp/en/statistics/dl/loan/yaku/yaku2608.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-01T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "102ab7832e0cccde0ff928ef",
+      "title": "Monetary Base (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/mb/mb.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-01T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "ef37a3e38f324fb48698e94f",
+      "title": "Tankan (Sept.): Comprehensive Data Set",
+      "url": "https://www.boj.or.jp/en/statistics/tk/tankan09b.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-01T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "948785e80d375de04479ddbc",
+      "title": "Isabel Schnabel: Central banks on-chain",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261001_1~a0be67193b.en.pdf",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-01T15:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "1a51741a0c7f69915fab11bc",
+      "title": "Christine Lagarde: Where AI risks meet",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261001~cf3c630379.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-10-01T13:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "68e838ea9dd80499755cf38c",
+      "title": "Minutes of the Meeting of the Court of Directors held on 16 July 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/july/court-minutes-16-july-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-10-01T13:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "dfa9289f350e2684d221a4ef",
+      "title": "Sources of Changes in Current Account Balances and Market Operations (Sept.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/fm/juqf/juqf09.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-10-01T04:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "ead01522b27c2ab1a85c7840",
+      "title": "Release of Financial Stability Review – October 2026",
+      "url": "https://www.rba.gov.au/media-releases/2026/mr-26-28.html",
+      "sourceId": "rba",
+      "source": "Reserve Bank of Australia",
+      "publishedAt": "2026-10-01T01:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "AUD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "899835180334779db5238e4a",
+      "title": "Summary of Opinions at the Monetary Policy Meeting on September 17 and 18, 2026",
+      "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/opinion_2026/opi260918.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-30T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "219bf19f7a0293384688e32f",
+      "title": "Tankan (Sept.): Summary and Outline",
+      "url": "https://www.boj.or.jp/en/statistics/tk/tankan09a.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-30T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "b63e79dbf28efa27a74c64d1",
+      "title": "The AI telling farmers when to harvest",
+      "url": "https://www.bbc.co.uk/news/articles/cgk53dkmyxko?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-30T23:02:21Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "c4fef6aa5954e2ec8938dbb9",
+      "title": "Christine Lagarde: Interview with La Croix",
+      "url": "https://www.ecb.europa.eu//press/inter/date/2026/html/ecb.in260930~10084a5f3d.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-09-30T17:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "769e7ce5f60e12b6aa83630c",
+      "title": "Isabel Schnabel: Monetary policy in a world of overlapping shocks",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260930_1~7c6c120482.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-09-30T15:45:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "2d126dcc2a0a42d34ad94001",
+      "title": "Federal Reserve Board finalizes changes to enhance the transparency and public accountability of its stress test and reduce volatility in its stress test-related capital requirements",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20260930a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-30T13:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "52839a5c4c89f3bb9c82c663",
+      "title": "2026-09-30 - Quarterly Bulletin 3/2026",
+      "url": "https://www.snb.ch/en/publications/quarterly-bulletin/2026/quartbul_2026_3_komplett",
+      "sourceId": "snb",
+      "source": "Schweizerische Nationalbank",
+      "publishedAt": "2026-09-30T13:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "CHF"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "c0977f68ef271e5f750302a2",
+      "title": "Consultation finds strong support for access to cash services",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/consultation-finds-strong-support-for-access-to-cash",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-30T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "3196cb29027cc7e5d690b7a7",
+      "title": "Financial Policy Committee Record – September 2026",
+      "url": "https://www.bankofengland.co.uk/financial-policy-committee-record/2026/september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-30T09:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "de4a3dfd97678f60e44e967c",
+      "title": "Quarterly Schedule of Outright Purchases of Japanese Government Bonds (Competitive Auction Method) (October-December 2026)",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/mpr260930a.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-30T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "35a68b14d052bf36088f6040",
+      "title": "Liquidity Indicators in the JGB Markets (August)",
+      "url": "https://www.boj.or.jp/en/paym/bond/ryudo.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-30T07:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "7460efb74f082e554b01862d",
+      "title": "Frank Elderson: Supervisory risk appetite, efficiency and effectiveness",
+      "url": "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp260930~d495288355.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-09-30T02:20:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "44c540965a95c6568cb26c85",
+      "title": "Payment and Settlement Statistics (Aug.)",
+      "url": "https://www.boj.or.jp/en/statistics/set/kess/release/2026/kess2608.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-30T02:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "0480765c69fcc60d0de58f93",
+      "title": "The start-ups hoping to return battery making to the US",
+      "url": "https://www.bbc.co.uk/news/articles/cvgyexx4g8ro?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-29T23:06:50Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "94f4c2579d3ff5b5c9fa920e",
+      "title": "Agencies publish resolution plan feedback letters for 15 banking organizations",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20260929a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-29T20:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "8a4638ed9ab3637df45235eb",
+      "title": "ECB amends monetary policy implementation guidelines as part of regular review",
+      "url": "https://www.ecb.europa.eu//press/pr/date/2026/html/ecb.pr260929~050089e922.en.html",
+      "sourceId": "ecb",
+      "source": "EZB",
+      "publishedAt": "2026-09-29T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "EUR"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "310b866e0ad26443043f5835",
+      "title": "Minutes of the Monetary Policy Meeting on July 30 and 31, 2026",
+      "url": "https://www.boj.or.jp/en/mopo/mpmsche_minu/minu_2026/g260731.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-27T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "5e05b1a67bb2408d3e5a779e",
+      "title": "Services Producer Price Index (Aug.)",
+      "url": "https://www.boj.or.jp/en/statistics/pi/cspi_release/sppi2608.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-27T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "27179cdad45769a749c54439",
+      "title": "My hometown shows that high streets have to change or die",
+      "url": "https://www.bbc.co.uk/news/articles/crd689de186jo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-27T23:05:53Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "39a285d2e0f7a36ee1081ee4",
+      "title": "Federal Reserve Board announces approval of application by Peoples Bancorp Inc.",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20260925a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-25T20:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "046866fdb067a13d0b9dbd40",
+      "title": "Europe's car makers are in crisis. Will the threat of war rescue them?",
+      "url": "https://www.bbc.co.uk/news/articles/c6vgyq598k9po?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-25T08:31:56Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "34e4257a8d2dcb3fc5c484f8",
+      "title": "Conduct of Funds-Supplying Operations against Pooled Collateral",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/mpr260925a.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-25T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "50978159f1ab4cec1a73f539",
+      "title": "Japanese Government Bonds Held by the Bank of Japan",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/mei/release/2026/mei260918.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-25T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "96c978c1e99721ae13dd89e7",
+      "title": "Minutes of the Market Participants Group meeting – 24 September 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/september/market-participants-group-meeting-25-september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-25T06:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "7e917d968070022b4d664d86",
+      "title": "(BOJ Review)The Expansion and Diversification of Private Credit Funds",
+      "url": "https://www.boj.or.jp/en/research/wps_rev/rev_2026/rev26e13.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-25T05:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "16c508838e7fff45a620086c",
+      "title": "(BOJ Review) Granular Insights into Depositor Dynamics and Deposit Spreads in Japanese G-SIBs' Foreign Currency Deposits",
+      "url": "https://www.boj.or.jp/en/research/wps_rev/rev_2026/rev26e12.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-25T05:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "de75f7dc279048ff7e6c2e4c",
+      "title": "Indicators for Core CPI",
+      "url": "https://www.boj.or.jp/en/research/research_data/cpi/index.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-25T05:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "bec34b8cd74d7769bb9dc27f",
+      "title": "Bank of Japan Accounts (September 20)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/acmai/release/2026/ac260920.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-25T01:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "1a684e313fc56e223417e64a",
+      "title": "Results of BIS International Locational Banking Statistics and International Consolidated Banking Statistics in Japan",
+      "url": "https://www.boj.or.jp/en/statistics/bis/ibs/index.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-24T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "c90d5a4dd6fdc5bf2296344e",
+      "title": "X-planes: Are they needed in the new era of drones?",
+      "url": "https://www.bbc.co.uk/news/articles/c9q92x359xdo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-24T23:03:53Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "ae574d1347db7223e6301f1e",
+      "title": "Federal Reserve Board requests public comment on two proposals related to establishing a regulatory framework for Board-supervised payment stablecoin issuers under the GENIUS Act",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/bcreg20260924a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-24T18:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "4362fad6e26cf1b24b7ac846",
+      "title": "Federal Reserve Board issues enforcement action with former employee of Sandy Spring Bank",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20260924a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-24T15:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "c03814d3dab107fa1c6efe29",
+      "title": "New Monetary Policy Committee member appointed",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/new-monetary-policy-committee-member-appointed",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-24T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "96764984606ab207687e02a1",
+      "title": "Reserve Bank requests TSB to commission independent report",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/reserve-bank-requests-tsb-to-commission-independent-report",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-24T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "179fb98cdba587a5f677ba5f",
+      "title": "2026-09-24 - Monetary policy assessment of 24 September 2026",
+      "url": "https://www.snb.ch/en/publications/communication/press-releases-restricted/pre_20260924",
+      "sourceId": "snb",
+      "source": "Schweizerische Nationalbank",
+      "publishedAt": "2026-09-24T07:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "CHF"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "14230af3f09363516f23e245",
+      "title": "Statistics on Securities Financing Transactions in Japan",
+      "url": "https://www.boj.or.jp/en/statistics/bis/repo/index.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-23T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "ad11e6cfb14a5b9663cb419c",
+      "title": "How the oil capital of the US welcomed a solar power boom",
+      "url": "https://www.bbc.co.uk/news/articles/cmx2zxv6936zo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-23T23:12:22Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur",
+        "Rohstoffe"
+      ]
+    },
+    {
+      "id": "5686e3104fc13d1d52b91e41",
+      "title": "Federal Reserve Board announces approval of application by BancFirst Corporation",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/orders20260922a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-22T20:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "0253577c48024dc6d0f239d9",
+      "title": "Foreign Currency Reserves 2026 – Market Notice 22 September 2026",
+      "url": "https://www.bankofengland.co.uk/markets/market-notices/2026/september/foreign-currency-reserves-2026-market-notice-22-september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-22T15:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a17ebdc0cffc8f70ba181cf2",
+      "title": "Spain battles climate change on several fronts",
+      "url": "https://www.bbc.co.uk/news/articles/cwg59g3vz564o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-22T09:11:48Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "e15130c528e2b75f7c36a1d3",
+      "title": "Bank of England announces new office space in Leeds",
+      "url": "https://www.bankofengland.co.uk/news/2026/september/bank-of-england-announces-new-office-space-in-leeds",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-21T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "d1041888ebb7bf2f8c43acf2",
+      "title": "RBNZ leaders visit Dunedin to understand how the local economy is evolving",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/rbnz-leaders-visit-dunedin-to-understand-how-the-local-economy-is-evolving",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-21T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "7cfcaca0e5fce7e0d2ff1a9e",
+      "title": "Reserve Bank welcomes findings of independent review of Covid-19 monetary policy",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/reserve-bank-welcomes-findings-of-independent-review-of-covid-19-monetary-policy",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-21T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a5579fc1cd9f78ce79d2bfd5",
+      "title": "Foreign Currency Reserves 2026 – Market Notice 21 September 2026",
+      "url": "https://www.bankofengland.co.uk/markets/market-notices/2026/september/foreign-currency-reserves-2026-market-notice-21-september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-21T11:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "d16dd968793c9f3199afcb66",
+      "title": "Federal Reserve Board announces termination of enforcement action with SNB Bancshares and Bank of Eufaula",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20260918b.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-18T15:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "CHF",
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a7d6226407dcbbf91cb16d35",
+      "title": "Federal Reserve Board issues enforcement actions with former employee of Northstar Bank, former employee of American Express Travel Related Services Company, Inc., and former employee of Regions Bank",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/enforcement20260918a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-18T15:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a065bee2bf6999917a43ae01",
+      "title": "Minutes of the Transaction and Post-trade Reporting Harmonisation Taskforce - July 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/july/minutes-of-the-transaction-and-post-trade-reporting-harmonisation-taskforce-july-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-18T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "2c871b8ecf50aedf537d091d",
+      "title": "Amendment to \"Principal Terms and Conditions of Complementary Deposit Facility\"",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/mpr260918b.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-18T03:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "e817dec036d79539161ef8a2",
+      "title": "Amendment to \"Principal Terms and Conditions of the Funds-Supplying Operations to Support Financing for Climate Change Responses\"",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/mpr260918a.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-18T03:15:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "06b545c56e56fe0e091cd219",
+      "title": "(Reference) Change in the Guideline for Money Market Operations (September 2026 MPM)",
+      "url": "https://www.boj.or.jp/en/mopo/mpmdeci/mpr_2026/k260918b.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-18T02:54:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "ca691b64f42f124bc71de14e",
+      "title": "The virtual worlds where robots are trained",
+      "url": "https://www.bbc.co.uk/news/articles/c79g0j3d4q9o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-17T23:00:47Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "138e7ff5401d234d31e8a24a",
+      "title": "Transcript of the Governor's pooled broadcast interview given on 17 September 2026",
+      "url": "https://www.bankofengland.co.uk/news/2026/september/the-governor-interview-transcript-17-september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-17T13:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "3f4853e43bd9fb30606b00e0",
+      "title": "Monetary Policy Committee dates for 2027",
+      "url": "https://www.bankofengland.co.uk/news/2026/september/mpc-dates-for-2027",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-17T13:30:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "0848e6fc054e00056c087b33",
+      "title": "Māori access to capital (MA2K) snapshot 2026",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/maori-access-to-capital-ma2k-snapshot-2026",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-17T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "8c691a0ac9bf0ee09557be78",
+      "title": "Bank rate maintained at 3.75% - September 2026 Monetary Policy Summary and Minutes",
+      "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-17T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "b389e2459b4528389eb404c2",
+      "title": "Asset Purchase Facility: Gilt Sales – Market Notice 17 September 2026",
+      "url": "https://www.bankofengland.co.uk/markets/market-notices/2026/asset-purchase-facility-gilt-sales-market-notice-17-september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-17T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "c74aa5c62446b0281368e3ff",
+      "title": "Exchange of letters between the Governor and the Chancellor regarding CPI Inflation - September 2026",
+      "url": "https://www.bankofengland.co.uk/letter/2026/cpi-inflation-september-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-17T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "6ca892641b9c33cda69d8dd5",
+      "title": "Exchange of letters between the Governor and the Chancellor regarding QT and the APF - September 2026",
+      "url": "https://www.bankofengland.co.uk/letter/2026/exchange-of-letters-between-the-governor-and-the-chancellor-regarding-qt-and-the-apf",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-17T11:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "f521ebd83eecfd3d8bb5e1a6",
+      "title": "Developments in Real Exports and Real Imports",
+      "url": "https://www.boj.or.jp/en/research/research_data/reri/index.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-17T07:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "a62a4fb903fbc399b608eee5",
+      "title": "Flow of Funds Accounts (2nd Quarter 2026, Preliminary Figures)",
+      "url": "https://www.boj.or.jp/en/statistics/sj/sj.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-16T23:50:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "14bb7b514bbf64d849b99b26",
+      "title": "Would you buy branded clothing from your favourite tech firm?",
+      "url": "https://www.bbc.co.uk/news/articles/cgqd9zkkvlyo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-09-16T23:18:47Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "da3bcbb85f4595d6b859363d",
+      "title": "Federal Reserve issues FOMC statement",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-16T18:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "7400cab4847e7a3384d183c8",
+      "title": "Federal Reserve Board and Federal Open Market Committee release economic projections from the September 15-16 FOMC meeting",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916b.htm",
+      "sourceId": "fed",
+      "source": "Federal Reserve",
+      "publishedAt": "2026-09-16T18:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "USD"
+      ],
+      "topics": [
+        "Konjunktur",
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "5024fef0f5c57d839ae190a7",
+      "title": "Chancellor announces Bank of England appointments",
+      "url": "https://www.bankofengland.co.uk/news/2026/september/chancellor-announces-boe-appointments",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-16T14:03:08Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "d2ea8b7e2d1fb5a08a4a1c9d",
+      "title": "Exploring the future of banking in New Zealand",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/exploring-the-future-of-banking-in-new-zealand",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-16T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "57e45c1de687eea8700836d7",
+      "title": "BOJ Current Account Balances by Sector (Aug.)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/cabs/cabs.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-16T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "41bdf99f40598a3dc00d9914",
+      "title": "Reserve Bank announces leadership changes as Assistant Governor Karen Silk prepares to depart",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/reserve-bank-announces-leadership-changes-as-assistant-governor-karen-silk-prepares-to-depart",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-15T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "95c037787af236636fcb46e3",
+      "title": "Statistical Notice 2026/08 - Changes to the criteria for monthly form BT reporting",
+      "url": "https://www.bankofengland.co.uk/statistics/notice/2026/statistical-notice-2026-08",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-15T09:21:31Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "123b06b23c9c94d29df5a015",
+      "title": "Minutes of the Securities Lending Committee meeting – March 2026",
+      "url": "https://www.bankofengland.co.uk/minutes/2026/march/minutes-of-the-securities-lending-committee-meeting-march-2026",
+      "sourceId": "boe",
+      "source": "Bank of England",
+      "publishedAt": "2026-09-15T08:09:58Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "GBP"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "d984c22f1cb5c7454fc09338",
+      "title": "Signing of the Third Bilateral Swap Arrangement between Japan and Malaysia",
+      "url": "https://www.boj.or.jp/en/intl_finance/cooperate/coop260915a.pdf",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-15T06:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "5aaa3abaa30301079ba361d5",
+      "title": "RBNZ to regulate and supervise the High Value Clearing System",
+      "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/09/rbnz-to-regulate-and-supervise-the-high-value-clearing-system",
+      "sourceId": "rbnz",
+      "source": "Reserve Bank of New Zealand",
+      "publishedAt": "2026-09-14T12:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "NZD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "e94bd97a9dad66ae2a534740",
+      "title": "Japanese Government Bonds Held by the Bank of Japan",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/mei/release/2026/mei260910.xlsx",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-14T08:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "e081efa71e934a4f05e50bd7",
+      "title": "Bank of Japan Accounts (September 10)",
+      "url": "https://www.boj.or.jp/en/statistics/boj/other/acmai/release/2026/ac260910.htm",
+      "sourceId": "boj",
+      "source": "Bank of Japan",
+      "publishedAt": "2026-09-14T01:00:00Z",
+      "fetchedAt": "2026-10-13T12:28:02.788291Z",
+      "currencies": [
+        "JPY"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    }
+  ]
+}
