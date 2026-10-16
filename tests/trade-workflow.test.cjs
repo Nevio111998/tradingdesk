@@ -93,6 +93,18 @@ for(const legacy of [false,true]){
  assert.equal(JSON.stringify(t),before,'Rendering and validation preserve all historic fields/snapshots');
  Object.assign(rt.state,{record:t,id:t.id,records:[t],route:'trade',dirty:true});await rt.saveNow();assert.equal(JSON.stringify(rt.storage.records.get(t.id)),before);
 }
+// Management records must persist without altering the original risk or approval.
+const managed=clone(ready);managed.approvalAt='2026-10-16T10:00:00Z';managed.status='Offen';
+Object.assign(rt.state,{record:managed,id:managed.id,records:[managed],route:'trade'});
+const riskBefore=JSON.stringify(rt.calcRisk(managed));
+const management={reviewSlBasis:'Kontogewinn (%)',reviewSlBias:'Widerspricht der Trade-Richtung',reviewSlCheckedAt:'2026-10-16T12:00',reviewSlCurrentStop:'1.115',reviewSlDecision:'Trade schliessen',reviewSlNotes:'SL +1 % bereits gesetzt <test>'};
+for(const [key,value] of Object.entries(management))rt.handleBound({dataset:{bind:'fields.'+key},value});
+await rt.saveNow();
+const saved=rt.storage.records.get(managed.id);
+for(const [key,value] of Object.entries(management))assert.equal(saved.fields[key],value);
+assert.equal(JSON.stringify(rt.calcRisk(saved)),riskBefore);assert.equal(saved.status,'Offen');assert.equal(saved.approvalAt,'2026-10-16T10:00:00Z');
+assert(rt.renderExecution(saved).includes('&lt;test&gt;'));
+console.log('PASS: SL plan persists independently of original risk, approval and trade status.');
 const macro=rt.defaultRecord('macro');macro.conclusion='Historical conclusion';macro.notes='Historical notes';const macroBefore=JSON.stringify(macro),macroHtml=rt.renderMacroOverview(macro);
 assert(!bindings(macroHtml).includes('conclusion'));assert(!bindings(macroHtml).includes('notes'));assert.equal(JSON.stringify(macro),macroBefore);
 console.log('PASS: screenshot removals, no residual warnings/gates, old/new readiness, historic data and snapshot preservation, remaining risk calculations.');

@@ -1,4 +1,4 @@
-# FX EdgeFinder Companion v5.6.21
+# FX EdgeFinder Companion v5.6.22
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
@@ -95,7 +95,7 @@ Der neue Menüpunkt **Auswertung** nutzt bestehende lokale Trade-Datensätze:
 - Bestehende Datensätze, Bilder und Backups bleiben kompatibel. Keine Migration,
   neue Datenbank, Marktdatenabfrage oder Cloud-Speicherung.
 
-`analytics.v5.6.21.js` enthält die read-only Auswertung und das Festhalten der
+`analytics.v5.6.22.js` enthält die read-only Auswertung und das Festhalten der
 Bewertungen; die Navigation und Statuswechsel bleiben im aktiven Core.
 Die automatisierten Tests prüfen Zahlen, Datumsfilter, fehlende Werte,
 Bestandsdaten, Statuswechsel, Duplikate, Speicherung und HTML-Escaping.
@@ -144,11 +144,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.21.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.21.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.21.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.21.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.21.css` | Basislayout |
+| `data.base.v5.6.22.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.22.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.22.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.22.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.22.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
@@ -232,3 +232,9 @@ Paar-Screener, Paaranalyse, Paarvergleich und Trade-Rates zeigen keine Indikativ
 Prüfung: `npm test` und `npm run test:news-feeds`. Die Tests decken Feeds/Atom/RDF,
 Zeitpunkte, Ausfälle, Duplikate, Filter, HTML/URL-Sicherheit, lokale Speicherung,
 Paaransicht und unveränderte Trade-Snapshots ab.
+
+## v5.6.22 – SL-Management
+
+Unter Trade-Idee → Entry & Risiko steht der persönliche Gewinnsicherungsplan: ab +1 % Break-even, ab +1,5 % SL +1 %, danach in 0,5-Prozentpunkt-Schritten. Das Nachziehen gilt nur bei bestätigendem EdgeFinder-Bias. Prozentbasis, Bias samt Prüfzeit, tatsächlich gesetzter SL, Management-Entscheidung und Notiz werden pro Trade gespeichert. Bei abweichendem Bias bleibt die Entscheidung zwischen Weiterlaufen mit bestehendem SL und Schliessen manuell. Keine Orderausführung oder automatische Statusänderung.
+
+Die neuen optionalen `fields.reviewSl*`-Werte nutzen die bestehende Speicherung und Backups. Ursprünglicher Entry/Stop, Risiko, CRV, Freigabe und historische Analysen bleiben unverändert; keine Datenmigration.
