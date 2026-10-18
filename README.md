@@ -1,4 +1,4 @@
-# FX EdgeFinder Companion v5.6.22
+# FX EdgeFinder Companion v5.6.23
 
 Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
 Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
@@ -95,7 +95,7 @@ Der neue Menüpunkt **Auswertung** nutzt bestehende lokale Trade-Datensätze:
 - Bestehende Datensätze, Bilder und Backups bleiben kompatibel. Keine Migration,
   neue Datenbank, Marktdatenabfrage oder Cloud-Speicherung.
 
-`analytics.v5.6.22.js` enthält die read-only Auswertung und das Festhalten der
+`analytics.v5.6.23.js` enthält die read-only Auswertung und das Festhalten der
 Bewertungen; die Navigation und Statuswechsel bleiben im aktiven Core.
 Die automatisierten Tests prüfen Zahlen, Datumsfilter, fehlende Werte,
 Bestandsdaten, Statuswechsel, Duplikate, Speicherung und HTML-Escaping.
@@ -144,11 +144,11 @@ Frühere Versionen bleiben über die Git-Historie verfügbar.
 | Datei | Aufgabe |
 | --- | --- |
 | `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.22.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.22.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.22.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.22.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.22.css` | Basislayout |
+| `data.base.v5.6.23.js` | Daten- und Checklistendefinitionen |
+| `app.base.v5.6.23.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
+| `app.v5.6.23.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
+| `style.v5.6.23.css` | Aktuelle Ergänzungen; importiert den Basisstil |
+| `style.base.v5.6.23.css` | Basislayout |
 
 Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
 Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
@@ -238,3 +238,13 @@ Paaransicht und unveränderte Trade-Snapshots ab.
 Unter Trade-Idee → Entry & Risiko steht der persönliche Gewinnsicherungsplan: ab +1 % Break-even, ab +1,5 % SL +1 %, danach in 0,5-Prozentpunkt-Schritten. Das Nachziehen gilt nur bei bestätigendem EdgeFinder-Bias. Prozentbasis, Bias samt Prüfzeit, tatsächlich gesetzter SL, Management-Entscheidung und Notiz werden pro Trade gespeichert. Bei abweichendem Bias bleibt die Entscheidung zwischen Weiterlaufen mit bestehendem SL und Schliessen manuell. Keine Orderausführung oder automatische Statusänderung.
 
 Die neuen optionalen `fields.reviewSl*`-Werte nutzen die bestehende Speicherung und Backups. Ursprünglicher Entry/Stop, Risiko, CRV, Freigabe und historische Analysen bleiben unverändert; keine Datenmigration.
+
+## v5.6.23 – Gemeinsames Backup und Wiederherstellung
+
+„Vollständiges JSON-Backup“ und „Backup erstellen“ enthalten jetzt zusätzlich alle gespeicherten ChatGPT-Makroanalysen, Reviews, ursprünglichen Eingaben, vorbereiteten Analyseaufträge, Trainingsbeispiele samt Notizen und EdgeFinder-Imports. Noch nicht gespeicherte Texte in Formularfeldern sind keine gespeicherten Analysen.
+
+Beim Import werden diese Daten in die ursprünglichen lokalen Speicherbereiche zurückgeschrieben und sind anschliessend in „ChatGPT Makroanalyse“ und „EdgeFinder Daten“ sichtbar. Zusammenführen ergänzt fehlende Einträge; bei gleicher Kennung bleibt die vorhandene Version erhalten. Ersetzen übernimmt den Research-Bereich vollständig. Alte Backups ohne diesen Bereich bleiben kompatibel und verändern vorhandene Research-Daten nicht. Ein altes Backup kann fehlende ChatGPT-Daten nicht nachträglich rekonstruieren: nach dem Update im bisherigen Browser ein neues Backup erstellen.
+
+Die IndexedDB-Struktur bleibt unverändert. Der zusätzliche versionierte Research-Bereich ist auf sechs konkrete Anwendungsschlüssel begrenzt; fremde Browserdaten werden nicht exportiert. Fehlerhafte Research-Strukturen werden vor dem Import abgewiesen. Schlägt die lokale Speicherung oder die Datenbanktransaktion fehl, werden Research-Änderungen zurückgenommen.
+
+Tests: vollständiger Export/Import in einen leeren Speicher mit anschliessendem Rendering der ChatGPT-Ansicht; Reviews, Trainingsbeispiele, Eingaben, EdgeFinder-Daten, alte Backups, Zusammenführen, Ersetzen und simulierte localStorage-/IndexedDB-Fehler.
