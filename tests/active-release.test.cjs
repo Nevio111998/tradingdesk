@@ -17,7 +17,12 @@ function visit(file){
 }
 visit('index.html');
 for(const f of build.files)assert(seen.has(f),`Manifest runtime dependency is not reachable: ${f}`);
-for(const f of fs.readdirSync(root))if(/(?:app|data|style)(?:\.base)?\.v\d/.test(f))assert(f.includes('.v'+version+'.'),`Obsolete release: ${f}`);
+// Every versioned runtime asset in the publish directory must belong to the loaded release.
+for (const file of fs.readdirSync(root)) {
+  if (!/\.v\d+\.\d+\.\d+\.(?:js|css)$/.test(file)) continue;
+  assert(file.endsWith(`.v${version}${path.extname(file)}`), `Obsolete release: ${file}`);
+  assert(seen.has(file), `Unreferenced release asset: ${file}`);
+}
 assert.equal(JSON.parse(read('package.json')).version,version);
 assert.equal(JSON.parse(read('package-lock.json')).version,version);
 assert(read('index.html').includes('v'+version));

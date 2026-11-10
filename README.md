@@ -1,250 +1,54 @@
-# FX EdgeFinder Companion v5.6.23
+# TradingDesk · FX EdgeFinder Companion
 
-Lokales Zusatztool zu EdgeFinder für acht Währungen, 28 FX-Paare,
-Morgenanalysen, Trade-Planung und Journal. Daten werden im Browser über
-IndexedDB gespeichert. GitHub Pages speichert keine persönlichen Analysen.
+TradingDesk is a local-first workspace for discretionary foreign-exchange research. It connects a morning macro assessment to a trade idea, captures the evidence available when the trade opens, and compares that evidence with the eventual result. The interface is in German.
 
-## v5.6.20 – EdgeFinder Paar-Score
+[Open the app on GitHub Pages](https://nevio111998.github.io/tradingdesk/)
 
-Die Trade-Checkliste verwendet einen Originalscore je FX-Paar statt Base-/Quote-Scores und -Bias. Vor dem ersten Wechsel auf Offen eintragen. Neue Entry-Snapshots (`detailsVersion: 2`, weiterhin `version: 1`) speichern `fundamentals.edgePairScore`. Die Auswertung zeigt Performance je Paar-Score und dessen Vorzeichen in Handelsrichtung. Ratings und Kombinationen bleiben unabhängig davon erhalten. Alte Einzelwährungswerte bleiben in gespeicherten Datensätzen/Snapshots erhalten; es gibt keine rückwirkende Umrechnung oder Ergänzung.
+## A trade from research to review
 
-## v5.6.19 – Schlankere Formulare
+1. **Prepare the morning analysis.** Record policy-rate expectations, bond yields, central-bank meeting probabilities and upcoming events across eight currencies. Screen their 28 pairs and flag assessments that need another look after a currency input changes.
+2. **Document the decision.** Attach a pair assessment to a trade idea, review its EdgeFinder score and rate spread, and record entry, stop and risk. The trade keeps a copy of the macro assessment. Opening it captures the entry factors and confidence available at that moment.
+3. **Review the outcome.** The journal groups closed trades and rejected ideas. Analytics compares realised results in units of initial risk (R) by pair, direction, currency exposure and entry factors. Each group shows how many trades have a recorded result. A break-even trade counts as zero R, while a missing result is excluded from the calculation.
 
-Entfernt: Gesamtfazit und weitere Notizen im Morgenüberblick; Trade-These, Pip-Wert/Lots-Schätzung, Kosten- und Managementfelder, technisches Setup und Exposure/Prop-Regeln in Trade-Ideen. Zugehörige Readiness-, Risk-Gate- und Checklistenpflichten entfallen ebenso wie die technische Faktorbewertung. Die vier fundamentalen Faktoren und Edge Analytics bleiben erhalten. Gespeicherte historische Werte und Snapshots werden nicht gelöscht oder migriert.
+The news view lets the user attach a sourced headline and a personal interpretation to a pair. The research panels support imported EdgeFinder snapshots and a manual ChatGPT handoff for structured macro reports, independent reviews and saved examples. The user supplies pricing inputs and executes trades separately.
 
-## v5.6.18 – Edge Analytics
+## Architecture
 
-Die bestehende Auswertung wird erweitert, ohne bestehende Einträge umzuschreiben:
+GitHub Pages serves the HTML, CSS and browser JavaScript directly. Personal records live in the browser. The scheduled news refresh runs independently of the app.
 
-- Confidence: High / Medium / Low und „Keine Daten“, ausschliesslich aus dem
-  Entry-Snapshot. Confidence aus alten v5.6.17-Snapshots bleibt auswertbar.
-- Long Currency / Short Currency aus Paar und Richtung. AUDNZD Short bedeutet
-  Long NZD / Short AUD. Pro Tabelle wird jeder Trade einmal gezählt; die beiden
-  Tabellen dürfen nicht addiert werden.
-- Einzelbewertungen für EdgeFinder, Rates, Market Driver und Risk sowie vier
-  Kombinationen: EdgeFinder + Rates, Rates + Market Driver, Rates + Risk,
-  EdgeFinder + Rates + Market Driver. Keine automatischen Empfehlungen.
-- Tabellen zeigen Trades insgesamt, Sample mit R, fehlende Ergebnisse, Win Rate,
-  Ø R, Gesamt-R, Profit Factor und historische Expectancy. Die Übersicht zeigt
-  zusätzlich Ø Gewinner und Ø Verlierer. Expectancy ist der empirische Ø R,
-  keine zusätzliche unabhängige Kennzahl. Break-even zählt im Nenner mit.
-- Kumulative R-Kurve bleibt erhalten; zusätzliche negative Drawdown-Kurve
-  (R-Summe minus bisheriger Höchststand). Beide starten bei 0 in der aktuellen
-  Filterauswahl, berücksichtigen ausschliesslich datierte Abschlüsse und bilden
-  weder offene Buchverluste noch einen Konto-Drawdown ab.
-- Filter: Paar, Richtung, Abschlusszeitraum, Confidence, Long/Short Currency und
-  alle vier Faktorbewertungen. „Keine Daten“ ist gezielt auswählbar. Verworfene
-  Ideen bleiben vom Abschlusszeitraum unabhängig; alle anderen Filter gelten.
-- Unter 5 Ergebnissen wird eine Gruppe als sehr klein markiert, unter 20 als
-  klein. Dies ist eine Orientierung und kein Signifikanztest. Grössere Gruppen
-  beweisen ebenfalls keinen kausalen Vorteil eines Filters.
-
-### Zusätzliche Entry-Werte
-
-Beim ersten Wechsel auf **Offen** bleiben `analyticsEntry.version: 1`, der
-Zeitpunkt und alle bisherigen Felder erhalten. Neue Snapshots ergänzen optional
-`detailsVersion: 1` und `fundamentals`. Bereits existierende Snapshots werden
-niemals nachträglich ergänzt, auch wenn der Trade heute mehr Felder enthält.
-
-| Trade-Feld | Zusätzlich eingefrorener Wert |
+| Component | Responsibility |
 | --- | --- |
-| `edgeBase`, `edgeQuote` | EdgeFinder Base-/Quote-Bias |
-| `edgeScoreBase`, `edgeScoreQuote` | Einzelwerte und Differenz Base minus Quote, nur wenn beide vorhanden |
-| `yieldBase`, `yieldQuote` | Base-/Quote-2Y in %, Spread in bp = (Base − Quote) × 100 |
-| `yieldPrev`, `yieldPrev2` | Bereits vorhandener Spread vor 1W / 2W in bp |
-| `driverMain`, `riskRegime` | Vorhandener Driver-Text und Risk-Regime |
-| `factors`, `fields.confidence` | Weiterhin vorhandene Faktorbewertungen und Confidence |
+| `index.html`, `build-info.json` | Script loading order, active release files and SHA-256 fingerprints. |
+| `data.base.v5.6.23.js`, `app.base.v5.6.23.js` | Data definitions, forms, trade lifecycle, calculations and IndexedDB persistence. |
+| `app.v5.6.23.js`, `analytics.v5.6.23.js` | Pair and rates views, entry snapshots, journal metrics and drawdown on realised R. |
+| `edgefinder-integration.js`, `chatgpt-macro.js`, `research-backup.js` | Imported research, manual report exchange and backup of six namespaced localStorage entries. |
+| `scripts/refresh_news.py`, `.github/workflows/news.yml`, `news.js` | A Python standard-library job normalises RSS and Atom feeds into `feeds/news.json`. The browser filters headlines and saves selected items with the analysis. |
 
-Es werden nur beim Öffnen vorhandene Trade-Felder gelesen, keine späteren
-Morgenanalysen oder Live-Werte. Leere/unbekannte Werte bleiben null beziehungsweise
-„Keine Daten“; echte Nullen bleiben erhalten. Vorhandene Felder können in der
-Trade-Checkliste gepflegt werden, Bewertungen und Confidence in der Trade-Übersicht.
-Details sind unter „Ergebnisse nachvollziehen → Historische Entry-Werte ansehen“
-pro Trade aufklappbar. Weitere Faktortabellen betrachten Base-/Quote-Bias und das
-Vorzeichen von Score-/2Y-Differenzen sowie 1W-Spread-Veränderung in Handelsrichtung.
+## Engineering decisions
 
-Bestehende R-Ergebnisse, v5.6.17-Snapshots, IndexedDB, Bilder und Backups bleiben
-kompatibel, ohne Migration. Neue Tests decken alte/neue Snapshots, unveränderliche
-Werte, fehlende Daten, Exposure, alle Filter, Kombinationen, Kennzahlen,
-Drawdown-/Zeitsortierung und Backup-Import ab. Eine visuelle Browserprüfung bleibt
-in dieser Umgebung offen (Browser-Download bereits in v5.6.17 fehlgeschlagen).
+**Historical evidence.** Today's rate expectations can change after a trade opens. The trade view distinguishes the current morning analysis from the copy taken when the idea was created from that analysis. Entry analytics use the frozen factors. Older entries without a captured factor remain available as missing data.
 
-## v5.6.17 – Journal-Auswertung
+**Portable backups across two storage systems.** Trades, analyses and image attachments use IndexedDB (`fx-trade-desk`, version 1). JSON export includes these records and the research held in localStorage. Import validates the research payload and rolls back research writes if persistence fails. Legacy backups that omit research preserve the browser's existing research in both import modes.
 
-Der neue Menüpunkt **Auswertung** nutzt bestehende lokale Trade-Datensätze:
+**Feed outages.** The refresh job deduplicates headlines and retains earlier items when a source fails. The browser tries the published feed, falls back to the site copy and can display cached headlines with their timestamp.
 
-- Anzahl geschlossener Trades, Summe und Durchschnitt realisierter R,
-  Trefferquote (Gewinne / alle Ergebnisse inklusive Break-even), Profitfaktor
-  auf R-Basis und maximaler Rückgang der kumulierten realisierten R.
-- Verlauf nach Abschlussdatum, Filter nach Paar, Richtung und Abschlusszeitraum.
-  Fehlende oder ungültige Ergebnisse sind kein Null-Trade. Ohne Verlust-R ist
-  der Profitfaktor nicht berechenbar. Der R-Rückgang ist kein Konto-Drawdown.
-- Gruppenvergleich EdgeFinder/Rates sowie Paar/Richtung; Stichprobengrösse und
-  fehlende Ergebnisse bleiben sichtbar. Gruppenvergleiche sind beschreibend,
-  keine kausale Erfolgsprüfung eines Filters.
-- Beim ersten Statuswechsel von einer Idee zu **Offen** werden Paar, Richtung,
-  fundamentale Bewertungen und Confidence in `analyticsEntry` festgehalten.
-  Spätere Faktoränderungen überschreiben diesen Stand nicht. Paar-/Richtungs-
-  Änderungen machen ihn für die Gruppenzuordnung unpassend. Beim Duplizieren
-  wird er entfernt. Historische oder direkt geschlossen erfasste Trades erhalten
-  keinen nachträglich erfundenen Bewertungsstand; ihre Ergebnisse zählen weiter.
-- Verworfene Trade-Ideen erscheinen separat, ohne hypothetisches Ergebnis.
-  Im Journal kann ein Ablehnungsgrund ergänzt werden. Diese Übersicht folgt
-  Paar/Richtung, aber nicht dem Abschlusszeitraum. Verworfene Paarbewertungen
-  aus Tagesanalysen werden nicht als eigene Trades gezählt.
-- Bestehende Datensätze, Bilder und Backups bleiben kompatibel. Keine Migration,
-  neue Datenbank, Marktdatenabfrage oder Cloud-Speicherung.
+## Run locally
 
-`analytics.v5.6.23.js` enthält die read-only Auswertung und das Festhalten der
-Bewertungen; die Navigation und Statuswechsel bleiben im aktiven Core.
-Die automatisierten Tests prüfen Zahlen, Datumsfilter, fehlende Werte,
-Bestandsdaten, Statuswechsel, Duplikate, Speicherung und HTML-Escaping.
-Eine echte Desktop-/Mobil-Sichtprüfung war in dieser Umgebung nicht möglich:
-Der Browser-Download lieferte kein gültiges Installationsarchiv.
+From the repository root, serve the static files with Python 3.
 
-## Trade-Ideen und Journal
+```sh
+python3 -m http.server 8000
+```
 
-- Trade-Ideen und die Startübersicht zeigen nur aktive Ideen und offene Positionen.
-- Der neue Menüpunkt Journal zeigt Geschlossen und Verworfen. Bestehende Einträge
-  werden unmittelbar anhand ihres Status einsortiert, ohne Kopie oder Migration.
-- Suche und Filter arbeiten nur innerhalb der jeweiligen Liste. Ein aktiver Status
-  bringt denselben Eintrag zurück zu Trade-Ideen; alle Felder, Screenshots,
-  Checklisten, Snapshots und Journalnotizen bleiben am Originaldatensatz erhalten.
-- Der Detailkopf führt zurück zur passenden Liste. Die Statistik zu geschlossenen
-  Trades bleibt erhalten.
-- Geprüft mit automatisierten Anwendungstests: Bestandsdaten, Schliessen/Verwerfen,
-  Wiederöffnen, Suche/Filter, Speicherung und leere Listen. Der Starttest prüft
-  zusätzlich Versionskennungen und Initialisierung mit vorhandenen Datensätzen.
-  Keine erneute visuelle Browserprüfung.
+Open [localhost:8000](http://localhost:8000). For the Vite development server, use Node.js 22.12+ and run `npm ci` followed by `npm run dev`. GitHub Pages serves the same static entry point.
 
-## Aktueller Stand
+Browser storage belongs to the current origin and profile. To move your workspace between localhost, GitHub Pages or another browser, export a full JSON backup under **Backup & Einstellungen** and import it at the destination.
 
-- Kompakter Bereich Währungen & Rates mit Quellen und Datenqualität.
-- Paar-Screener mit Statusfiltern und einklappbarer Gesamtübersicht.
-- Paar-Checklisten, Rates-Berechnungen und Hinweise bei geänderter
-  Währungsgrundlage; explizite Bestätigung des Prüfstands.
-- Neue Tagesanalyse mit ungeprüften Bewertungen und erhaltener Originalanalyse.
-- Gemeinsame Catalysts und gezielte Terminübernahme in bestehende Trades.
-- Trade-Übersicht mit Rates-Matrix, Zentralbank-Ton und Sitzungswahrscheinlichkeiten
-  unter „Aktuelle Morgenanalyse“. Der getrennte Bereich „Stand bei
-  Trade-Übernahme“ zeigt die gespeicherte Kopie mit Übernahmezeitpunkt.
-  Es gibt keinen externen Marktdatenfeed. Fehlt die Originalanalyse,
-  verwendet die Ergänzung den eingefrorenen Makro-Snapshot.
-- Hike/Hold/Cut-Vergleichsfelder bleiben absolute Prozentwerte. Bei „Neue
-  Tagesanalyse“ werden sie einmalig für alle acht Währungen aus den aktuellen
-  Werten der Ausgangsanalyse gesetzt. Fehlende Werte bleiben leer; 0 % bleibt
-  erhalten. Bestehende Analysen und spätere manuelle Eingaben werden nicht
-  nachträglich verändert.
-
-## Nur die aktive Version
-
-Der aktuelle Dateibaum enthält ausschliesslich die aktiven Versionsdateien.
-Frühere Versionen bleiben über die Git-Historie verfügbar.
-
-| Datei | Aufgabe |
-| --- | --- |
-| `index.html` | Einstieg und Reihenfolge der geladenen Skripte |
-| `data.base.v5.6.23.js` | Daten- und Checklistendefinitionen |
-| `app.base.v5.6.23.js` | Kernanwendung, Formulare, Berechnungen und Speicherung |
-| `app.v5.6.23.js` | Trade-Fundamentaldaten, Beschriftungen, einklappbarer Screener |
-| `style.v5.6.23.css` | Aktuelle Ergänzungen; importiert den Basisstil |
-| `style.base.v5.6.23.css` | Basislayout |
-
-Die Basisdateien sind aktive Abhängigkeiten und dürfen nicht gelöscht werden.
-Die Versionsdateien bilden gemeinsam den aktiven Stand. Der separate tägliche
-Probability-Helfer und die zweite Vorbelegung im Darstellungsmodul entfallen.
-Der Tageswechsel übernimmt die Werte direkt vor Anzeige und Speicherung des
-neuen Datensatzes. Bestehende Datensätze benötigen keine Migration.
-
-Bei künftigen Updates zuerst alle aktiven HTML-/JS-/CSS-Abhängigkeiten prüfen,
-dann nicht mehr verwendete Versionsdateien entfernen. Paketversion, README,
-Build-Metadaten und Tests gemeinsam aktuell halten.
-
-## Prüfung
+## Verification
 
 ```sh
 npm test
+npm run test:news-feeds
 ```
 
-Die Tests prüfen aktive Abhängigkeiten und Syntax sowie den Kerncode mit
-simuliertem DOM/IndexedDB: Trade-Entscheidungen, alle 17 Trade-Checks und
-Eingabefelder, Tageskopien, Paar-Prüfstand, Statusfilter, Catalysts, Speicherung
-und Import. Das Feldverzeichnis `tests/trade-fields.json` schützt die vorhandenen
-Eingaben, ohne eine alte Anwendungsversion im Repository vorzuhalten.
-
-Die Ergänzungen werden auf Einbindung und Syntax geprüft, nicht vollständig im
-Browser ausgeführt. Eine echte Desktop-/Mobilprüfung bleibt offen.
-`tests/responsive-preview.html` ist die beibehaltene manuelle Prüfansicht.
-
-## Prüfung der Änderungen in v5.6.16
-
-Die Tests prüfen zusätzlich die Beschriftung beider Analysequellen samt
-Fallback und einmalige Übernahme aller acht Währungen ohne Tabwechsel,
-0-Prozent-Werte, fehlende Werte, unveränderte Wochenvergleiche, spätere
-manuelle Bearbeitung und Speicherung sowie die nächste Tageskopie.
-Die alten Formular-Helfer sind nicht mehr eingebunden. Keine erneute
-Browserprüfung für diese Änderung.
-
-## Daten und Veröffentlichung
-
-Vollständige JSON-Backups inklusive Screenshots erfolgen in der App unter
-„Backup & Einstellungen“. Die Datenbank bleibt `fx-trade-desk`, Version 1.
-Website-Dateien und persönliche Browserdaten sind voneinander unabhängig.
-Für GitHub Pages wird `index.html` mit ihren aktiven Abhängigkeiten benötigt;
-`npm run dev` dient nur der Entwicklung. Keine Brokeranbindung und keine
-automatischen Orders.
-
-## v5.6.16 – Vereinfachte Rates-Eingabe
-
-Der Block „Referenzzinsen & Datenqualität“ entfällt in Währungen & Rates. Bei der Erwartungsänderung gegenüber Vorwoche entfallen historischer Vergleichs-Datenstand, Kontrakt/Kurve und zusätzliche Einheiten-Auswahl. Die Eingabe bleibt in bp; der Berechnungshorizont bleibt auswählbar. Bestehende Metadaten bleiben in Datensätzen und Backups erhalten. Keine Migration oder Änderung der Berechnungslogik.
-
-## Rates-Anzeigen v5.6.16
-
-Paar-Screener, Paaranalyse, Paarvergleich und Trade-Rates zeigen keine Indikativ-Kennzeichnung oder Metadatenwarnungen mehr. Fehlende/ungültige Werte und inkompatible Horizonte bzw. Berechnungsgrundlagen bleiben sichtbar. Manuelle Overrides sind weiterhin als manuell gekennzeichnet. Gespeicherte Daten und Berechnungen unverändert.
-
-## v5.6.21 – News & Market Driver
-
-- Eigenständige Navigation mit Währungs-, Themen-, Zeitraum- und Suchfiltern.
-- RSS-Schlagzeilen der acht Zentralbanken sowie BBC Business/World: Quelle,
-  Veröffentlichungszeit und Link zum Original. Zuordnung nach Quelle/Schlagworten;
-  keine vollständige Relevanzanalyse oder automatische Handelsrichtung.
-- WorldMonitor Finance und globale Lage als externe Recherchelinks. Kein Zugriff
-  auf die kostenpflichtige WorldMonitor-API und keine Übernahme ihres Quellcodes.
-- Übernahme in eine ausgewählte Morgenanalyse und deren Paar: eigene Einordnung,
-  Duplikatschutz und lokaler Snapshot unter `pairs[].news`. Erhalten im normalen
-  JSON-Backup, in Tageskopien (mit ursprünglichem Datum) und im Trade-Snapshot.
-  IndexedDB bleibt unverändert. Bestehende Notizen und Bewertungen bleiben erhalten.
-- `scripts/refresh_news.py`: Standardbibliothek, RSS 1.0/2.0 und Atom, begrenzte
-  Abrufe, sichere URLs, Duplikatbereinigung, maximal 30 Tage/600 Schlagzeilen.
-  Keine Artikelvolltexte, API-Schlüssel oder persönlichen Daten.
-- `.github/workflows/news.yml`: auf main bei Einrichtung, manuell und geplant
-  jeweils um Minute 17/47. GitHub kann geplante Läufe verzögern oder deaktivieren.
-  Schreibt ausschliesslich `feeds/news.json`; benötigt `contents: write`.
-- Browser lädt die JSON-Datei von raw.githubusercontent.com, dann als Fallback aus
-  der Website. So sind neue Feeds ohne Pages-Neubuild verfügbar (Commits des
-  GITHUB_TOKEN starten keinen weiteren Pages-Workflow). Letzter Abruf bleibt sichtbar;
-  bei Fehlern bleiben vorherige Nachrichten mit ihrem ursprünglichen Datum erhalten.
-  Feed über zwei Stunden alt wird als älterer Stand markiert. „Feed neu laden“ lädt
-  den veröffentlichten Feed, startet keinen neuen Abruf bei den Nachrichtenquellen.
-- Der öffentliche Feed wird im Browser zwischengespeichert. Die Auswahl einer
-  Währung, eigene Einordnungen und Paaranalysen werden nicht nach GitHub gesendet.
-
-Prüfung: `npm test` und `npm run test:news-feeds`. Die Tests decken Feeds/Atom/RDF,
-Zeitpunkte, Ausfälle, Duplikate, Filter, HTML/URL-Sicherheit, lokale Speicherung,
-Paaransicht und unveränderte Trade-Snapshots ab.
-
-## v5.6.22 – SL-Management
-
-Unter Trade-Idee → Entry & Risiko steht der persönliche Gewinnsicherungsplan: ab +1 % Break-even, ab +1,5 % SL +1 %, danach in 0,5-Prozentpunkt-Schritten. Das Nachziehen gilt nur bei bestätigendem EdgeFinder-Bias. Prozentbasis, Bias samt Prüfzeit, tatsächlich gesetzter SL, Management-Entscheidung und Notiz werden pro Trade gespeichert. Bei abweichendem Bias bleibt die Entscheidung zwischen Weiterlaufen mit bestehendem SL und Schliessen manuell. Keine Orderausführung oder automatische Statusänderung.
-
-Die neuen optionalen `fields.reviewSl*`-Werte nutzen die bestehende Speicherung und Backups. Ursprünglicher Entry/Stop, Risiko, CRV, Freigabe und historische Analysen bleiben unverändert; keine Datenmigration.
-
-## v5.6.23 – Gemeinsames Backup und Wiederherstellung
-
-„Vollständiges JSON-Backup“ und „Backup erstellen“ enthalten jetzt zusätzlich alle gespeicherten ChatGPT-Makroanalysen, Reviews, ursprünglichen Eingaben, vorbereiteten Analyseaufträge, Trainingsbeispiele samt Notizen und EdgeFinder-Imports. Noch nicht gespeicherte Texte in Formularfeldern sind keine gespeicherten Analysen.
-
-Beim Import werden diese Daten in die ursprünglichen lokalen Speicherbereiche zurückgeschrieben und sind anschliessend in „ChatGPT Makroanalyse“ und „EdgeFinder Daten“ sichtbar. Zusammenführen ergänzt fehlende Einträge; bei gleicher Kennung bleibt die vorhandene Version erhalten. Ersetzen übernimmt den Research-Bereich vollständig. Alte Backups ohne diesen Bereich bleiben kompatibel und verändern vorhandene Research-Daten nicht. Ein altes Backup kann fehlende ChatGPT-Daten nicht nachträglich rekonstruieren: nach dem Update im bisherigen Browser ein neues Backup erstellen.
-
-Die IndexedDB-Struktur bleibt unverändert. Der zusätzliche versionierte Research-Bereich ist auf sechs konkrete Anwendungsschlüssel begrenzt; fremde Browserdaten werden nicht exportiert. Fehlerhafte Research-Strukturen werden vor dem Import abgewiesen. Schlägt die lokale Speicherung oder die Datenbanktransaktion fehl, werden Research-Änderungen zurückgenommen.
-
-Tests: vollständiger Export/Import in einen leeren Speicher mit anschliessendem Rendering der ChatGPT-Ansicht; Reviews, Trainingsbeispiele, Eingaben, EdgeFinder-Daten, alte Backups, Zusammenführen, Ersetzen und simulierte localStorage-/IndexedDB-Fehler.
+The Node.js suites exercise startup with existing records, release dependencies, daily-analysis copies, trade transitions, historical snapshots, analytics, news persistence and backup recovery. The Python tests exercise feed parsing and failure handling with fixtures. Both commands run without installing the Vite development dependency.
