@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-11T07:14:17.244329Z",
+  "generatedAt": "2026-11-11T15:25:30.049008Z",
   "sources": [
     {
       "id": "fed",
       "name": "Federal Reserve",
       "url": "https://www.federalreserve.gov/newsevents.htm",
       "feedUrl": "https://www.federalreserve.gov/feeds/press_all.xml",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -16,8 +16,8 @@
       "name": "EZB",
       "url": "https://www.ecb.europa.eu/press/html/index.en.html",
       "feedUrl": "https://www.ecb.europa.eu/rss/press.html",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -25,8 +25,8 @@
       "name": "Bank of England",
       "url": "https://www.bankofengland.co.uk/news",
       "feedUrl": "https://www.bankofengland.co.uk/rss/news",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -34,8 +34,8 @@
       "name": "Bank of Japan",
       "url": "https://www.boj.or.jp/en/whatsnew/",
       "feedUrl": "https://www.boj.or.jp/en/rss/whatsnew.xml",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -43,8 +43,8 @@
       "name": "Reserve Bank of Australia",
       "url": "https://www.rba.gov.au/media-releases/",
       "feedUrl": "https://www.rba.gov.au/rss/rss-cb-media-releases.xml",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -52,8 +52,8 @@
       "name": "Reserve Bank of New Zealand",
       "url": "https://www.rbnz.govt.nz/news-and-events",
       "feedUrl": "https://www.rbnz.govt.nz/feeds/news",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -61,8 +61,8 @@
       "name": "Bank of Canada",
       "url": "https://www.bankofcanada.ca/press/",
       "feedUrl": "https://www.bankofcanada.ca/feed/",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -70,8 +70,8 @@
       "name": "Schweizerische Nationalbank",
       "url": "https://www.snb.ch/en/news-publications",
       "feedUrl": "https://www.snb.ch/public/rss/en/mopo",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -79,8 +79,8 @@
       "name": "BBC Business",
       "url": "https://www.bbc.com/news/business",
       "feedUrl": "https://feeds.bbci.co.uk/news/business/rss.xml",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     },
     {
@@ -88,12 +88,265 @@
       "name": "BBC World",
       "url": "https://www.bbc.com/news/world",
       "feedUrl": "https://feeds.bbci.co.uk/news/world/rss.xml",
-      "checkedAt": "2026-11-11T07:14:17.244329Z",
-      "lastSuccessAt": "2026-11-11T07:14:17.244329Z",
+      "checkedAt": "2026-11-11T15:25:30.049008Z",
+      "lastSuccessAt": "2026-11-11T15:25:30.049008Z",
       "status": "ok"
     }
   ],
   "items": [
+    {
+      "id": "f6f2c356227b45bce379bfb2",
+      "title": "Kidnapper, 74, escapes from house arrest in Argentina by abseiling from balcony",
+      "url": "https://www.bbc.co.uk/news/articles/c933gn6710lyo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T14:56:11Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "bf0354919e892807020aa393",
+      "title": "Three Iran-backed suspects plotted attacks including RAF Fairford incident, US says",
+      "url": "https://www.bbc.co.uk/news/articles/c3rryrryk59zo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T14:51:26Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "3a0b6122a2ac65d016b632a7",
+      "title": "Spain sees widespread disruption in first general strike for 14 years",
+      "url": "https://www.bbc.co.uk/news/articles/cwvg25nypmrvo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-11-11T14:06:27Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "57ea874114065b873c9ee274",
+      "title": "Egyptian journalist's retrial adjourned as UN warns of 'assaults on press freedom'",
+      "url": "https://www.bbc.co.uk/news/articles/cmkg5jr59835o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T13:25:47Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "2487502ed7655fd16cdfc3bc",
+      "title": "Four grizzly bears killed in Canada after fatal attack on mother and daughter",
+      "url": "https://www.bbc.co.uk/news/articles/cwg5r8zrm11mo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T13:24:29Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [
+        "CAD"
+      ],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "3116dfbf95ac28d80134b18f",
+      "title": "Kenya discharges last Ebola patient in major milestone towards virus-free status",
+      "url": "https://www.bbc.co.uk/news/articles/cwe9kzv0g0v7o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T12:53:11Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "0efd73fa39844007b6dc53e7",
+      "title": "What are cold weather payments and who can get them?",
+      "url": "https://www.bbc.co.uk/news/articles/c87470q4w21o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-11-11T12:49:31Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "ac468bbb6b4cc89d3b26ba69",
+      "title": "Hundreds of Italian schools hit by threats in suspected bomb hoax",
+      "url": "https://www.bbc.co.uk/news/articles/cwz0k79pr8z2o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T12:30:29Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "ddbccf94961adfce3711413c",
+      "title": "Haitian PM praises El Salvador after joint strike on alleged home of gang leader",
+      "url": "https://www.bbc.co.uk/news/articles/cmvg2xdwnwezo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T12:14:12Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "bb354b722b4500e49fb1f2f9",
+      "title": "US House blocks bid to impeach Defence Secretary Pete Hegseth",
+      "url": "https://www.bbc.co.uk/news/articles/cxly4y5jzl0qo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T11:47:22Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "104148c752c7a38623852c72",
+      "title": "Transport workers in Chile block highways in protest over surging fuel prices",
+      "url": "https://www.bbc.co.uk/news/articles/c6e3d895zne7o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T11:34:50Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik",
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "d0185ee510ee40d49a416dba",
+      "title": "Remembrance Day",
+      "url": "https://www.bankofcanada.ca/2026/11/remembrance-day-3/",
+      "sourceId": "boc",
+      "source": "Bank of Canada",
+      "publishedAt": "2026-11-11T10:10:54Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [
+        "CAD"
+      ],
+      "topics": [
+        "Zentralbanken"
+      ]
+    },
+    {
+      "id": "763502d052f076c55adbc372",
+      "title": "Poundland set for more time to secure a rescue deal as emergency talks continue",
+      "url": "https://www.bbc.co.uk/news/articles/c3702jjkez4ko?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-11-11T10:03:34Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "2b28704cac5d0a2ac2a45dba",
+      "title": "The Global Story",
+      "url": "https://www.bbc.co.uk/sounds/play/w3ct8mlr?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-11-11T10:00:00Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "23e9c42a56c2d139d5d6d8a4",
+      "title": "Tearful Smith switches allegiance to Netherlands",
+      "url": "https://www.bbc.co.uk/sport/swimming/articles/cmx27n60n3wno?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T09:45:14Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "01e0d15111ea62cf991e4841",
+      "title": "Watch: Vinícius Jr's surprise message to boy who received prosthetic legs after Sudan drone strike",
+      "url": "https://www.bbc.co.uk/news/videos/cm894wg251pzo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T09:28:36Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
+    {
+      "id": "c273b9fd9591e959b12745a4",
+      "title": "Christmas toy rush being driven by squishies and building sets",
+      "url": "https://www.bbc.co.uk/news/articles/cx5ynyg6j375o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-11-11T07:52:05Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "e869dd4c2eff543382104bf7",
+      "title": "What we know so far about Jensen Huang's affair with suspected Chinese spy",
+      "url": "https://www.bbc.co.uk/news/articles/ckgel338xql3o?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-business",
+      "source": "BBC Business",
+      "publishedAt": "2026-11-11T07:44:24Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Konjunktur"
+      ]
+    },
+    {
+      "id": "e26166c9944b85e33f0decf2",
+      "title": "US warns Madagascar over growing military ties with Russia",
+      "url": "https://www.bbc.co.uk/news/articles/crkgv58pknyeo?at_medium=RSS&at_campaign=rss",
+      "sourceId": "bbc-world",
+      "source": "BBC World",
+      "publishedAt": "2026-11-11T07:30:15Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
+      "currencies": [],
+      "topics": [
+        "Geopolitik"
+      ]
+    },
     {
       "id": "9d0e6a680d9493737394af72",
       "title": "Electricity bills to rise by 2.5% from March",
@@ -101,7 +354,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-11T06:24:15Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -114,36 +367,10 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-11T03:44:06Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "bb354b722b4500e49fb1f2f9",
-      "title": "US House blocks bid to impeach Defence Secretary Pete Hegseth, for now",
-      "url": "https://www.bbc.co.uk/news/articles/cxly4y5jzl0qo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-11T03:26:42Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "ddbccf94961adfce3711413c",
-      "title": "Headquarters of Haitian gang destroyed, El Salvador's president says",
-      "url": "https://www.bbc.co.uk/news/articles/cmvg2xdwnwezo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-11T02:47:59Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
       "topics": [
         "Geopolitik"
       ]
@@ -155,20 +382,7 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-11T02:41:16Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "bf0354919e892807020aa393",
-      "title": "Three Iran-backed suspects plotted attacks including RAF Fairford incident, US says",
-      "url": "https://www.bbc.co.uk/news/articles/c3rryrryk59zo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-11T01:01:20Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
@@ -181,7 +395,7 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-11T00:26:02Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
@@ -189,12 +403,12 @@
     },
     {
       "id": "78fa4d08006b669dc413ff1e",
-      "title": "Real Madrid's Vinícius Jr sends surprise message to boy who lost his legs in Sudan's war",
+      "title": "Vinícius Jr sends message to Sudan boy who received prosthetic legs after BBC report sparks appeal",
       "url": "https://www.bbc.co.uk/news/articles/cqm26mmpp2p1o?at_medium=RSS&at_campaign=rss",
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-11T00:19:42Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
@@ -207,7 +421,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-11T00:19:13Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -220,36 +434,10 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-11T00:18:07Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
-      ]
-    },
-    {
-      "id": "c273b9fd9591e959b12745a4",
-      "title": "Stickers and building sets help drive toy sales ahead of Christmas rush",
-      "url": "https://www.bbc.co.uk/news/articles/cx5ynyg6j375o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-business",
-      "source": "BBC Business",
-      "publishedAt": "2026-11-11T00:16:44Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Konjunktur"
-      ]
-    },
-    {
-      "id": "763502d052f076c55adbc372",
-      "title": "Poundland hopeful for last-minute rescue deal to stave off collapse",
-      "url": "https://www.bbc.co.uk/news/articles/c3702jjkez4ko?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-business",
-      "source": "BBC Business",
-      "publishedAt": "2026-11-11T00:02:07Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Konjunktur"
       ]
     },
     {
@@ -259,7 +447,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-10T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -274,10 +462,9 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T22:52:15Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
-        "Geopolitik",
         "Konjunktur"
       ]
     },
@@ -288,36 +475,10 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T21:24:06Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
-      ]
-    },
-    {
-      "id": "e869dd4c2eff543382104bf7",
-      "title": "What we know so far about Jensen Huang's affair with suspected Chinese spy",
-      "url": "https://www.bbc.co.uk/news/articles/ckgel338xql3o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-business",
-      "source": "BBC Business",
-      "publishedAt": "2026-11-10T21:22:36Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Konjunktur"
-      ]
-    },
-    {
-      "id": "d3212160414aac1d2d3bc5a6",
-      "title": "First day of Ukraine peace talks constructive, Zelensky says",
-      "url": "https://www.bbc.co.uk/news/articles/cqpvgvrpjvv8o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T21:21:55Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -327,36 +488,10 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-10T21:17:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "AUD"
       ],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "78377496e414ed1cbcbc55ab",
-      "title": "Spain's king and queen attend memorial service for rail crash victims",
-      "url": "https://www.bbc.co.uk/news/articles/ckjwew54yd4wo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T20:46:40Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "c20c2bdeabaf12137c65b68c",
-      "title": "US federal authorities could have prevented Epstein crimes, report finds",
-      "url": "https://www.bbc.co.uk/news/articles/cq5ynyn8zyr8o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T20:36:58Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
       "topics": [
         "Geopolitik"
       ]
@@ -368,48 +503,7 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-10T20:31:17Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "aebc2df4963848540cf99fbf",
-      "title": "US Army soldier suspected of spying for Russia arrested in UK",
-      "url": "https://www.bbc.co.uk/news/articles/c6d7q77xgw0vo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T20:20:04Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [
-        "GBP"
-      ],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "43b41d6003dac1cbf84242cb",
-      "title": "Violence erupts in Bangladesh as ousted PM's supporters stage protest",
-      "url": "https://www.bbc.co.uk/news/articles/cwkg5g5pjpyko?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T19:26:42Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "c0413d783d37fb55406b5901",
-      "title": "Makers of GLP-1 drugs ordered to add warnings about rare eye condition that can lead to blindness",
-      "url": "https://www.bbc.co.uk/news/articles/crwydyde0lp3o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T18:43:04Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
@@ -417,51 +511,12 @@
     },
     {
       "id": "55b4bc03a0eb318e375fb200",
-      "title": "Meet the Peaky Blinders, Ukraine's drone unit protecting a devastated front-line city",
+      "title": "'If I tell you to run, run': BBC joins a Ukrainian drone unit as it protects a front-line city",
       "url": "https://www.bbc.co.uk/news/videos/cm2l4l59gjp7o?at_medium=RSS&at_campaign=rss",
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-10T18:35:35Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "b812a27808c73cb4c28ac17c",
-      "title": "Malaysia's disgraced former PM leaves jail for house arrest after embezzling millions",
-      "url": "https://www.bbc.co.uk/news/articles/cxnv0v4yln7do?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T18:33:51Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "6dd43c8324543e897ebe0795",
-      "title": "Arrests made after visit from former US President Biden",
-      "url": "https://www.bbc.co.uk/news/articles/ck78p827y642o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T18:07:56Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "207a4fa17cf57c0712f3b607",
-      "title": "Anti-homosexuality laws in Trinidad and Tobago overturned",
-      "url": "https://www.bbc.co.uk/news/articles/cm0e0evlpp87o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T18:04:18Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
@@ -474,7 +529,7 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-10T18:03:52Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
@@ -487,7 +542,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T17:56:12Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -500,23 +555,10 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T17:04:55Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
-      ]
-    },
-    {
-      "id": "79d2d8b7c1cd87ddbaaf828c",
-      "title": "Israel's new parliament sworn in as leaders compete to form government",
-      "url": "https://www.bbc.co.uk/news/articles/crd939lpzjp9o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T17:03:16Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -526,23 +568,10 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-10T17:00:11Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
-      ]
-    },
-    {
-      "id": "262d4f981333d788fa8c9798",
-      "title": "Some pupils 'struggling just to get a hot meal'",
-      "url": "https://www.bbc.co.uk/news/articles/c9m262yv6yx8o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-business",
-      "source": "BBC Business",
-      "publishedAt": "2026-11-10T16:46:21Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Konjunktur"
       ]
     },
     {
@@ -552,66 +581,12 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-10T16:45:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
       "topics": [
         "Zentralbanken"
-      ]
-    },
-    {
-      "id": "119606f9f2d23278fac83294",
-      "title": "Arrests made in Mohamed Al Fayed probe in France, police say",
-      "url": "https://www.bbc.co.uk/news/articles/ck1wvwyrd4ywo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T16:19:48Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [
-        "EUR"
-      ],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "ad975dd0d3cfcff91800d0a4",
-      "title": "Twelve dead after motorway pile-ups in Bulgaria fog",
-      "url": "https://www.bbc.co.uk/news/articles/ckx2q2velpjjo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T16:07:51Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "2fb549021d03c7dffc6e3b04",
-      "title": "Thousands of 'off-grid' homes eligible for £250 to help with heating bills",
-      "url": "https://www.bbc.co.uk/news/articles/cm70p050824po?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-business",
-      "source": "BBC Business",
-      "publishedAt": "2026-11-10T16:03:46Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Konjunktur"
-      ]
-    },
-    {
-      "id": "af1eb0f1fbea412d956fc40b",
-      "title": "Board of Peace says Israel's aid response after Gaza floods 'insufficent'",
-      "url": "https://www.bbc.co.uk/news/articles/cw4g1g4ll5m1o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T15:21:18Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -621,7 +596,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T15:10:20Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -634,7 +609,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T14:45:46Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -647,27 +622,12 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-10T14:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
       "topics": [
         "Zentralbanken"
-      ]
-    },
-    {
-      "id": "afdc6ec15c3be9fd1f75ee00",
-      "title": "Iran rejects French claims it was behind supermarket fridge hacking",
-      "url": "https://www.bbc.co.uk/news/articles/cmg474vk6dyqo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T13:45:13Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [
-        "EUR"
-      ],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -677,38 +637,10 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T13:39:28Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
-      ]
-    },
-    {
-      "id": "fb294595803529a700e0705f",
-      "title": "French wartime resistance heroine Solange Alexandre dies aged 104",
-      "url": "https://www.bbc.co.uk/news/articles/cjdx3x7wg941o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T13:23:54Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [
-        "EUR"
-      ],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "76510ee2fdbd37d12b97ad79",
-      "title": "California police investigate after 27 fall ill at half-marathon running event",
-      "url": "https://www.bbc.co.uk/news/articles/cq0ldlyd556go?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T13:22:12Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -718,38 +650,12 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-11-10T12:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
       "topics": [
         "Zentralbanken"
-      ]
-    },
-    {
-      "id": "7f52167f7e4be03d13a667c3",
-      "title": "Police officer dies and another injured after backpack explosion in northern Spain",
-      "url": "https://www.bbc.co.uk/news/articles/cwm262pzezy0o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T11:25:46Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
-      ]
-    },
-    {
-      "id": "111321412806ad700a9cedc2",
-      "title": "Watch: Man smashes Chinese government building with excavator",
-      "url": "https://www.bbc.co.uk/news/videos/ckp8g8p4myv8o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T09:37:15Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -759,23 +665,10 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T09:23:55Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
-      ]
-    },
-    {
-      "id": "27831ce6633310b0a7eea454",
-      "title": "DR Congo sentences 66 soldiers to death for being 'cowards'",
-      "url": "https://www.bbc.co.uk/news/articles/cmreye1q3dnjo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T08:39:05Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -785,12 +678,11 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T08:23:21Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
       "topics": [
-        "Geopolitik",
         "Konjunktur"
       ]
     },
@@ -801,7 +693,7 @@
       "sourceId": "bbc-world",
       "source": "BBC World",
       "publishedAt": "2026-11-10T05:38:53Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Geopolitik"
@@ -814,7 +706,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T05:22:39Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "AUD"
       ],
@@ -829,7 +721,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T03:34:46Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -842,23 +734,10 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T01:55:22Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
-      ]
-    },
-    {
-      "id": "cf6e8a467b708ab136ab4ae2",
-      "title": "'Cruise for life' ship seized in Singapore",
-      "url": "https://www.bbc.co.uk/news/articles/cqr7y7myer53o?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T01:49:06Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -868,23 +747,10 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T00:27:37Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
-      ]
-    },
-    {
-      "id": "6ee79d0416da88e1898e87d0",
-      "title": "'There is no justice' - Epstein survivor on how model agency sent her to abuser's home",
-      "url": "https://www.bbc.co.uk/news/articles/cm86z6w59gggo?at_medium=RSS&at_campaign=rss",
-      "sourceId": "bbc-world",
-      "source": "BBC World",
-      "publishedAt": "2026-11-10T00:14:03Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
-      "currencies": [],
-      "topics": [
-        "Geopolitik"
       ]
     },
     {
@@ -894,10 +760,9 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-10T00:08:28Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
-        "Geopolitik",
         "Konjunktur",
         "Rohstoffe"
       ]
@@ -909,7 +774,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-09T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -924,7 +789,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-09T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -939,7 +804,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T21:52:28Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -952,7 +817,7 @@
       "sourceId": "fed",
       "source": "Federal Reserve",
       "publishedAt": "2026-11-09T21:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
@@ -967,7 +832,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T19:58:01Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -980,7 +845,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T19:00:43Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -993,7 +858,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T18:40:31Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1006,7 +871,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T16:46:40Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1019,7 +884,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T12:06:22Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1032,7 +897,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T07:10:11Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1045,7 +910,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-09T06:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1060,7 +925,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-09T05:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1075,7 +940,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-09T00:09:14Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1088,7 +953,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-08T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1103,7 +968,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-08T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1118,7 +983,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-08T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1133,7 +998,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-07T21:40:32Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1146,7 +1011,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-07T14:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1161,7 +1026,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-06T16:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1176,7 +1041,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-06T09:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1191,7 +1056,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-06T07:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY",
         "USD"
@@ -1207,7 +1072,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-06T02:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1222,7 +1087,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-06T00:06:06Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1235,7 +1100,7 @@
       "sourceId": "rba",
       "source": "Reserve Bank of Australia",
       "publishedAt": "2026-11-05T23:45:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "AUD"
       ],
@@ -1250,7 +1115,7 @@
       "sourceId": "fed",
       "source": "Federal Reserve",
       "publishedAt": "2026-11-05T16:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
@@ -1265,7 +1130,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-11-05T12:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -1280,7 +1145,7 @@
       "sourceId": "rbnz",
       "source": "Reserve Bank of New Zealand",
       "publishedAt": "2026-11-05T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "NZD"
       ],
@@ -1295,7 +1160,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-05T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1310,7 +1175,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-05T07:30:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1325,7 +1190,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-05T07:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1340,7 +1205,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-04T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1355,7 +1220,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-04T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1370,7 +1235,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-11-04T14:51:45Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -1385,7 +1250,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-04T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1400,7 +1265,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-04T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1415,7 +1280,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-04T01:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1430,7 +1295,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-11-04T00:04:35Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1443,7 +1308,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-04T00:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1459,7 +1324,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-03T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1474,7 +1339,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-11-03T10:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -1490,7 +1355,7 @@
       "sourceId": "rbnz",
       "source": "Reserve Bank of New Zealand",
       "publishedAt": "2026-11-02T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "NZD"
       ],
@@ -1505,7 +1370,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-11-02T09:30:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1520,7 +1385,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-02T05:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1536,7 +1401,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-11-02T04:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1551,7 +1416,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-10-30T16:10:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1566,7 +1431,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-10-30T14:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1581,7 +1446,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-10-30T09:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1596,7 +1461,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1611,7 +1476,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1626,7 +1491,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-30T07:45:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1639,7 +1504,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T05:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1654,7 +1519,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T04:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1670,7 +1535,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T04:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1685,7 +1550,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T03:02:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1700,7 +1565,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T03:02:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1716,7 +1581,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-30T02:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1731,7 +1596,7 @@
       "sourceId": "fed",
       "source": "Federal Reserve",
       "publishedAt": "2026-10-29T20:30:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
@@ -1746,7 +1611,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-10-29T15:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1761,7 +1626,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-10-29T14:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1776,7 +1641,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-29T14:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -1791,7 +1656,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-10-29T13:15:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1806,7 +1671,7 @@
       "sourceId": "rbnz",
       "source": "Reserve Bank of New Zealand",
       "publishedAt": "2026-10-29T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "NZD"
       ],
@@ -1821,7 +1686,7 @@
       "sourceId": "ecb",
       "source": "EZB",
       "publishedAt": "2026-10-29T10:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "EUR"
       ],
@@ -1836,7 +1701,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-29T10:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -1851,7 +1716,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-29T09:30:03Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1864,7 +1729,7 @@
       "sourceId": "fed",
       "source": "Federal Reserve",
       "publishedAt": "2026-10-28T18:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
@@ -1879,7 +1744,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-28T14:16:49Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -1894,7 +1759,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-28T00:01:10Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1907,7 +1772,7 @@
       "sourceId": "rbnz",
       "source": "Reserve Bank of New Zealand",
       "publishedAt": "2026-10-27T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "NZD"
       ],
@@ -1922,7 +1787,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-27T05:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1937,7 +1802,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-26T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1952,7 +1817,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-23T08:04:17Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -1965,7 +1830,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-23T06:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -1980,7 +1845,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-22T20:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -1995,7 +1860,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-22T15:35:53Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -2010,7 +1875,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-22T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2025,7 +1890,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-22T07:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2040,7 +1905,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-22T01:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2055,7 +1920,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-21T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2070,7 +1935,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-21T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2085,7 +1950,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-21T23:12:06Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -2100,7 +1965,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-20T23:13:24Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -2113,7 +1978,7 @@
       "sourceId": "rbnz",
       "source": "Reserve Bank of New Zealand",
       "publishedAt": "2026-10-18T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "NZD"
       ],
@@ -2128,7 +1993,7 @@
       "sourceId": "fed",
       "source": "Federal Reserve",
       "publishedAt": "2026-10-16T15:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
@@ -2143,7 +2008,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-16T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -2158,7 +2023,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-16T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2173,7 +2038,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-15T23:18:21Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -2186,7 +2051,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-15T09:52:41Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -2201,7 +2066,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-15T08:27:59Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -2216,7 +2081,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-15T01:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2231,7 +2096,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-14T23:01:28Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -2244,7 +2109,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-14T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2259,7 +2124,7 @@
       "sourceId": "rbnz",
       "source": "Reserve Bank of New Zealand",
       "publishedAt": "2026-10-14T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "NZD"
       ],
@@ -2274,7 +2139,7 @@
       "sourceId": "rbnz",
       "source": "Reserve Bank of New Zealand",
       "publishedAt": "2026-10-14T11:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "NZD"
       ],
@@ -2289,7 +2154,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-14T08:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2304,7 +2169,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-14T01:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2319,7 +2184,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-13T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2334,7 +2199,7 @@
       "sourceId": "bbc-business",
       "source": "BBC Business",
       "publishedAt": "2026-10-13T23:05:29Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [],
       "topics": [
         "Konjunktur"
@@ -2347,7 +2212,7 @@
       "sourceId": "fed",
       "source": "Federal Reserve",
       "publishedAt": "2026-10-13T18:00:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "USD"
       ],
@@ -2362,7 +2227,7 @@
       "sourceId": "boe",
       "source": "Bank of England",
       "publishedAt": "2026-10-13T15:04:27Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "GBP"
       ],
@@ -2377,7 +2242,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-13T07:30:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2392,7 +2257,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-13T04:30:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2407,7 +2272,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-12T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
@@ -2422,7 +2287,7 @@
       "sourceId": "boj",
       "source": "Bank of Japan",
       "publishedAt": "2026-10-12T23:50:00Z",
-      "fetchedAt": "2026-11-11T07:14:17.244329Z",
+      "fetchedAt": "2026-11-11T15:25:30.049008Z",
       "currencies": [
         "JPY"
       ],
