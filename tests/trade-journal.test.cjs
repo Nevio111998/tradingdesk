@@ -40,7 +40,7 @@ function runtime() {
   vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
   const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,isJournalTrade,tradeListRecords,renderList,filteredListRecords,applyListFilter,render,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
+  const expose = `window.test={state,D,reviewChanges,pairScreenSummary,isJournalTrade,tradeListRecords,renderList,filteredListRecords,applyListFilter,render,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -78,5 +78,28 @@ rt.state.records=Array.from(rt.storage.records.values());assert.equal(rt.tradeLi
 await rt.dispatch('go-journal');assert.equal(rt.state.route,'journal');assert(rt.element('#view').innerHTML.includes('Unique Geschlossen'));
 await rt.dispatch('go-trades');assert.equal(rt.state.route,'trades');assert(!rt.element('#view').innerHTML.includes('Unique Geschlossen'));
 rt.state.records=[];assert(rt.renderList('journal').includes('Noch keine Journal-Einträge'));assert(rt.renderList('trade').includes('Noch keine Einträge'));
+const macro=rt.defaultRecord('macro');
+const pair=macro.pairs.find(p=>p.pair==='NZDCHF');
+Object.assign(pair,{status:'Watchlist',thesis:'Gespeicherte These'});
+macro.currencies={NZD:{yield2:'1.42'},CHF:{yield2:'1.00'}};
+rt.rememberPairBasis(macro,pair);
+macro.currencies.NZD.yield2='1.27';
+rt.state.records=[macro,...records];
+const saved=JSON.stringify(rt.state.records);
+assert.match(rt.renderHome(),/NZDCHF · Renditespread/);
+assert.match(rt.reviewChanges(macro,pair)[0],/42.*27.*bp/);
+assert(rt.pairScreenSummary(macro,pair).includes('Gespeicherte These'));
+assert.equal(JSON.stringify(rt.state.records),saved);
+for(const t of records){
+ const row='data-open="'+t.id+'"';
+ assert.equal(rt.renderList('open').includes(row),t.status==='Offen');
+ assert.equal(rt.renderList('ideas').includes(row),!rt.isJournalTrade(t)&&t.status!=='Offen');
+}
+const daily=rt.dailyMacroCopy(macro,'2026-11-21'), copied=daily.pairs.find(p=>p.pair==='NZDCHF');
+assert.match(rt.reviewChanges(daily,copied)[0],/42.*27/);
+rt.rememberPairBasis(daily,copied);
+assert.match(rt.reviewChanges(daily,copied)[0],/42.*27/);
+copied.reviewBasis=rt.pairBasis(daily,copied);
+assert.equal(rt.reviewChanges(daily,copied).length,0);
 console.log('PASS: existing closed/rejected records, active home/list, journal search/status filters, reopen, field/asset preservation, save/load, navigation and empty states.');
 })().catch(e=>{console.error(e);process.exitCode=1});

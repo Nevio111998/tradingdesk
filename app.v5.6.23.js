@@ -192,6 +192,12 @@
     details.addEventListener('toggle',()=>{try{localStorage.setItem('fxdesk-pair-screen-open',details.open?'1':'0')}catch{}});
   }
 
+  window.FXOpenPairScreener=()=>{
+    makePairScreenCollapsible();
+    const screen=document.querySelector('details.pair-screen-collapsible');
+    if(screen)screen.open=true;
+  };
+
   function fixVersionLabels(){
     const badge=document.querySelector('.version-badge');if(badge&&badge.textContent!=='v'+ADDON_VERSION)badge.textContent='v'+ADDON_VERSION;
     const loaded=document.getElementById('loaded-version');if(loaded&&loaded.textContent!=='Code geladen · v'+ADDON_VERSION)loaded.textContent='Code geladen · v'+ADDON_VERSION;
