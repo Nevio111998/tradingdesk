@@ -197,7 +197,7 @@ function renderTradeBalance(){
   stat(total.length<positions?'Zwischensumme in CHF':'Gesamt in CHF',money(total),coverage(total,positions))+
   stat('Geschlossene Trades',money(booked),coverage(booked,closed.length))+
   stat('Offene Trades',money(floating),coverage(floating,open.length)+' · manuell gepflegt')+
-  stat('Realisierte R',multiples.length?signed(sum(multiples))+' R':'–',coverage(multiples,closed.length))+'</div></section>';
+  stat('Realisierte R',multiples.length?signed(sum(multiples))+' R':'–',coverage(multiples,closed.length))+'</div></section>'+(window.FXAnalytics?.homeEquity(closed)||'');
 }
 function renderHome(){
  const m=latestAnalysis(),trades=tradeListRecords(),open=trades.filter(t=>t.status==='Offen');

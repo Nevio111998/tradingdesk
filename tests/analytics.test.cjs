@@ -10,6 +10,12 @@ assert.equal(A.stats([]).avg,null);assert.equal(A.stats([trade(1,0)]).pf,null);a
 assert.equal(A.series([trade(1,2),trade(2,-1),trade(3,-2),trade(4,4)]).drawdown,3);
 assert.equal(A.series([trade(1,-2)]).drawdown,2);
 assert.equal(A.series([{...trade(1,10),closedAt:''}]).points.length,0);
+const curvePanel=A.homeEquity([trade(3,3),trade(1,-2),trade(2,-1),trade(4,'')]);
+assert.match(curvePanel,/3 von 4 geschlossenen Trades/);
+assert.match(curvePanel,/Aktueller Drawdown<\/div><strong>0.00 R/);
+assert.match(curvePanel,/Maximaler Drawdown<\/div><strong>-3.00 R/);
+assert.match(A.homeEquity([trade(1,-2)]),/Aktueller Drawdown<\/div><strong>-2.00 R/);
+assert.doesNotMatch(A.homeEquity([]),/<svg|0.00 R/);
 assert.equal(A.day('2026-09-29T23:30:00Z'),'2026-09-30');assert.equal(A.day('2026-02-30'),'');
 assert.equal(A.select(rows,{from:'2026-09-12',to:'2026-09-12'}).closed.length,1);
 assert.equal(A.select(rows,{from:'2026-09-13',to:'2026-09-12'}).invalidRange,true);
