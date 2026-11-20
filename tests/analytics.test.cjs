@@ -31,6 +31,16 @@ const old=trade(1,2);A.capture(old,'Geschlossen','Offen','2026-09-10T10:00:00Z')
 const legacy={...trade(1,''),closedAt:''};A.capture(legacy,'Offen','Geschlossen','2026-09-10T10:00:00Z');assert(!legacy.analyticsEntry);
 const noFactors={...trade(1,''),closedAt:'',factors:{}};A.capture(noFactors,'Idee','Offen','2026-09-10T10:00:00Z');assert.equal(A.group(noFactors),'Keine Daten (Bewertung unvollständig)');
 const html=A.render([...rows,{...trade(10,''),status:'Verworfen',notes:'<img src=x onerror=alert(1)>',fields:{rejectionReason:'<script>bad</script>'}}],{});assert(!html.includes('<img src=x'));assert(html.includes('&lt;script&gt;'));assert(html.includes('3 ohne Ergebnis'));assert.equal(JSON.stringify(rows),original,'Analytics never changes saved records');
+const review=A.render([
+ {...trade(1,0),bestR:1.4},{...trade(2,-1),bestR:1},{...trade(3,1),bestR:2},
+ {...trade(4,''),bestR:1},{...trade(5,0.5),bestR:0.8},trade(6,-1),
+ {...trade(7,2),bestR:1},{...trade(8,0,'Offen'),bestR:1.5}
+],{});
+assert(review.includes('Bestes R bei 6 von 7 geschlossenen Trades erfasst. Davon erreichten 5 mindestens +1 R.'));
+assert(review.includes('1 Gewinn · 1 Break-even · 1 Verlust'));
+assert(review.includes('1.47 R</strong>'));
+assert(review.includes('Bei 2 Trades fehlt'));
+assert(A.render([]).includes('Die Auswertung beginnt'));
 // Exercise the actual core lifecycle, not just the standalone functions.
 const nodes=new Map(),element=key=>{if(!nodes.has(key))nodes.set(key,{innerHTML:'',textContent:'',addEventListener(){},classList:{toggle(){},remove(){}},getBoundingClientRect(){return {height:70}},focus(){},querySelector(){return null}});return nodes.get(key)};
 const listeners={};const dbData=new Map();const db={transaction(){const tx={objectStore(){return {put(v){dbData.set(v.id||v.key,JSON.parse(JSON.stringify(v)))}}}};queueMicrotask(()=>tx.oncomplete?.());return tx}};
