@@ -101,5 +101,21 @@ rt.rememberPairBasis(daily,copied);
 assert.match(rt.reviewChanges(daily,copied)[0],/42.*27/);
 copied.reviewBasis=rt.pairBasis(daily,copied);
 assert.equal(rt.reviewChanges(daily,copied).length,0);
+const balanceTrade=(status,data)=>Object.assign(rt.defaultRecord('trade'),{status},data);
+rt.state.records=[
+ balanceTrade('Geschlossen',{realizedPnl:'100.60'}),
+ balanceTrade('Geschlossen',{realizedPnl:'500',realizedPnlCurrency:'USD',realizedChf:'-40.10'}),
+ balanceTrade('Offen',{openChf:'-10.50',realizedPnl:'80'}),
+ balanceTrade('Offen',{openChf:0}),
+ balanceTrade('Geschlossen',{realizedPnl:'30',realizedPnlCurrency:'EUR'}),
+ balanceTrade('Verworfen',{realizedPnl:200})
+];
+const balance=rt.renderHome();
+assert.match(balance,/Zwischensumme in CHF/);
+assert.match(balance,/\+50\.00 CHF/);
+assert.match(balance,/4 von 5 erfasst/);
+assert.match(balance,/2 von 2 erfasst/);
+rt.handleBound({dataset:{bind:'settings.accountCurrency'},value:'USD'});
+assert.match(rt.renderHome(),/\+50\.00 CHF/);
 console.log('PASS: existing closed/rejected records, active home/list, journal search/status filters, reopen, field/asset preservation, save/load, navigation and empty states.');
 })().catch(e=>{console.error(e);process.exitCode=1});
