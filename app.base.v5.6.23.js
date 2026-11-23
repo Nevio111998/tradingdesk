@@ -78,7 +78,7 @@ function isJournalTrade(t){return t?.kind==='trade'&&['Geschlossen','Verworfen']
 function tradeListRecords(journal=false){return tradeRecords().filter(t=>isJournalTrade(t)===journal)}
 function listRecords(kind){if(kind==='macro')return macroRecords();const trades=tradeListRecords(kind==='journal');return kind==='ideas'?trades.filter(t=>t.status!=='Offen'):kind==='open'?trades.filter(t=>t.status==='Offen'):trades}
 function filteredListRecords(kind){const macro=kind==='macro';return listRecords(kind).filter(r=>(state.filter==='all'||(macro?(state.filter==='reviewed'?r.reviewed:!r.reviewed):r.status===state.filter))&&(!state.query||[r.title,r.pair,r.direction,r.notes].join(' ').toLowerCase().includes(state.query.toLowerCase())))}
-function create(kind){const rec=defaultRecord(kind);if(kind==='macro')seedYieldHistory(rec);state.records.unshift(rec);markDirty();navigate(kind==='trade'?'trade':'macro',rec.id)}
+function create(kind){const rec=defaultRecord(kind);if(kind==='macro'){seedYieldHistory(rec);seedMeetingHistory(rec)}state.records.unshift(rec);markDirty();navigate(kind==='trade'?'trade':'macro',rec.id)}
 // An explicit new record: never advance source timestamps or overwrite yesterday.
 function rekeyCopiedEvents(copy){const ids=new Map();copy.events=(copy.events||[]).map(e=>{const id=uid();ids.set(e.id,id);return {...e,id}});if(copy.kind==='macro')for(const p of copy.pairs||[])if(ids.has(p.catalystEventId))p.catalystEventId=ids.get(p.catalystEventId);if(copy.kind==='trade'&&ids.has(copy.catalystEventId))copy.catalystEventId=ids.get(copy.catalystEventId);}
 function dailyMacroCopy(source,date){
@@ -108,6 +108,7 @@ function dailyMacroCopy(source,date){
   p.checks=Object.fromEntries(Object.keys(p.checks||{}).map(k=>[k,'todo']));
  }
  seedYieldHistory(copy);
+ seedMeetingHistory(copy);
  return copy;
 }
 function dailyMacroModal(){
@@ -266,26 +267,80 @@ function refreshCurrencySummary(doc,key){
   const summary=$('#currency-summary');
   if(summary)summary.innerHTML=currencySummaryHtml(doc,state.currency);
 }
+function meetingSeries(c,meeting){
+ return state.settings.meetingHistory?.[c]?.[meeting]||{};
+}
+function applyMeetingStand(d,meeting,series,through){
+ const date=Object.keys(series).filter(day=>day<=through).sort().pop();
+ if(!date)return false;
+ const point=series[date];
+ Object.assign(d,{nextMeetingDate:meeting,pricingNext:String(point.bp),meetingPricingDay:date,
+  pricingNextAsOf:date,pricingNextSource:point.source,pricingNextMethod:point.method,meetingHistoryDate:meeting});
+ return true;
+}
+function seedMeetingHistory(m){
+ for(const c of C){
+  const history=state.settings.meetingHistory?.[c];
+  if(!history && !m.currencies?.[c]?.meetingHistoryDate)continue;
+  const d=currencyData(m,c);
+  const scheduled=d.nextMeetingDate;
+  const candidates=scheduled && scheduled>=m.date?[scheduled]:Object.keys(history||{}).filter(k=>k>=m.date).sort();
+  if(candidates.some(k=>applyMeetingStand(d,k,history?.[k]||{},m.date)))continue;
+  if(d.meetingHistoryDate){
+   for(const k of ['pricingNext','meetingPricingDay','pricingNextAsOf','meetingHistoryDate'])delete d[k];
+  }
+ }
+}
+function mergedMeetingHistory(...sources){
+ const result={};
+ for(const source of sources)for(const c of C){
+  for(const [meeting,series] of Object.entries(source?.[c]||{})){
+   if(!validYieldDate(meeting))continue;
+   for(const [day,point] of Object.entries(series||{})){
+    if(!validYieldDate(day)||day>meeting||!Number.isFinite(point?.bp))continue;
+    const currency=result[c]??={};
+    (currency[meeting]??={})[day]={bp:point.bp,source:String(point.source||''),method:String(point.method||'')};
+   }
+  }
+ }
+ return result;
+}
+function meetingHistoryList(c){
+ const rows=[];
+ for(const meeting of Object.keys(state.settings.meetingHistory?.[c]||{}).sort().reverse()){
+  const series=meetingSeries(c,meeting);
+  for(const day of Object.keys(series).sort().reverse()){
+   rows.push('<tr><td>'+esc(dateFmt(day))+'</td><td>'+esc(dateFmt(meeting))+'</td><td>'+esc(String(series[day].bp))+'</td><td>'+btn('remove-meeting-point','Löschen','outline','data-meeting="'+esc(meeting)+'" data-day="'+esc(day)+'"')+'</td></tr>');
+  }
+ }
+ return rows.length?'<details><summary>Gespeicherte Pricing-Stände ('+rows.length+')</summary><table><thead><tr><th>Datenstand</th><th>Sitzung</th><th>bp</th><th></th></tr></thead><tbody>'+rows.join('')+'</tbody></table></details>':'';
+}
 function meetingObservation(m,code){
  const d=m.currencies?.[code];
  if(!d || !qualityDate(d.nextMeetingDate) || !String(d.pricingNext??'').trim())return null;
  const bp=num(d.pricingNext);
  const date=String(d.meetingPricingDay || d.pricingNextAsOf || (!m.carriedFrom && m.date) || '').slice(0,10);
- if(bp===null || !qualityDate(date) || date>m.date || d.nextMeetingDate<date)return null;
+ if(bp===null || !qualityDate(date) || (!d.meetingHistoryDate && date>m.date) || d.nextMeetingDate<date)return null;
  return {bp,date,meeting:d.nextMeetingDate,source:d.pricingNextSource||'',method:d.pricingNextMethod||''};
 }
 function meetingWeek(m,code){
  const current=meetingObservation(m,code);
- if(!current || current.date!==m.date)return {message:'Aktuellen Datenstand für diese Analyse bestätigen.'};
+ if(!current || (current.date!==m.date && m.currencies?.[code]?.meetingHistoryDate!==current.meeting))return {message:'Aktuellen Datenstand für diese Analyse bestätigen.'};
  const day=86400000,target=Date.parse(current.date)-7*day;
  let previous=null;
  for(const prior of state.records){
-  if(prior.kind!=='macro' || prior.date>=m.date)continue;
+  if(prior.kind!=='macro' || prior.currencies?.[code]?.meetingHistoryDate || prior.date>=m.date)continue;
   const obs=meetingObservation(prior,code);
   if(!obs || obs.date!==prior.date || obs.meeting!==current.meeting || ['source','method'].some(k=>obs[k]&&current[k]&&obs[k]!==current[k]))continue;
   const time=Date.parse(obs.date);
   if(time>target || time<target-3*day)continue;
   if(!previous || obs.date>previous.date || (obs.date===previous.date && prior.date>previous.analysisDate))previous={...obs,analysisDate:prior.date};
+ }
+ for(const [date,point] of Object.entries(meetingSeries(code,current.meeting))){
+  const time=Date.parse(date);
+  if(time>target || time<target-3*day || (previous && previous.date>date))continue;
+  if(['source','method'].some(k=>point[k]&&current[k]&&point[k]!==current[k]))continue;
+  previous={...point,date,meeting:current.meeting};
  }
  if(!previous)return {message:'Kein vergleichbarer Stand für dieselbe Sitzung vor 7 bis 10 Tagen.'};
  return {delta:current.bp-previous.bp,previous,current};
@@ -294,7 +349,8 @@ function weeklyPricingHtml(m,c){
  const w=meetingWeek(m,c);
  const result=w.previous?signed(w.delta,1)+' bp · '+dateFmt(w.previous.date)+' ('+signed(w.previous.bp,1)+' bp) → '+dateFmt(w.current.date)+' ('+signed(w.current.bp,1)+' bp)':w.message;
  return '<p class="text-small"><strong>Wochenvergleich nächste Sitzung</strong> · '+esc(result)+'</p>'+
-  btn('confirm-meeting-pricing','Pricing für '+esc(dateFmt(m.date))+' bestätigen','outline');
+  '<div class="field"><label for="meeting-point-day">Beobachtungsdatum</label><input id="meeting-point-day" type="date" value="'+localDate()+'"></div>'+
+  btn('confirm-meeting-pricing','Pricing speichern','outline')+meetingHistoryList(c);
 }
 function weeklyPairText(a,b){
  if(!a?.previous || !b?.previous)return '–';
@@ -1086,9 +1142,14 @@ if(key.startsWith('currencies.') && (key.endsWith('.pricingChangeHorizonChoice')
 }
 if(key.startsWith('pairs.')){const parts=key.split('.'),id=parts[1],prop=parts.slice(2).join('.');if(!Array.isArray(doc.pairs))doc.pairs=[];let p=doc.pairs.find(x=>x.id===id);if(!p){p={id};doc.pairs.push(p)}if(prop==='pair')value=value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,6);rememberPairBasis(doc,p);p[prop]=value;updateRecord(doc);if(['direction','status','confidence','edge','rates','driver','technical','catalystEventId'].includes(prop)||(prop==='pair'&&value.length===6))render();refreshPairScreen();refreshPairDetailExcerpts();if(prop==='repriceOverrideValue'||prop==='repriceOverrideReason')refreshPairRatesView(doc,p);return}const previousDecision=doc.decision;if(key==='status'&&window.FXAnalytics)window.FXAnalytics.capture(doc,doc.status,value,now());if(key==='realizedPnl'||key==='realizedChf')doc.realizedPnlCurrency=pnlCurrency(doc);set(doc,key,value);if(doc.kind==='trade'&&key==='decision'&&value!==previousDecision){doc.approvalAt='';doc.checklist.finalDecision='todo';if(doc.status==='Bereit')doc.status='Watchlist';}if(key.startsWith('currencies.'+state.currency+'.')){
  const d=currencyData(doc,state.currency);
- if(key.endsWith('.pricingNext'))d.meetingPricingDay=doc.date;
+ if(key.endsWith('.nextMeetingDate') && d.meetingHistoryDate && d.meetingHistoryDate!==value){
+  d.pricingNext='';d.pricingNextAsOf='';delete d.meetingPricingDay;delete d.meetingHistoryDate;
+  applyMeetingStand(d,value,meetingSeries(state.currency,value),localDate());
+  const input=document.querySelector('[data-bind="currencies.'+state.currency+'.pricingNext"]');if(input)input.value=d.pricingNext;
+ }
+ if(key.endsWith('.pricingNext') && !d.meetingHistoryDate)d.meetingPricingDay=doc.date;
  if(key.endsWith('.pricingNextAsOf'))delete d.meetingPricingDay;
- const week=$('#meeting-week');if(week)week.innerHTML=weeklyPricingHtml(doc,state.currency);
+ const week=$('#meeting-week');if(week){const day=$('#meeting-point-day')?.value;week.innerHTML=weeklyPricingHtml(doc,state.currency);if(day)$('#meeting-point-day').value=day;}
 }refreshCurrencySummary(doc,key);refreshCurrencyDocumentation(doc,key);refreshCurrencySidebar(doc,key);if(key==='pair'&&doc.kind==='trade'&&doc.title==='Neue Trade-Idee'&&value.length===6)doc.title=value+' · '+doc.direction;if(key==='status'&&doc.kind==='trade'&&value==='Geschlossen'&&!doc.closedAt)doc.closedAt=localDateTime();invalidateApproval(doc,key);updateRecord(doc);if(key==='pair'||key==='direction'||key==='status'||key==='title'||key==='grade'||key==='decision'||key==='date'){$('#breadcrumbs').innerHTML=`Workspace <span>/</span> ${doc.kind==='trade'?'Trade-Idee':'Morgenanalyse'} <span>/</span> ${esc(doc.title)}`;if(key==='title'||key==='pair')$('.detail-banner h1')?.replaceChildren(document.createTextNode(doc.title));}if(['fields.entry','fields.stop','fields.target','fields.riskPercent','fields.account','fields.pipValue','direction','pair','fields.compareBase','fields.compareQuote'].includes(key))refreshLive();if(key.startsWith('currencies.'))refreshLive();if(key==='status'&&doc.kind==='trade')render();}
 function handleCheck(id,kind){const doc=current();if(!doc||doc.kind!=='trade'||!D.tradeCheckIds.has(id))return;const old=doc.checklist[id]||'todo';const next=kind==='na'?(old==='na'?'todo':'na'):(old==='done'?'todo':'done');doc.checklist[id]=next;if(next==='na')state.expanded.add(id);invalidateApproval(doc,'checklist.'+id);updateRecord(doc);replaceCheckRow(id)}
 function handleCheckHelp(id){if(!D.tradeCheckIds.has(id))return;if(state.expanded.has(id))state.expanded.delete(id);else state.expanded.add(id);replaceCheckRow(id)}
@@ -1116,9 +1177,10 @@ function validateBackup(data){if(data?.research!==undefined)window.FXResearchBac
 async function readBackup(file){if(!file)return;try{if(file.size>300*1024*1024)throw new Error('Backup-Datei ist zu gross.');const data=validateBackup(JSON.parse(await file.text()));state.importPayload=data;modal('Backup importieren',`<div class="alert warn"><strong>${data.records.length} Einträge · ${data.assets.length} Screenshots</strong><p>Erstellt: ${dateTimeFmt(data.exportedAt)}. Prüfe, ob du die richtige Datei gewählt hast. Der Import kann bei vielen Bildern Speicherplatz benötigen.</p><p>${esc(window.FXResearchBackup.summary(data.research))}</p></div><div class="field"><label for="import-mode">Import-Modus</label><select id="import-mode"><option value="merge">Zusammenführen (bestehende Daten behalten)</option><option value="replace">Alle bestehenden Daten ersetzen</option></select><span class="hint">Beim Zusammenführen erhalten importierte Einträge bei ID-Konflikten neue IDs. Bei ChatGPT-Analysen, Reviews und Trainingsbeispielen bleiben beim Zusammenführen vorhandene Versionen mit gleicher Kennung erhalten. Ersetzen übernimmt die Research-Daten aus dem Backup vollständig; bei alten Backups ohne Research-Bereich bleiben sie unverändert.</span></div><p>Ein vollständiger Export deiner jetzigen Daten vor dem Import wird empfohlen.</p>`,btn('close-modal','Abbrechen')+btn('import-confirm','Import bestätigen','primary'))}catch(e){toast('Import fehlgeschlagen: '+e.message,'error')}}
 async function commitImport(){const data=state.importPayload;if(!data)return;const mode=$('#import-mode')?.value||'merge';if(mode==='replace'){confirmAction('Alle bisherigen Daten ersetzen?','Analysen, Trade-Ideen und Screenshots werden durch das Backup ersetzt. Enthält es Research-Daten, werden auch ChatGPT-Analysen, Reviews, Trainingssammlung und EdgeFinder-Imports ersetzt. Alte Backups ohne diesen Bereich lassen vorhandene Research-Daten unverändert. Erstelle vorher einen Export, wenn du sie behalten möchtest.',()=>performImport(data,'replace'),'Alle Daten ersetzen',true)}else await performImport(data,'merge')}
 async function performImport(data,mode){let undoResearch=null;try{await flush();const research=data.research===undefined?null:window.FXResearchBackup.prepare(data.research,mode);const recordMap=new Map(),assetMap=new Map();const existingR=new Set(mode==='merge'?state.records.map(r=>r.id):[]),existingA=new Set(mode==='merge'?state.assets.keys():[]);for(const r of data.records){let id=r.id;if(existingR.has(id)){id=uid()}recordMap.set(r.id,id);existingR.add(id)}for(const a of data.assets){let id=a.id;if(existingA.has(id)){id=uid()}assetMap.set(a.id,id);existingA.add(id)}const recs=data.records.map(r=>{const x=clone(r);x.id=recordMap.get(r.id);x.images=(r.images||[]).map(id=>assetMap.get(id)).filter(Boolean);if(x.carriedFrom?.id)x.carriedFrom.id=recordMap.get(x.carriedFrom.id)||x.carriedFrom.id;if(x.macroId)x.macroId=recordMap.get(x.macroId)||x.macroId;if(x.macroSnapshot?.id&&recordMap.has(x.macroSnapshot.id))x.macroSnapshot.id=recordMap.get(x.macroSnapshot.id);x.events=(r.events||[]).map(e=>({...e,id:e.id||uid(),...(e.sourceMacro?{sourceMacro:recordMap.get(e.sourceMacro)||e.sourceMacro}:{})}));x.journal=Array.isArray(r.journal)?r.journal:[];x.checkNotes=x.checkNotes||{};x.factors=x.factors||{};x.factorNotes=x.factorNotes||{};return x});const assets=[];for(const a of data.assets){const blob=decodeImageData(a.data);assets.push({id:assetMap.get(a.id),ownerId:recordMap.get(a.ownerId)||a.ownerId,name:String(a.name||'Screenshot').slice(0,180),type:blob.type,size:blob.size,caption:String(a.caption||''),createdAt:a.createdAt||now(),blob})}const importedSettings=mode==='replace'?{...state.settings,...data.settings}:{...state.settings};
+importedSettings.meetingHistory=mergedMeetingHistory(data.settings?.meetingHistory,mode==='merge'?state.settings.meetingHistory:null);
 importedSettings.yieldHistory=importYieldHistory(data.settings?.yieldHistory,mode==='merge'?state.settings.yieldHistory:null);
 if(research)undoResearch=window.FXResearchBackup.apply(research);await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite'),rs=tx.objectStore('records'),as=tx.objectStore('assets');if(mode==='replace'){rs.clear();as.clear()}for(const r of recs)rs.put(r);for(const a of assets)as.put(a);tx.objectStore('meta').put({key:'settings',value:importedSettings});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});undoResearch=null;state.settings=importedSettings;if(mode==='replace'){for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.records=recs;state.assets=new Map(assets.map(a=>[a.id,a]));}else{state.records.push(...recs);for(const a of assets)state.assets.set(a.id,a)}state.dirty=false;closeModal();state.importPayload=null;navigate('home');toast(recs.length+' Einträge und '+assets.length+' Bilder importiert.'+(research?' ChatGPT- und EdgeFinder-Daten wiederhergestellt.':''))}catch(e){if(undoResearch){try{undoResearch()}catch(rollbackError){toast('Research-Wiederherstellung fehlgeschlagen: '+rollbackError.message,'error')}}toast('Import fehlgeschlagen: '+e.message,'error')}}
-async function deleteAll(){await flush();const settings={...state.settings};delete settings.yieldHistory;await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite');tx.objectStore('meta').put({key:'settings',value:settings});tx.objectStore('records').clear();tx.objectStore('assets').clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.settings=settings;state.records=[];state.assets.clear();localStorage.removeItem('fxdesk-last-backup');navigate('home');toast('Alle lokalen App-Daten gelöscht.')}
+async function deleteAll(){await flush();const settings={...state.settings};delete settings.yieldHistory;delete settings.meetingHistory;await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite');tx.objectStore('meta').put({key:'settings',value:settings});tx.objectStore('records').clear();tx.objectStore('assets').clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.settings=settings;state.records=[];state.assets.clear();localStorage.removeItem('fxdesk-last-backup');navigate('home');toast('Alle lokalen App-Daten gelöscht.')}
 function applyListFilter(){const kind=state.route==='macros'?'macro':state.route==='journal'?'journal':state.route==='open'?'open':'ideas',filtered=filteredListRecords(kind);const el=$('#list-results');if(el)el.innerHTML=filtered.length?filtered.map(kind==='open'?openPositionRow:recordRow).join(''):empty('Keine Treffer','Passe deine Suche oder den Statusfilter an.');}
 
 function addPairCandidate(){const doc=current();if(!doc||doc.kind!=='macro')return;pairList(doc);state.pairId=doc.pairs[0]?.id||'';state.tab='pairs';render();toast('Alle '+pairList(doc).length+' FX-Paare sind bereits vorbereitet.')}
@@ -1138,10 +1200,25 @@ case'save-yield-close':{
  render();toast('Schlusswert gespeichert.');break;
 }
 case'confirm-meeting-pricing':{
- const d=currencyData(doc,state.currency);
- if(!qualityDate(d.nextMeetingDate)||d.nextMeetingDate<doc.date||num(d.pricingNext)===null){toast('Sitzungstermin und aktuelles Pricing in bp eintragen.');break}
- d.meetingPricingDay=doc.date;
- updateRecord(doc);render();break;
+ const c=state.currency,d=currencyData(doc,c),meeting=d.nextMeetingDate;
+ const day=$('#meeting-point-day').value,bp=num(d.pricingNext);
+ if(!validYieldDate(meeting)||!validYieldDate(day)||day>meeting||day>localDate()||bp===null){
+  toast('Sitzung, bp und gültiges Beobachtungsdatum bis zum Sitzungstag eintragen.','error');break;
+ }
+ const history=state.settings.meetingHistory??={},currency=history[c]??={},series=currency[meeting]??={};
+ series[day]={bp,source:d.pricingNextSource||'',method:d.pricingNextMethod||''};
+ applyMeetingStand(d,meeting,series,localDate());
+ updateRecord(doc);render();toast('Pricing gespeichert.');break;
+}
+case'remove-meeting-point':{
+ const {meeting,day}=el.dataset,c=state.currency,series=meetingSeries(c,meeting);
+ if(!Object.hasOwn(series,day)||!window.confirm('Pricing für '+c+' vom '+dateFmt(day)+' für die Sitzung am '+dateFmt(meeting)+' löschen?'))break;
+ delete series[day];
+ const d=currencyData(doc,c);
+ if(d.nextMeetingDate===meeting && d.meetingPricingDay===day && !applyMeetingStand(d,meeting,series,day)){
+  d.pricingNext='';d.pricingNextAsOf='';delete d.meetingPricingDay;
+ }
+ updateRecord(doc);render();toast('Pricing gelöscht.');break;
 }
 case'equity-point':{
  const t=findRecord(el.dataset.id);
