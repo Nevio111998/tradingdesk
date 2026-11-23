@@ -40,7 +40,7 @@ function runtime() {
   vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
   const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,meetingWeek,weeklyPairText,reviewChanges,pairScreenSummary,isJournalTrade,tradeListRecords,renderList,filteredListRecords,applyListFilter,render,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
+  const expose = `window.test={state,D,storeYieldClose,seedYieldHistory,importYieldHistory,meetingWeek,weeklyPairText,reviewChanges,pairScreenSummary,isJournalTrade,tradeListRecords,renderList,filteredListRecords,applyListFilter,render,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -128,5 +128,26 @@ assert.match(rt.weeklyPairText(nzWeek,chWeek),/\+10/);
 prior.date='2026-11-13';assert.equal(rt.meetingWeek(today,'NZD').delta,10);
 prior.currencies.NZD.nextMeetingDate='2026-12-02';assert.equal(rt.meetingWeek(today,'NZD').delta,undefined);
 today.carriedFrom={};assert.equal(rt.meetingWeek(today,'CHF').delta,undefined);
+const weekly=rt.defaultRecord('macro');
+weekly.date='2025-11-16';
+for(const [date,value] of [['2025-11-14','3.1'],['2025-11-07','3.2'],['2025-11-21','3.3']]){
+ assert(rt.storeYieldClose(weekly,'USD',date,value));
+}
+assert.equal(weekly.currencies.USD.yield2Prev,'3.1');
+assert.equal(weekly.currencies.USD.yield2Prev2,'3.2');
+assert(rt.storeYieldClose(weekly,'USD','2025-11-14','3.15'));
+assert.equal(weekly.currencies.USD.yield2,'3.3');
+assert.equal(Object.keys(rt.state.settings.yieldHistory.USD).length,3);
+const sunday=rt.dailyMacroCopy(weekly,'2025-11-23');
+assert.equal(sunday.currencies.USD.yieldCloseDate,'2025-11-21');
+assert.equal(sunday.currencies.USD.yield2Prev,'3.15');
+assert(rt.storeYieldClose(sunday,'CHF','2025-11-21','0'));
+assert.equal(sunday.currencies.CHF.yield2,'0');
+assert.equal(sunday.currencies.CHF.yield2Prev,'');
+assert.equal(rt.storeYieldClose(sunday,'CHF','2025-02-30','1'),false);
+assert.equal(rt.storeYieldClose(sunday,'CHF','2025-11-21',''),false);
+const combined=rt.importYieldHistory({USD:{'2025-11-14':8,'2025-10-31':2}},rt.state.settings.yieldHistory);
+assert.equal(combined.USD['2025-11-14'],3.15);assert.equal(combined.USD['2025-10-31'],2);
+const older=rt.dailyMacroCopy(weekly,'2025-10-01');assert.equal(older.currencies.USD.yield2,undefined);
 console.log('PASS: existing closed/rejected records, active home/list, journal search/status filters, reopen, field/asset preservation, save/load, navigation and empty states.');
 })().catch(e=>{console.error(e);process.exitCode=1});
