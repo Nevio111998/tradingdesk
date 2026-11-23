@@ -40,7 +40,7 @@ function runtime() {
   vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
   const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,reviewChanges,pairScreenSummary,isJournalTrade,tradeListRecords,renderList,filteredListRecords,applyListFilter,render,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
+  const expose = `window.test={state,D,meetingWeek,weeklyPairText,reviewChanges,pairScreenSummary,isJournalTrade,tradeListRecords,renderList,filteredListRecords,applyListFilter,render,pairNeedsReview,pairBasis,rememberPairBasis,captureExistingPairReviews,handlePairCheck,relevantPairEvents,selectedPairEvent,pairEventPicker,pairScreenData,tradeEventChanges,tradeCatalystSummary,tradeEventSyncNotice,tradeEventSyncModal,syncTradeEvents,rekeyCopiedEvents,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -117,5 +117,16 @@ assert.match(balance,/4 von 5 erfasst/);
 assert.match(balance,/2 von 2 erfasst/);
 rt.handleBound({dataset:{bind:'settings.accountCurrency'},value:'USD'});
 assert.match(rt.renderHome(),/\+50\.00 CHF/);
+const snapshot=(date,nzd,chf)=>({kind:'macro',date,currencies:{
+ NZD:{pricingNext:nzd,nextMeetingDate:'2026-12-01'},CHF:{pricingNext:chf,nextMeetingDate:'2026-12-10'}
+}});
+const today=snapshot('2026-11-23','-10','0'), prior=snapshot('2026-11-16','-20','0');
+rt.state.records=[today,prior,snapshot('2026-11-17','-30','0')];
+const nzWeek=rt.meetingWeek(today,'NZD'),chWeek=rt.meetingWeek(today,'CHF');
+assert.equal(nzWeek.delta,10);assert.equal(chWeek.delta,0);
+assert.match(rt.weeklyPairText(nzWeek,chWeek),/\+10/);
+prior.date='2026-11-13';assert.equal(rt.meetingWeek(today,'NZD').delta,10);
+prior.currencies.NZD.nextMeetingDate='2026-12-02';assert.equal(rt.meetingWeek(today,'NZD').delta,undefined);
+today.carriedFrom={};assert.equal(rt.meetingWeek(today,'CHF').delta,undefined);
 console.log('PASS: existing closed/rejected records, active home/list, journal search/status filters, reopen, field/asset preservation, save/load, navigation and empty states.');
 })().catch(e=>{console.error(e);process.exitCode=1});
