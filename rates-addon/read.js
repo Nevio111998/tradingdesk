@@ -1,6 +1,6 @@
 // Runs in an isolated extension world on an individual bank page.
 function readBankPage(bank) {
-  const title = document.querySelector('h1')?.textContent.trim();
+  const title = Array.from(document.querySelectorAll('h1')).map(el=>el.textContent.trim()).join(' ');
   if (!title || !title.toLowerCase().includes(bank.toLowerCase()) || !document.querySelector('#tbody')) return null;
   const read = id => document.getElementById(id)?.innerText.trim() || '';
   function number(text) {
@@ -11,9 +11,23 @@ function readBankPage(bank) {
   const date = stamp.match(/\b(\d{2})\/(\d{2})\/(\d{4})\b/);
   if (!date) return null;
   const day = date[3]+'-'+date[1]+'-'+date[2];
+  const summary=read('liveAnswer');
+  const summaryDate=summary.match(/As of ([A-Za-z]+ \d{1,2}, \d{4})/i);
+  const summaryTime=summaryDate && Date.parse(summaryDate[1]+' UTC');
+  const sameDay=Number.isFinite(summaryTime) && new Date(summaryTime).toISOString().slice(0,10)===day;
+  const summaryYear=sameDay && summary.match(/over the next 12 months, markets price a net ([\d.]+)bp of (hikes|cuts)/i);
+  const displayedNext=number(read('nextMoveBps'));
+  let table=document.querySelector('#tbody');
+  let snapshot=false;
+  if (!table.querySelector('tr[data-meeting]') && sameDay && displayedNext!==null){
+    const initial=document.querySelector('tbody[data-snapshot]');
+    if(initial && number(initial.querySelector('[data-col="delta"]')?.textContent || '')===displayedNext){
+      table=initial;snapshot=true;
+    }
+  }
   const rows = [];
-  for (const tr of document.querySelectorAll('#tbody tr')) {
-    const cell = key => tr.querySelector('[data-col="'+key+'"]')?.innerText.trim() || '';
+  for (const tr of table.querySelectorAll('tr')) {
+    const cell = key => tr.querySelector('[data-col="'+key+'"]')?.textContent.trim() || '';
     const label = cell('meeting');
     const time = Date.parse(label+' UTC');
     const delta = number(cell('delta'));
@@ -30,11 +44,14 @@ function readBankPage(bank) {
   const cutoff = target.toISOString().slice(0,10);
   const prior = rows.filter(r=>r.date<=cutoff).pop();
   const rate = number(read('currentRateValue'));
-  const year = number(read('sidebarOutlookBps')) ?? number(read('mobileOutlookBps'));
+  const year = number(read('sidebarOutlookBps')) ?? number(read('mobileOutlookBps')) ??
+    (summaryYear ? Number(summaryYear[1])*(summaryYear[2].toLowerCase()==='cuts'?-1:1) : null);
   const step = number(document.querySelector('#stepSelect')?.value || '');
-  if (rate===null || year===null || !(step>0) || first.probability===null || first.probability>100 || first.probability<0 || rows.at(-1).date<cutoff) return null;
+  if (rate===null || !(step>0) || first.probability===null || first.probability>100 || first.probability<0 || rows.at(-1).date<cutoff) return null;
   // Above one step, both bracketing outcomes are moves in the same direction.
-  const move = Math.abs(first.delta)>=step ? 100 : first.probability;
+  // Snapshot probabilities may have been calculated with a different step setting.
+  const probability=snapshot?Number((Math.abs(first.delta)/step*100).toFixed(1)):first.probability;
+  const move = Math.min(100,Math.abs(first.delta)>=step ? 100 : probability);
   const hold = Number((100-move).toFixed(2));
   return {day,stamp,meetings:rows.map(r=>r.date),meeting:first.date,rate,next:first.delta,quarter:prior?.delta ?? 0,year,step,
     hike:first.delta>0 ? move : 0,cut:first.delta<0 ? move : 0,hold};

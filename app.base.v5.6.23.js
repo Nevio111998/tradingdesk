@@ -349,7 +349,7 @@ let ratesPreview=null;
 function validRatesRow(r){
  return C.includes(r.code) && validYieldDate(r.day) && validYieldDate(r.meeting) &&
   r.day<=localDate() && r.meeting>=r.day &&
-  ['rate','next','quarter','year','step','hike','hold','cut'].every(k=>Number.isFinite(r[k])) &&
+  (r.year===null || Number.isFinite(r.year)) && ['rate','next','quarter','step','hike','hold','cut'].every(k=>Number.isFinite(r[k])) &&
   r.step>0 && [r.hike,r.hold,r.cut].every(n=>n>=0&&n<=100) && Math.abs(r.hike+r.hold+r.cut-100)<0.01;
 }
 function weeklyCurveImport(row,horizon){
@@ -394,7 +394,7 @@ function readRatesFor(doc){
    const week=row.week;
    const comparison=week?horizon+' · '+dateFmt(week.date)+' · '+week.live+' − ('+week.past+') = '+week.delta+' bp':'Keine Übernahme ('+(horizon||'Horizont offen')+')';
    valid.push(row);
-   return '<tr>'+[row.code,dateFmt(row.day),dateFmt(row.meeting),row.rate,row.next,row.quarter,row.year,[row.hike,row.hold,row.cut].join(' / ')+' ('+row.step+' bp)',comparison].map(v=>'<td>'+esc(String(v))+'</td>').join('')+'</tr>';
+   return '<tr>'+[row.code,dateFmt(row.day),dateFmt(row.meeting),row.rate,row.next,row.quarter,row.year??'–',[row.hike,row.hold,row.cut].join(' / ')+' ('+row.step+' bp)',comparison].map(v=>'<td>'+esc(String(v))+'</td>').join('')+'</tr>';
   }).join('');
   ratesPreview={id:doc.id,rows:valid};
   modal('RateProbability · Vorschau','<div style="overflow-x:auto"><table><thead><tr>'+['Währung','Stand','Sitzung','Zins %','Nächste bp','3M bp','12M bp','Hike / Hold / Cut % (Schritt)','Current − 1w ago'].map(s=>'<th>'+s+'</th>').join('')+'</tr></thead><tbody>'+lines+'</tbody></table></div>',
@@ -423,8 +423,8 @@ async function saveRatesPreview(doc){
   applyMeetingStand(d,r.meeting,series,r.day);
   Object.assign(d,{bankRate:String(r.rate),bankRateSource:source,bankRateAsOf:r.day,
    pricing3m:String(r.quarter),pricing3mSource:source,pricing3mAsOf:r.day,pricing3mMethod:'OIS',
-   pricing12m:String(r.year),pricing12mSource:source,pricing12mAsOf:r.day,pricing12mMethod:'OIS',
    probHike:String(r.hike),probHold:String(r.hold),probCut:String(r.cut),probabilityStepBp:r.step});
+  if(Number.isFinite(r.year))Object.assign(d,{pricing12m:String(r.year),pricing12mSource:source,pricing12mAsOf:r.day,pricing12mMethod:'OIS'});
  }
  ratesPreview=null;
  updateRecord(doc);closeModal();render();
