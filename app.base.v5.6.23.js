@@ -345,12 +345,68 @@ function meetingWeek(m,code){
  if(!previous)return {message:'Kein vergleichbarer Stand für dieselbe Sitzung vor 7 bis 10 Tagen.'};
  return {delta:current.bp-previous.bp,previous,current};
 }
+let ratesPreview=null;
+function validRatesRow(r){
+ return C.includes(r.code) && validYieldDate(r.day) && validYieldDate(r.meeting) &&
+  r.day<=localDate() && r.meeting>=r.day &&
+  ['rate','next','quarter','year','step','hike','hold','cut'].every(k=>Number.isFinite(r[k])) &&
+  r.step>0 && [r.hike,r.hold,r.cut].every(n=>n>=0&&n<=100) && Math.abs(r.hike+r.hold+r.cut-100)<0.01;
+}
+function readRatesFor(doc){
+ if(!document.documentElement.dataset.ratesAddon){
+  modal('Rates importieren','<p>Installiere die Tradingdesk-Erweiterung für Edge oder Chrome und lade diese Seite neu.</p><a href="./rates-addon.zip" download>Erweiterung herunterladen</a>');
+  return;
+ }
+ modal('Rates importieren','<p id="rates-reading">Bankseiten werden gelesen …</p>');
+ const marker=$('#rates-reading');
+ const receive=e=>{
+  clearTimeout(timer);
+  if(current()?.id!==doc.id || !marker.isConnected)return;
+  let data;
+  try{data=JSON.parse(e.detail)}catch{data={}}
+  if(!Array.isArray(data?.rows)){modal('Rates importieren','<p>Abruf fehlgeschlagen. Bitte erneut versuchen.</p>');return}
+  const valid=[];
+  const lines=data.rows.map(row=>{
+   if(!row || !C.includes(row.code))return '';
+   const d=doc.currencies?.[row.code];
+   const stale=validRatesRow(row) && (row.day<(d?.meetingPricingDay||'') || row.day<(d?.bankRateAsOf||'').slice(0,10));
+   if(!validRatesRow(row)||stale)return '<tr><th>'+esc(row.code)+'</th><td colspan="7">'+esc(stale?'Übersprungen: neuerer Stand in der Analyse.':row.error||'Daten unvollständig.')+'</td></tr>';
+   valid.push(row);
+   return '<tr>'+[row.code,dateFmt(row.day),dateFmt(row.meeting),row.rate,row.next,row.quarter,row.year,[row.hike,row.hold,row.cut].join(' / ')+' ('+row.step+' bp)'].map(v=>'<td>'+esc(String(v))+'</td>').join('')+'</tr>';
+  }).join('');
+  ratesPreview={id:doc.id,rows:valid};
+  modal('RateProbability · Vorschau','<div style="overflow-x:auto"><table><thead><tr>'+['Währung','Stand','Sitzung','Zins %','Nächste bp','3M bp','12M bp','Hike / Hold / Cut % (Schritt)'].map(s=>'<th>'+s+'</th>').join('')+'</tr></thead><tbody>'+lines+'</tbody></table></div>',
+   btn('close-modal','Abbrechen')+(valid.length?btn('apply-rates-import',valid.length+' Währungen übernehmen','primary'):''));
+ };
+ const timer=setTimeout(()=>{
+  document.removeEventListener('tradingdesk-rates-result',receive);
+  if(marker.isConnected)modal('Rates importieren','<p>Zeitüberschreitung. Prüfe deine Anmeldung bei RateProbability.</p>');
+ },120000);
+ document.addEventListener('tradingdesk-rates-result',receive,{once:true});
+ document.dispatchEvent(new Event('tradingdesk-read-rates'));
+}
+async function saveRatesPreview(doc){
+ if(!ratesPreview || ratesPreview.id!==doc?.id || doc.kind!=='macro')return;
+ const source='RateProbability',history=state.settings.meetingHistory??={};
+ for(const r of ratesPreview.rows){
+  const d=currencyData(doc,r.code),currency=history[r.code]??={},series=currency[r.meeting]??={};
+  series[r.day]={bp:r.next,source,method:'OIS'};
+  applyMeetingStand(d,r.meeting,series,r.day);
+  Object.assign(d,{bankRate:String(r.rate),bankRateSource:source,bankRateAsOf:r.day,
+   pricing3m:String(r.quarter),pricing3mSource:source,pricing3mAsOf:r.day,pricing3mMethod:'OIS',
+   pricing12m:String(r.year),pricing12mSource:source,pricing12mAsOf:r.day,pricing12mMethod:'OIS',
+   probHike:String(r.hike),probHold:String(r.hold),probCut:String(r.cut),probabilityStepBp:r.step});
+ }
+ ratesPreview=null;
+ updateRecord(doc);closeModal();render();
+ await flush();toast('Rates übernommen.');
+}
 function weeklyPricingHtml(m,c){
  const w=meetingWeek(m,c);
  const result=w.previous?signed(w.delta,1)+' bp · '+dateFmt(w.previous.date)+' ('+signed(w.previous.bp,1)+' bp) → '+dateFmt(w.current.date)+' ('+signed(w.current.bp,1)+' bp)':w.message;
  return '<p class="text-small"><strong>Wochenvergleich nächste Sitzung</strong> · '+esc(result)+'</p>'+
   '<div class="field"><label for="meeting-point-day">Beobachtungsdatum</label><input id="meeting-point-day" type="date" value="'+localDate()+'"></div>'+
-  btn('confirm-meeting-pricing','Pricing speichern','outline')+meetingHistoryList(c);
+  btn('confirm-meeting-pricing','Pricing speichern','outline')+btn('read-rates-import','Rates importieren','outline')+meetingHistoryList(c);
 }
 function weeklyPairText(a,b){
  if(!a?.previous || !b?.previous)return '–';
@@ -1199,6 +1255,8 @@ case'save-yield-close':{
  if(!storeYieldClose(doc,state.currency,date,value)){toast('Gültiges Schlussdatum und Rendite eintragen.','error');break}
  render();toast('Schlusswert gespeichert.');break;
 }
+case'read-rates-import':if(doc?.kind==='macro')readRatesFor(doc);break;
+case'apply-rates-import':await saveRatesPreview(doc);break;
 case'confirm-meeting-pricing':{
  const c=state.currency,d=currencyData(doc,c),meeting=d.nextMeetingDate;
  const day=$('#meeting-point-day').value,bp=num(d.pricingNext);
