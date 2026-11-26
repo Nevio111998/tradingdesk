@@ -375,7 +375,7 @@ function readRatesFor(doc){
   modal('Rates importieren','<p>Installiere die Tradingdesk-Erweiterung für Edge oder Chrome und lade diese Seite neu.</p><a href="./rates-addon.zip" download>Erweiterung herunterladen</a>');
   return;
  }
- modal('Rates importieren','<p id="rates-reading">Bankseiten werden gelesen …</p>');
+ modal('Rates importieren','<p id="rates-reading">Bankseiten werden nacheinander geöffnet. Bitte die Tabs bis zur Vorschau laden lassen …</p>');
  const marker=$('#rates-reading');
  const receive=e=>{
   clearTimeout(timer);
@@ -403,7 +403,7 @@ function readRatesFor(doc){
  const timer=setTimeout(()=>{
   document.removeEventListener('tradingdesk-rates-result',receive);
   if(marker.isConnected)modal('Rates importieren','<p>Zeitüberschreitung. Prüfe deine Anmeldung bei RateProbability.</p>');
- },120000);
+ },210000);
  document.addEventListener('tradingdesk-rates-result',receive,{once:true});
  document.dispatchEvent(new Event('tradingdesk-read-rates'));
 }

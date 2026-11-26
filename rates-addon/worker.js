@@ -9,7 +9,7 @@ const pause = ms => new Promise(resolve=>setTimeout(resolve,ms));
 async function readCurrency([code,path,bank]) {
   let tab;
   try {
-    tab = await chrome.tabs.create({url:'https://rateprobability.com/'+path,active:false});
+    tab = await chrome.tabs.create({url:'https://rateprobability.com/'+path,active:true});
     for (let attempt=0;attempt<20;attempt++) {
       await pause(750);
       const page = await chrome.tabs.get(tab.id);
@@ -20,7 +20,7 @@ async function readCurrency([code,path,bank]) {
         const row=frame.result;
         // The comparison chart can finish drawing after the meeting table.
         let curve=[];
-        for(let retry=0;retry<4;retry++){
+        for(let retry=0;retry<10;retry++){
           if(retry)await pause(450);
           const frames=await chrome.scripting.executeScript({target:{tabId:tab.id},world:'MAIN',
             func:readWeeklyCurve,args:[row.stamp]}).catch(()=>[]);
@@ -39,8 +39,10 @@ async function readCurrency([code,path,bank]) {
 }
 let reading;
 async function readAll() {
+  // The bank page draws its chart in requestAnimationFrame. Only one
+  // foreground tab at a time can reliably finish that work in Edge.
   const rows=[];
-  for(let i=0;i<banks.length;i+=2) rows.push(...await Promise.all(banks.slice(i,i+2).map(readCurrency)));
+  for(const bank of banks) rows.push(await readCurrency(bank));
   return {rows};
 }
 chrome.runtime.onMessage.addListener((message,sender,respond)=>{
