@@ -436,7 +436,7 @@ function pricingImportTable(m,c){
   if(!old||!point.meeting||!old.meeting)return '–';
   if(key==='selected' && old.horizon!==point.horizon)return 'Horizontwechsel';
   if(old.meeting!==point.meeting)return 'Sitzungswechsel';
-  return format(point.bp-old.bp)+' · '+dateFmt(date);
+  return 'Δ '+format(point.bp-old.bp);
  }
  const horizon=days[day].selected?.horizon??m.currencies?.[c]?.pricingChangeHorizon??'12M';
  const fields=[...pricingWindows,['selected','Erwartungsänderung ggü. Vorwoche ('+horizon+')']];
@@ -444,16 +444,22 @@ function pricingImportTable(m,c){
   const point=days[day][key];
   const prior=days[previous]?.[key];
   const localWeek=days[week]?.[key];
-  function level(p,date){
-   if(!p)return '–';
-   const suffix=key==='selected' && p.horizon!==horizon?' ('+esc(p.horizon)+')':'';
-   return format(p.bp)+suffix+' · '+dateFmt(date);
+  function comparison(old,date,title){
+   const suffix=old && key==='selected' && old.horizon!==horizon?' ('+esc(old.horizon)+')':'';
+   const delta=point && old?change(point,key,date):'';
+   return '<td><span class="pricing-mobile-label">'+title+(date?' · '+dateFmt(date):'')+'</span>'+
+    (old?format(old.bp)+suffix:'–')+(delta?'<small>'+delta+'</small>':'')+'</td>';
   }
-  const cells=[point?format(point.bp):'–',level(prior,previous),point?change(point,key,previous):'–',
-   level(localWeek,week),point?change(point,key,week):'–'];
-  return '<tr><th>'+esc(label)+'</th>'+cells.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
+  return '<tr><th scope="row">'+esc(label)+'</th><td class="pricing-now"><span class="pricing-mobile-label">Aktuell</span>'+
+   (point?format(point.bp):'–')+'</td>'+comparison(prior,previous,'Letzter Stand')+comparison(localWeek,week,'Vorwoche')+'</tr>';
  }).join('');
- return '<h4>Importiertes Marktpricing · '+dateFmt(day)+'</h4><div style="overflow-x:auto"><table><thead><tr><th>Kennzahl</th><th>Aktuell</th><th>Letzter Stand</th><th>Δ letzter Stand</th><th>Vor 1 Woche</th><th>Δ Vorwoche</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+ function column(label,date){
+  return '<th scope="col">'+label+(date?'<small>'+dateFmt(date)+'</small>':'')+'</th>';
+ }
+ return '<section class="pricing-summary"><h4>Importiertes Marktpricing · '+dateFmt(day)+'</h4><table><thead><tr>'+
+  column('Kennzahl')+column('Aktuell',day)+column('Letzter Stand',previous)+column('Vorwoche',week)+
+  '</tr></thead><tbody>'+rows+'</tbody></table></section>';
+
 }
 function readRatesFor(doc){
  if(!document.documentElement.dataset.ratesAddon){
