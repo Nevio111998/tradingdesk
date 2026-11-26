@@ -112,11 +112,11 @@
     const pair=String(t?.pair||'').toUpperCase().replace('/',''),base=pair.slice(0,3),quote=pair.slice(3,6);
     if(!source?.currencies||pair.length!==6||!source.currencies[base]||!source.currencies[quote])return `<div id="trade-fundamentals-v5612" class="trade-fundamental-addon"><div class="divider"></div><h3>Rates & Zentralbanken</h3><div class="alert warn"><strong>Keine passende Morgenanalyse verfügbar.</strong><p>Verknüpfe eine Morgenanalyse mit diesem Trade. Danach erscheinen hier Rates-Matrix, Zentralbank-Ton und Sitzungswahrscheinlichkeiten für Base und Quote.</p></div></div>`;
     const a=source.currencies[base]||{},b=source.currencies[quote]||{},m=metrics(source,base,quote,a,b),warnings=qualityWarnings(a,b,m),repricingExtra=m.repricingNote.startsWith('Manueller Override')?' · manuell':'';
-    const sourceText=isLive?'Aktuelle Morgenanalyse':'Stand bei Trade-Übernahme';
+    const sourceText=t.ratesEntry?'Stand bei Trade-Eröffnung':isLive?'Aktuelle Morgenanalyse':'Stand bei Trade-Übernahme';
     const sourceTone=isLive?'neutral':'blue';
     return `<div id="trade-fundamentals-v5612" class="trade-fundamental-addon">
       <div class="divider"></div>
-      <div class="trade-addon-heading"><div><h3>Rates-Bestätigungsmatrix</h3><p>${esc(sourceText)} · ${esc(base)} vs. ${esc(quote)} · Analyse ${esc(dateFmt(source.date))}${source.updatedAt?' · aktualisiert '+esc(dateTimeFmt(source.updatedAt)):''}${!isLive&&source.attachedAt?' · übernommen '+esc(dateTimeFmt(source.attachedAt)):''}</p></div>${pill(isLive?'Aktuelle Analyse':'Gespeicherter Stand',sourceTone)}</div><p class="text-small">${isLive?'Deine gespeicherten Angaben aus der verknüpften Morgenanalyse, kein automatischer Marktdatenfeed. Der Stand bei Trade-Übernahme bleibt separat erhalten.':'Die Originalanalyse ist nicht verfügbar. Angezeigt wird ausschliesslich die gespeicherte Kopie vom Übernahmezeitpunkt.'}</p>
+      <div class="trade-addon-heading"><div><h3>Rates-Bestätigungsmatrix</h3><p>${esc(sourceText)} · ${esc(base)} vs. ${esc(quote)} · Analyse ${esc(dateFmt(source.date))}${source.updatedAt?' · aktualisiert '+esc(dateTimeFmt(source.updatedAt)):''}${!isLive&&source.attachedAt?' · übernommen '+esc(dateTimeFmt(source.attachedAt)):''}</p></div>${pill(isLive?'Aktuelle Analyse':'Gespeicherter Stand',sourceTone)}</div><p class="text-small">${t.ratesEntry?'Gespeichert beim ersten Wechsel auf Offen · '+esc(dateTimeFmt(t.ratesEntry.at)):isLive?'Deine gespeicherten Angaben aus der verknüpften Morgenanalyse, kein automatischer Marktdatenfeed. Der Stand bei Trade-Übernahme bleibt separat erhalten.':'Die Originalanalyse ist nicht verfügbar. Angezeigt wird ausschliesslich die gespeicherte Kopie vom Übernahmezeitpunkt.'}</p>
       <div class="matrix-grid trade-rates-matrix">
         ${matrixCard('Zinsmomentum','Relatives Repricing',m.repricing,'support',base,quote,'bp',repricingExtra)}
         ${matrixCard('Zinsmomentum','2Y Δ 1W',m.spreadDelta1,'support',base,quote)}
@@ -144,7 +144,7 @@
 
   function sourceSignature(t,source,isLive){
     const pair=String(t?.pair||'').toUpperCase().replace('/',''),base=pair.slice(0,3),quote=pair.slice(3,6),a=source?.currencies?.[base]||{},b=source?.currencies?.[quote]||{};
-    return JSON.stringify([ADDON_VERSION,t?.id,t?.macroId,isLive,source?.id,source?.date,source?.updatedAt,pair,
+    return JSON.stringify([ADDON_VERSION,t?.ratesEntry?.at,t?.id,t?.macroId,isLive,source?.id,source?.date,source?.updatedAt,pair,
       a.bankRate,a.bankDate,a.nextMeetingDate,a.tone,a.pricingNext,a.probHike,a.probHold,a.probCut,a.probHikeChange,a.probHoldChange,a.probCutChange,a.pricing3m,a.pricing12m,a.pricingChange,a.pricingChangeHorizon,a.pricingChangeMethod,a.pricingMethod,a.yield2,a.yield2Prev,a.yield2Prev2,a.real,
       b.bankRate,b.bankDate,b.nextMeetingDate,b.tone,b.pricingNext,b.probHike,b.probHold,b.probCut,b.probHikeChange,b.probHoldChange,b.probCutChange,b.pricing3m,b.pricing12m,b.pricingChange,b.pricingChangeHorizon,b.pricingChangeMethod,b.pricingMethod,b.yield2,b.yield2Prev,b.yield2Prev2,b.real]);
   }
@@ -155,8 +155,9 @@
     try{
       const t=await getRecord(id);if(!t){retryTimer=setTimeout(renderAddon,700);return}
       let source=null,isLive=false;
-      if(t.macroId){const linked=await getRecord(t.macroId);if(linked?.kind==='macro'){source=linked;isLive=true}}
-      if(!source)source=t.macroSnapshot||null;
+      if(t.ratesEntry){source=t.ratesEntry.source;t.pair=t.ratesEntry.pair;}
+      else if(t.macroId){const linked=await getRecord(t.macroId);if(linked?.kind==='macro'){source=linked;isLive=true}}
+      if(!source&&!t.ratesEntry)source=t.macroSnapshot||null;
       const sig=sourceSignature(t,source,isLive),existing=document.getElementById('trade-fundamentals-v5612');
       if(existing?.dataset.signature===sig)return;
       const holder=document.createElement('div');holder.innerHTML=addonHtml(t,source,isLive).trim();const node=holder.firstElementChild;node.dataset.signature=sig;
