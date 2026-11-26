@@ -178,7 +178,9 @@
 .pricing-summary tbody th{font-weight:600}
 .pricing-summary small,.pricing-mobile-label{display:block;font-size:12px;font-weight:500;color:var(--muted)}
 .pricing-summary small{margin-top:3px}
-.pricing-summary .pricing-now{font-weight:700;color:var(--accent)}
+.pricing-summary .pricing-now{font-weight:700}
+.pricing-summary .pricing-negative{color:var(--red)}
+.pricing-summary .pricing-positive{color:var(--accent)}
 .pricing-mobile-label{display:none}
 @container (max-width:620px){
  .pricing-summary table,.pricing-summary tbody{display:block;border:0;overflow:visible}
