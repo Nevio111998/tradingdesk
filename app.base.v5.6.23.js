@@ -422,6 +422,12 @@ function pricingImportsFrom(...sources){
  }
  return history;
 }
+function pricingBpHtml(value){
+ if(!Number.isFinite(value))return '–';
+ const rounded=Number(value.toFixed(1));
+ const tone=rounded<0?'pricing-negative':rounded>0?'pricing-positive':'';
+ return '<span class="'+tone+'">'+signed(rounded||0,1)+' bp</span>';
+}
 function pricingImportTable(m,c){
  const days=state.settings.pricingImports?.[c]||{};
  const through=[m.date,m.currencies?.[c]?.bankRateAsOf||''].sort().pop();
@@ -431,14 +437,13 @@ function pricingImportTable(m,c){
  const previous=dates.find(d=>d<day && d>=shiftYieldDate(day,-4));
  const target=shiftYieldDate(day,-7);
  const week=dates.find(d=>d<=target && d>=shiftYieldDate(target,-3));
- const format=n=>signed(n,1)+' bp';
  function change(point,key,date){
   if(!date)return '–';
   const old=days[date][key];
   if(!old||!point.meeting||!old.meeting)return '–';
   if(key==='selected' && old.horizon!==point.horizon)return 'Horizontwechsel';
   if(old.meeting!==point.meeting)return 'Sitzungswechsel';
-  return 'Δ '+format(point.bp-old.bp);
+  return 'Δ '+pricingBpHtml(point.bp-old.bp);
  }
  const horizon=days[day].selected?.horizon??m.currencies?.[c]?.pricingChangeHorizon??'12M';
  const fields=[...pricingWindows,['selected','Erwartungsänderung ggü. Vorwoche ('+horizon+')']];
@@ -450,10 +455,10 @@ function pricingImportTable(m,c){
    const suffix=old && key==='selected' && old.horizon!==horizon?' ('+esc(old.horizon)+')':'';
    const delta=point && old?change(point,key,date):'';
    return '<td><span class="pricing-mobile-label">'+title+(date?' · '+dateFmt(date):'')+'</span>'+
-    (old?format(old.bp)+suffix:'–')+(delta?'<small>'+delta+'</small>':'')+'</td>';
+    (old?pricingBpHtml(old.bp)+suffix:'–')+(delta?'<small>'+delta+'</small>':'')+'</td>';
   }
   return '<tr><th scope="row">'+esc(label)+'</th><td class="pricing-now"><span class="pricing-mobile-label">Aktuell</span>'+
-   (point?format(point.bp):'–')+'</td>'+comparison(prior,previous,'Letzter Stand')+comparison(localWeek,week,'Vorwoche')+'</tr>';
+   (point?pricingBpHtml(point.bp):'–')+'</td>'+comparison(prior,previous,'Letzter Stand')+comparison(localWeek,week,'Vorwoche')+'</tr>';
  }).join('');
  function column(label,date){
   return '<th scope="col">'+label+(date?'<small>'+dateFmt(date)+'</small>':'')+'</th>';
@@ -848,7 +853,6 @@ function pairRatesHistory(m,pair){
 }
 function pairHistoryHtml(pair,rows,caption){
  if(!rows?.length)return '';
- const fmt=n=>signed(n,1)+' bp';
  const body=rows.map(({label,points})=>{
   const cells=['Aktuell','Letzter Stand','Vorwoche'].map((title,i)=>{
    const p=points[i],current=points[0];
@@ -857,11 +861,11 @@ function pairHistoryHtml(pair,rows,caption){
     if(p.ref!==current.ref || current.ref===null)delta='Vergleichsbasis verschieden oder offen';
     else{
      const n=Number((current.value-p.value).toFixed(1));
-     delta='Δ '+fmt(n)+(n?' · für '+(n>0?pair.slice(0,3):pair.slice(3)):'');
+     delta='Δ '+pricingBpHtml(n)+(n?' · für '+esc(n>0?pair.slice(0,3):pair.slice(3)):'');
     }
    }
    return '<td'+(!i?' class="pricing-now"':'')+'><span class="pricing-mobile-label">'+title+'</span>'+
-    (p?fmt(p.value)+'<small>'+esc(dateFmt(p.day))+'</small>':'–')+(delta?'<small>'+esc(delta)+'</small>':'')+'</td>';
+    (p?pricingBpHtml(p.value)+'<small>'+esc(dateFmt(p.day))+'</small>':'–')+(delta?'<small>'+delta+'</small>':'')+'</td>';
   }).join('');
   return '<tr><th scope="row">'+esc(label)+(points[0]?.horizon?' · '+esc(points[0].horizon):'')+'</th>'+cells+'</tr>';
  }).join('');
