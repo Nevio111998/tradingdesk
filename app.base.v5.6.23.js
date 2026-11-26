@@ -66,7 +66,19 @@ function updateRecord(rec){rec.updatedAt=now();markDirty()}
 function put(store,value){return new Promise((resolve,reject)=>{const tx=state.db.transaction(store,'readwrite');tx.objectStore(store).put(value);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)})}
 function del(store,id){return new Promise((resolve,reject)=>{const tx=state.db.transaction(store,'readwrite');tx.objectStore(store).delete(id);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)})}
 function all(store){return new Promise((resolve,reject)=>{const tx=state.db.transaction(store,'readonly');const req=tx.objectStore(store).getAll();req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
-function saveNow(){clearTimeout(state.saveTimer);if(!state.dirty)return state.saveChain;const revision=state.revision;const snapshot=state.records.map(clone);const settings=clone(state.settings);state.dirty=false;state.saving=true;$('#save-status').textContent='Speichert …';state.saveChain=state.saveChain.catch(()=>{}).then(async()=>{await put('meta',{key:'settings',value:settings});for(const rec of snapshot)await put('records',rec)}).then(()=>{if(!state.dirty&&state.revision===revision){$('#save-status').textContent='Alles gespeichert';state.saving=false}else{state.saving=false;$('#save-status').textContent='Änderungen ausstehend';if(state.dirty)saveNow()}}).catch(e=>{state.dirty=true;state.saving=false;$('#save-status').textContent='Speichern fehlgeschlagen';toast('Speichern fehlgeschlagen: '+e.message,'error');throw e});return state.saveChain}
+function persistRecordsAndSettings(records,settings){
+ return new Promise((resolve,reject)=>{
+  const tx=state.db.transaction(['meta','records'],'readwrite');
+  tx.oncomplete=resolve;
+  tx.onabort=()=>reject(tx.error||new Error('Speichervorgang abgebrochen.'));
+  try{
+   tx.objectStore('meta').put({key:'settings',value:settings});
+   const store=tx.objectStore('records');
+   for(const record of records)store.put(record);
+  }catch(error){tx.abort();reject(error)}
+ });
+}
+function saveNow(){clearTimeout(state.saveTimer);if(!state.dirty)return state.saveChain;const revision=state.revision;const snapshot=state.records.map(clone);const settings=clone(state.settings);state.dirty=false;state.saving=true;$('#save-status').textContent='Speichert …';state.saveChain=state.saveChain.catch(()=>{}).then(async()=>{await persistRecordsAndSettings(snapshot,settings)}).then(()=>{if(!state.dirty&&state.revision===revision){$('#save-status').textContent='Alles gespeichert';state.saving=false}else{state.saving=false;$('#save-status').textContent='Änderungen ausstehend';if(state.dirty)saveNow()}}).catch(e=>{state.dirty=true;state.saving=false;$('#save-status').textContent='Speichern fehlgeschlagen';toast('Speichern fehlgeschlagen: '+e.message,'error');throw e});return state.saveChain}
 async function flush(){if(state.dirty)await saveNow();else await state.saveChain}
 function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB'in window)){reject(new Error('Dieser Browser unterstützt keine lokale IndexedDB.'));return}const req=indexedDB.open('fx-trade-desk',1);req.onupgradeneeded=()=>{const db=req.result;for(const store of ['records','assets'])if(!db.objectStoreNames.contains(store))db.createObjectStore(store,{keyPath:'id'});if(!db.objectStoreNames.contains('meta'))db.createObjectStore('meta',{keyPath:'key'})};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);req.onblocked=()=>reject(new Error('Schliesse andere geöffnete Tabs dieser App und lade die Seite neu.'))})}
 function defaultRecord(kind){const date=localDate();return kind==='macro'?{id:uid(),kind:'macro',title:'Morgenanalyse '+date,date,createdAt:now(),updatedAt:now(),fields:{},checklist:{},checkNotes:{},currencies:{},pairs:fxPairDefaults(),events:[],images:[],notes:'',conclusion:'',reviewed:false}:{id:uid(),kind:'trade',title:'Neue Trade-Idee',pair:'',direction:'Long',status:'Idee',grade:'Unbewertet',decision:'Offen',createdAt:now(),updatedAt:now(),macroId:'',macroSnapshot:null,fields:{riskPercent:String(state.settings.defaultRisk),horizon:'2–5 Handelstage'},checklist:{},checkNotes:{},factors:{},factorNotes:{},images:[],events:[],journal:[],notes:'',exitPrice:'',closedAt:'',realizedR:'',realizedPnl:'',approvalAt:'',approvalNotes:''}}
@@ -352,8 +364,8 @@ function validRatesRow(r){
   (r.year===null || Number.isFinite(r.year)) && ['rate','next','quarter','step','hike','hold','cut'].every(k=>Number.isFinite(r[k])) &&
   r.step>0 && [r.hike,r.hold,r.cut].every(n=>n>=0&&n<=100) && Math.abs(r.hike+r.hold+r.cut-100)<0.01;
 }
-function weeklyCurveImport(row,horizon){
- if(!Array.isArray(row.meetings)||!Array.isArray(row.curve))return null;
+function pricingMeeting(row,horizon){
+ if(!Array.isArray(row.meetings))return null;
  const normalized=comparableRepriceHorizon(horizon).toLowerCase();
  let meeting=normalized.replace(/^date:/,'');
  if(normalized==='3m'||normalized==='12m'){
@@ -366,9 +378,68 @@ function weeklyCurveImport(row,horizon){
   const cutoff=target.toISOString().slice(0,10);
   meeting=row.meetings.filter(d=>validYieldDate(d)&&d<=cutoff).sort().pop();
  }
+ return meeting;
+}
+function weeklyCurveImport(row,horizon){
+ if(!Array.isArray(row.curve))return null;
+ const meeting=pricingMeeting(row,horizon);
  const point=row.curve.find(p=>p && p.date===meeting && validYieldDate(p.date) &&
   Number.isFinite(p.live) && Number.isFinite(p.past));
  return point?{...point,delta:Number((point.live-point.past).toFixed(1)),horizon}:null;
+}
+const pricingWindows=[['next','Nächste Sitzung'],['quarter','3 Monate'],['year','12 Monate']];
+function storePricingImport(row){
+ const history=state.settings.pricingImports??={};
+ const days=history[row.code]??={};
+ const snapshot=days[row.day]??={};
+ for(const [key] of pricingWindows){
+  if(!Number.isFinite(row[key]))continue;
+  const meeting=key==='next'?row.meeting:pricingMeeting(row,key==='quarter'?'3M':'12M');
+  const point={bp:row[key],meeting:meeting||null};
+  const curve=Array.isArray(row.curve)&&row.curve.find(p=>p?.date===meeting &&
+   Number.isFinite(p.live)&&Number.isFinite(p.past)&&Math.abs(p.live-point.bp)<0.11);
+  if(curve)point.week=Number((curve.live-curve.past).toFixed(1));
+  snapshot[key]=point;
+ }
+}
+function pricingImportsFrom(...sources){
+ const history={};
+ for(const source of sources)for(const c of C){
+  for(const [day,snapshot] of Object.entries(source?.[c]||{})){
+   if(!validYieldDate(day))continue;
+   for(const [key] of pricingWindows){
+    const p=snapshot?.[key];
+    if(!Number.isFinite(p?.bp)||(p.meeting!==null&&!validYieldDate(p.meeting)))continue;
+    const days=history[c]??={};
+    (days[day]??={})[key]={bp:p.bp,meeting:p.meeting,...(Number.isFinite(p.week)?{week:p.week}:{})};
+   }
+  }
+ }
+ return history;
+}
+function pricingImportTable(m,c){
+ const days=state.settings.pricingImports?.[c]||{};
+ const through=[m.date,m.currencies?.[c]?.bankRateAsOf||''].sort().pop();
+ const dates=Object.keys(days).filter(day=>day<=through).sort().reverse();
+ const day=dates[0];
+ if(!day)return '';
+ const previous=dates.find(d=>d<day && d>=shiftYieldDate(day,-4));
+ const target=shiftYieldDate(day,-7);
+ const week=dates.find(d=>d<=target && d>=shiftYieldDate(target,-3));
+ const format=n=>signed(n,1)+' bp';
+ function change(point,key,date){
+  if(!date)return '–';
+  const old=days[date][key];
+  if(!old||!point.meeting||!old.meeting)return '–';
+  if(old.meeting!==point.meeting)return 'Sitzungswechsel';
+  return format(point.bp-old.bp)+' · '+dateFmt(date);
+ }
+ const rows=pricingWindows.map(([key,label])=>{
+  const point=days[day][key];
+  const weekly=Number.isFinite(point?.week)?format(point.week)+' · 1w ago (Grafik)':point?change(point,key,week):'–';
+  return '<tr><th>'+label+'</th><td>'+(point?format(point.bp):'–')+'</td><td>'+(point?change(point,key,previous):'–')+'</td><td>'+weekly+'</td></tr>';
+ }).join('');
+ return '<h4>Importiertes Marktpricing · '+dateFmt(day)+'</h4><div style="overflow-x:auto"><table><thead><tr><th>Horizont</th><th>Aktuell</th><th>Δ letzter Stand</th><th>Δ Vorwoche</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function readRatesFor(doc){
  if(!document.documentElement.dataset.ratesAddon){
@@ -419,6 +490,7 @@ async function saveRatesPreview(doc){
     pricingChangeSource:source,pricingChangeRefPeriod:w.horizon+' · Current − 1w ago (Δ vs Today)',
     pricingChangeMeeting:w.date,pricingChangeCurrentBp:w.live,pricingChangePreviousBp:w.past});
   }
+  storePricingImport(r);
   series[r.day]={bp:r.next,source,method:'OIS'};
   applyMeetingStand(d,r.meeting,series,r.day);
   Object.assign(d,{bankRate:String(r.rate),bankRateSource:source,bankRateAsOf:r.day,
@@ -433,7 +505,7 @@ async function saveRatesPreview(doc){
 function weeklyPricingHtml(m,c){
  const w=meetingWeek(m,c);
  const result=w.previous?signed(w.delta,1)+' bp · '+dateFmt(w.previous.date)+' ('+signed(w.previous.bp,1)+' bp) → '+dateFmt(w.current.date)+' ('+signed(w.current.bp,1)+' bp)':w.message;
- return '<p class="text-small"><strong>Wochenvergleich nächste Sitzung</strong> · '+esc(result)+'</p>'+
+ return pricingImportTable(m,c)+'<p class="text-small"><strong>Wochenvergleich nächste Sitzung</strong> · '+esc(result)+'</p>'+
   '<div class="field"><label for="meeting-point-day">Beobachtungsdatum</label><input id="meeting-point-day" type="date" value="'+localDate()+'"></div>'+
   btn('confirm-meeting-pricing','Pricing speichern','outline')+btn('read-rates-import','Rates importieren','outline')+meetingHistoryList(c);
 }
@@ -1262,10 +1334,11 @@ function validateBackup(data){if(data?.research!==undefined)window.FXResearchBac
 async function readBackup(file){if(!file)return;try{if(file.size>300*1024*1024)throw new Error('Backup-Datei ist zu gross.');const data=validateBackup(JSON.parse(await file.text()));state.importPayload=data;modal('Backup importieren',`<div class="alert warn"><strong>${data.records.length} Einträge · ${data.assets.length} Screenshots</strong><p>Erstellt: ${dateTimeFmt(data.exportedAt)}. Prüfe, ob du die richtige Datei gewählt hast. Der Import kann bei vielen Bildern Speicherplatz benötigen.</p><p>${esc(window.FXResearchBackup.summary(data.research))}</p></div><div class="field"><label for="import-mode">Import-Modus</label><select id="import-mode"><option value="merge">Zusammenführen (bestehende Daten behalten)</option><option value="replace">Alle bestehenden Daten ersetzen</option></select><span class="hint">Beim Zusammenführen erhalten importierte Einträge bei ID-Konflikten neue IDs. Bei ChatGPT-Analysen, Reviews und Trainingsbeispielen bleiben beim Zusammenführen vorhandene Versionen mit gleicher Kennung erhalten. Ersetzen übernimmt die Research-Daten aus dem Backup vollständig; bei alten Backups ohne Research-Bereich bleiben sie unverändert.</span></div><p>Ein vollständiger Export deiner jetzigen Daten vor dem Import wird empfohlen.</p>`,btn('close-modal','Abbrechen')+btn('import-confirm','Import bestätigen','primary'))}catch(e){toast('Import fehlgeschlagen: '+e.message,'error')}}
 async function commitImport(){const data=state.importPayload;if(!data)return;const mode=$('#import-mode')?.value||'merge';if(mode==='replace'){confirmAction('Alle bisherigen Daten ersetzen?','Analysen, Trade-Ideen und Screenshots werden durch das Backup ersetzt. Enthält es Research-Daten, werden auch ChatGPT-Analysen, Reviews, Trainingssammlung und EdgeFinder-Imports ersetzt. Alte Backups ohne diesen Bereich lassen vorhandene Research-Daten unverändert. Erstelle vorher einen Export, wenn du sie behalten möchtest.',()=>performImport(data,'replace'),'Alle Daten ersetzen',true)}else await performImport(data,'merge')}
 async function performImport(data,mode){let undoResearch=null;try{await flush();const research=data.research===undefined?null:window.FXResearchBackup.prepare(data.research,mode);const recordMap=new Map(),assetMap=new Map();const existingR=new Set(mode==='merge'?state.records.map(r=>r.id):[]),existingA=new Set(mode==='merge'?state.assets.keys():[]);for(const r of data.records){let id=r.id;if(existingR.has(id)){id=uid()}recordMap.set(r.id,id);existingR.add(id)}for(const a of data.assets){let id=a.id;if(existingA.has(id)){id=uid()}assetMap.set(a.id,id);existingA.add(id)}const recs=data.records.map(r=>{const x=clone(r);x.id=recordMap.get(r.id);x.images=(r.images||[]).map(id=>assetMap.get(id)).filter(Boolean);if(x.carriedFrom?.id)x.carriedFrom.id=recordMap.get(x.carriedFrom.id)||x.carriedFrom.id;if(x.macroId)x.macroId=recordMap.get(x.macroId)||x.macroId;if(x.macroSnapshot?.id&&recordMap.has(x.macroSnapshot.id))x.macroSnapshot.id=recordMap.get(x.macroSnapshot.id);x.events=(r.events||[]).map(e=>({...e,id:e.id||uid(),...(e.sourceMacro?{sourceMacro:recordMap.get(e.sourceMacro)||e.sourceMacro}:{})}));x.journal=Array.isArray(r.journal)?r.journal:[];x.checkNotes=x.checkNotes||{};x.factors=x.factors||{};x.factorNotes=x.factorNotes||{};return x});const assets=[];for(const a of data.assets){const blob=decodeImageData(a.data);assets.push({id:assetMap.get(a.id),ownerId:recordMap.get(a.ownerId)||a.ownerId,name:String(a.name||'Screenshot').slice(0,180),type:blob.type,size:blob.size,caption:String(a.caption||''),createdAt:a.createdAt||now(),blob})}const importedSettings=mode==='replace'?{...state.settings,...data.settings}:{...state.settings};
+importedSettings.pricingImports=pricingImportsFrom(data.settings?.pricingImports,mode==='merge'?state.settings.pricingImports:null);
 importedSettings.meetingHistory=mergedMeetingHistory(data.settings?.meetingHistory,mode==='merge'?state.settings.meetingHistory:null);
 importedSettings.yieldHistory=importYieldHistory(data.settings?.yieldHistory,mode==='merge'?state.settings.yieldHistory:null);
 if(research)undoResearch=window.FXResearchBackup.apply(research);await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite'),rs=tx.objectStore('records'),as=tx.objectStore('assets');if(mode==='replace'){rs.clear();as.clear()}for(const r of recs)rs.put(r);for(const a of assets)as.put(a);tx.objectStore('meta').put({key:'settings',value:importedSettings});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});undoResearch=null;state.settings=importedSettings;if(mode==='replace'){for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.records=recs;state.assets=new Map(assets.map(a=>[a.id,a]));}else{state.records.push(...recs);for(const a of assets)state.assets.set(a.id,a)}state.dirty=false;closeModal();state.importPayload=null;navigate('home');toast(recs.length+' Einträge und '+assets.length+' Bilder importiert.'+(research?' ChatGPT- und EdgeFinder-Daten wiederhergestellt.':''))}catch(e){if(undoResearch){try{undoResearch()}catch(rollbackError){toast('Research-Wiederherstellung fehlgeschlagen: '+rollbackError.message,'error')}}toast('Import fehlgeschlagen: '+e.message,'error')}}
-async function deleteAll(){await flush();const settings={...state.settings};delete settings.yieldHistory;delete settings.meetingHistory;await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite');tx.objectStore('meta').put({key:'settings',value:settings});tx.objectStore('records').clear();tx.objectStore('assets').clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.settings=settings;state.records=[];state.assets.clear();localStorage.removeItem('fxdesk-last-backup');navigate('home');toast('Alle lokalen App-Daten gelöscht.')}
+async function deleteAll(){await flush();const settings={...state.settings};delete settings.pricingImports;delete settings.yieldHistory;delete settings.meetingHistory;await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite');tx.objectStore('meta').put({key:'settings',value:settings});tx.objectStore('records').clear();tx.objectStore('assets').clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.settings=settings;state.records=[];state.assets.clear();localStorage.removeItem('fxdesk-last-backup');navigate('home');toast('Alle lokalen App-Daten gelöscht.')}
 function applyListFilter(){const kind=state.route==='macros'?'macro':state.route==='journal'?'journal':state.route==='open'?'open':'ideas',filtered=filteredListRecords(kind);const el=$('#list-results');if(el)el.innerHTML=filtered.length?filtered.map(kind==='open'?openPositionRow:recordRow).join(''):empty('Keine Treffer','Passe deine Suche oder den Statusfilter an.');}
 
 function addPairCandidate(){const doc=current();if(!doc||doc.kind!=='macro')return;pairList(doc);state.pairId=doc.pairs[0]?.id||'';state.tab='pairs';render();toast('Alle '+pairList(doc).length+' FX-Paare sind bereits vorbereitet.')}

@@ -27,8 +27,8 @@ function runtime() {
   };
   const storage = { records: new Map(), meta: new Map(), assets: new Map() };
   const db = { transaction(name) {
-    const tx = { objectStore() { return { put(value) {
-      storage[name].set(value.id || value.key, clone(value));
+    const tx = { objectStore(storeName = name) { return { put(value) {
+      storage[storeName].set(value.id || value.key, clone(value));
     } }; } };
     queueMicrotask(() => tx.oncomplete?.());
     return tx;
