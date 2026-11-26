@@ -16,7 +16,19 @@ async function readCurrency([code,path,bank]) {
       if (page.status!=='complete') continue;
       if (!page.url || new URL(page.url).pathname.replace(/\/$/,'')!=='/'+path) break;
       const [frame] = await chrome.scripting.executeScript({target:{tabId:tab.id},func:readBankPage,args:[bank]});
-      if (frame?.result) return {code,...frame.result};
+      if (frame?.result) {
+        const row=frame.result;
+        // The comparison chart can finish drawing after the meeting table.
+        let curve=[];
+        for(let retry=0;retry<4;retry++){
+          if(retry)await pause(450);
+          const frames=await chrome.scripting.executeScript({target:{tabId:tab.id},world:'MAIN',
+            func:readWeeklyCurve,args:[row.stamp]}).catch(()=>[]);
+          curve=frames[0]?.result||[];
+          if(curve.length)break;
+        }
+        return {code,...row,curve};
+      }
     }
     return {code,error:'Kein vollständiger Datenstand. Zugang und Bankseite prüfen.'};
   } catch {

@@ -36,6 +36,32 @@ function readBankPage(bank) {
   // Above one step, both bracketing outcomes are moves in the same direction.
   const move = Math.abs(first.delta)>=step ? 100 : first.probability;
   const hold = Number((100-move).toFixed(2));
-  return {day,stamp,meeting:first.date,rate,next:first.delta,quarter:prior?.delta ?? 0,year,step,
+  return {day,stamp,meetings:rows.map(r=>r.date),meeting:first.date,rate,next:first.delta,quarter:prior?.delta ?? 0,year,step,
     hike:first.delta>0 ? move : 0,cut:first.delta<0 ? move : 0,hold};
+}
+
+// Read the two displayed rate paths at matching meeting dates, using the
+// chart's own baseline and the same one-decimal bp rounding as its tooltip.
+function readWeeklyCurve(stamp) {
+  if (document.getElementById('asOf')?.innerText.trim() !== stamp) return [];
+  const chart = window.Chart?.getChart?.(document.getElementById('chart'));
+  if (!chart) return [];
+  const {datasets, labels} = chart.data;
+  const current = datasets.find(series => series.label === 'Current');
+  const week = datasets.find(series => /^1w ago$/i.test(series.label));
+  if (!current || !week || labels[0] !== 'Current') return [];
+  function value(series, i) {
+    const point = series.data[i];
+    const rate = typeof point === 'object' && point !== null ? point.y : point;
+    return typeof rate === 'number' || (typeof rate === 'string' && rate.trim()) ? Number(rate) : NaN;
+  }
+  const base = value(current,0);
+  const points = [];
+  for (let i=1;i<labels.length;i++) {
+    const live=value(current,i), past=value(week,i), date=Date.parse(labels[i]+' UTC');
+    if (![live,past,base,date].every(Number.isFinite)) continue;
+    points.push({date:new Date(date).toISOString().slice(0,10),
+      live:Number(((live-base)*100).toFixed(1)), past:Number(((past-base)*100).toFixed(1))});
+  }
+  return points;
 }
