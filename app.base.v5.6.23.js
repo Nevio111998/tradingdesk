@@ -352,6 +352,24 @@ function validRatesRow(r){
   ['rate','next','quarter','year','step','hike','hold','cut'].every(k=>Number.isFinite(r[k])) &&
   r.step>0 && [r.hike,r.hold,r.cut].every(n=>n>=0&&n<=100) && Math.abs(r.hike+r.hold+r.cut-100)<0.01;
 }
+function weeklyCurveImport(row,horizon){
+ if(!Array.isArray(row.meetings)||!Array.isArray(row.curve))return null;
+ const normalized=comparableRepriceHorizon(horizon).toLowerCase();
+ let meeting=normalized.replace(/^date:/,'');
+ if(normalized==='3m'||normalized==='12m'){
+  const target=new Date(row.day+'T00:00:00Z');
+  const day=target.getUTCDate();
+  target.setUTCDate(1);
+  target.setUTCMonth(target.getUTCMonth()+(normalized==='3m'?3:12));
+  const last=new Date(Date.UTC(target.getUTCFullYear(),target.getUTCMonth()+1,0)).getUTCDate();
+  target.setUTCDate(Math.min(day,last));
+  const cutoff=target.toISOString().slice(0,10);
+  meeting=row.meetings.filter(d=>validYieldDate(d)&&d<=cutoff).sort().pop();
+ }
+ const point=row.curve.find(p=>p && p.date===meeting && validYieldDate(p.date) &&
+  Number.isFinite(p.live) && Number.isFinite(p.past));
+ return point?{...point,delta:Number((point.live-point.past).toFixed(1)),horizon}:null;
+}
 function readRatesFor(doc){
  if(!document.documentElement.dataset.ratesAddon){
   modal('Rates importieren','<p>Installiere die Tradingdesk-Erweiterung für Edge oder Chrome und lade diese Seite neu.</p><a href="./rates-addon.zip" download>Erweiterung herunterladen</a>');
@@ -370,12 +388,16 @@ function readRatesFor(doc){
    if(!row || !C.includes(row.code))return '';
    const d=doc.currencies?.[row.code];
    const stale=validRatesRow(row) && (row.day<(d?.meetingPricingDay||'') || row.day<(d?.bankRateAsOf||'').slice(0,10));
-   if(!validRatesRow(row)||stale)return '<tr><th>'+esc(row.code)+'</th><td colspan="7">'+esc(stale?'Übersprungen: neuerer Stand in der Analyse.':row.error||'Daten unvollständig.')+'</td></tr>';
+   if(!validRatesRow(row)||stale)return '<tr><th>'+esc(row.code)+'</th><td colspan="8">'+esc(stale?'Übersprungen: neuerer Stand in der Analyse.':row.error||'Daten unvollständig.')+'</td></tr>';
+   const horizon=d?.pricingChangeHorizon??'12M';
+   row.week=weeklyCurveImport(row,horizon);
+   const week=row.week;
+   const comparison=week?horizon+' · '+dateFmt(week.date)+' · '+week.live+' − ('+week.past+') = '+week.delta+' bp':'Keine Übernahme ('+(horizon||'Horizont offen')+')';
    valid.push(row);
-   return '<tr>'+[row.code,dateFmt(row.day),dateFmt(row.meeting),row.rate,row.next,row.quarter,row.year,[row.hike,row.hold,row.cut].join(' / ')+' ('+row.step+' bp)'].map(v=>'<td>'+esc(String(v))+'</td>').join('')+'</tr>';
+   return '<tr>'+[row.code,dateFmt(row.day),dateFmt(row.meeting),row.rate,row.next,row.quarter,row.year,[row.hike,row.hold,row.cut].join(' / ')+' ('+row.step+' bp)',comparison].map(v=>'<td>'+esc(String(v))+'</td>').join('')+'</tr>';
   }).join('');
   ratesPreview={id:doc.id,rows:valid};
-  modal('RateProbability · Vorschau','<div style="overflow-x:auto"><table><thead><tr>'+['Währung','Stand','Sitzung','Zins %','Nächste bp','3M bp','12M bp','Hike / Hold / Cut % (Schritt)'].map(s=>'<th>'+s+'</th>').join('')+'</tr></thead><tbody>'+lines+'</tbody></table></div>',
+  modal('RateProbability · Vorschau','<div style="overflow-x:auto"><table><thead><tr>'+['Währung','Stand','Sitzung','Zins %','Nächste bp','3M bp','12M bp','Hike / Hold / Cut % (Schritt)','Current − 1w ago'].map(s=>'<th>'+s+'</th>').join('')+'</tr></thead><tbody>'+lines+'</tbody></table></div>',
    btn('close-modal','Abbrechen')+(valid.length?btn('apply-rates-import',valid.length+' Währungen übernehmen','primary'):''));
  };
  const timer=setTimeout(()=>{
@@ -390,6 +412,13 @@ async function saveRatesPreview(doc){
  const source='RateProbability',history=state.settings.meetingHistory??={};
  for(const r of ratesPreview.rows){
   const d=currencyData(doc,r.code),currency=history[r.code]??={},series=currency[r.meeting]??={};
+  if(r.week && r.week.horizon===(d.pricingChangeHorizon??'12M')){
+   const w=r.week;
+   Object.assign(d,{pricingChange:String(w.delta),pricingChangeAsOf:r.day,pricingChangeHistoricalAsOf:'',
+    pricingChangeUnit:'bp',pricingChangeMethod:'OIS',pricingChangeInstrument:'RateProbability · Implied Rate Path',
+    pricingChangeSource:source,pricingChangeRefPeriod:w.horizon+' · Current − 1w ago (Δ vs Today)',
+    pricingChangeMeeting:w.date,pricingChangeCurrentBp:w.live,pricingChangePreviousBp:w.past});
+  }
   series[r.day]={bp:r.next,source,method:'OIS'};
   applyMeetingStand(d,r.meeting,series,r.day);
   Object.assign(d,{bankRate:String(r.rate),bankRateSource:source,bankRateAsOf:r.day,
