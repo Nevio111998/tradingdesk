@@ -388,7 +388,7 @@ function weeklyCurveImport(row,horizon){
  return point?{...point,delta:Number((point.live-point.past).toFixed(1)),horizon}:null;
 }
 const pricingWindows=[['next','Nächste Sitzung'],['quarter','3 Monate'],['year','12 Monate']];
-function storePricingImport(row){
+function storePricingImport(row,horizon){
  const history=state.settings.pricingImports??={};
  const days=history[row.code]??={};
  const snapshot=days[row.day]??={};
@@ -396,10 +396,12 @@ function storePricingImport(row){
   if(!Number.isFinite(row[key]))continue;
   const meeting=key==='next'?row.meeting:pricingMeeting(row,key==='quarter'?'3M':'12M');
   const point={bp:row[key],meeting:meeting||null};
-  const curve=Array.isArray(row.curve)&&row.curve.find(p=>p?.date===meeting &&
-   Number.isFinite(p.live)&&Number.isFinite(p.past)&&Math.abs(p.live-point.bp)<0.11);
-  if(curve){point.week=Number((curve.live-curve.past).toFixed(1));point.weekBp=curve.past;}
   snapshot[key]=point;
+ }
+ if(row.week && row.week.horizon===horizon && Number.isFinite(row.week.delta)){
+  snapshot.selected={bp:row.week.delta,meeting:row.week.date,horizon};
+ }else if(snapshot.selected?.horizon!==horizon){
+  delete snapshot.selected;
  }
 }
 function pricingImportsFrom(...sources){
@@ -407,11 +409,12 @@ function pricingImportsFrom(...sources){
  for(const source of sources)for(const c of C){
   for(const [day,snapshot] of Object.entries(source?.[c]||{})){
    if(!validYieldDate(day))continue;
-   for(const [key] of pricingWindows){
+   for(const [key] of [...pricingWindows,['selected']]){
     const p=snapshot?.[key];
     if(!Number.isFinite(p?.bp)||(p.meeting!==null&&!validYieldDate(p.meeting)))continue;
     const days=history[c]??={};
-    (days[day]??={})[key]={bp:p.bp,meeting:p.meeting,...(Number.isFinite(p.week)?{week:p.week,...(Number.isFinite(p.weekBp)?{weekBp:p.weekBp}:{})}:{})};
+    if(key==='selected' && typeof p.horizon!=='string')continue;
+    (days[day]??={})[key]={bp:p.bp,meeting:p.meeting,...(key==='selected'?{horizon:p.horizon}:{})};
    }
   }
  }
@@ -431,23 +434,26 @@ function pricingImportTable(m,c){
   if(!date)return '–';
   const old=days[date][key];
   if(!old||!point.meeting||!old.meeting)return '–';
+  if(key==='selected' && old.horizon!==point.horizon)return 'Horizontwechsel';
   if(old.meeting!==point.meeting)return 'Sitzungswechsel';
   return format(point.bp-old.bp)+' · '+dateFmt(date);
  }
- const rows=pricingWindows.map(([key,label])=>{
+ const horizon=days[day].selected?.horizon??m.currencies?.[c]?.pricingChangeHorizon??'12M';
+ const fields=[...pricingWindows,['selected','Erwartungsänderung ggü. Vorwoche ('+horizon+')']];
+ const rows=fields.map(([key,label])=>{
   const point=days[day][key];
   const prior=days[previous]?.[key];
   const localWeek=days[week]?.[key];
-  const graph=Number.isFinite(point?.week);
-  const prevLevel=prior?format(prior.bp)+' · '+dateFmt(previous):'–';
-  let weekLevel=localWeek?format(localWeek.bp)+' · '+dateFmt(week):'–';
-  if(graph && Number.isFinite(point.weekBp))weekLevel=format(point.weekBp)+' · Grafik';
-  else if(graph)weekLevel='– · erneut importieren';
-  const weekly=graph?format(point.week)+' · 1w ago (Grafik)':point?change(point,key,week):'–';
-  const cells=[point?format(point.bp):'–',prevLevel,point?change(point,key,previous):'–',weekLevel,weekly];
-  return '<tr><th>'+label+'</th>'+cells.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
+  function level(p,date){
+   if(!p)return '–';
+   const suffix=key==='selected' && p.horizon!==horizon?' ('+esc(p.horizon)+')':'';
+   return format(p.bp)+suffix+' · '+dateFmt(date);
+  }
+  const cells=[point?format(point.bp):'–',level(prior,previous),point?change(point,key,previous):'–',
+   level(localWeek,week),point?change(point,key,week):'–'];
+  return '<tr><th>'+esc(label)+'</th>'+cells.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
  }).join('');
- return '<h4>Importiertes Marktpricing · '+dateFmt(day)+'</h4><div style="overflow-x:auto"><table><thead><tr><th>Horizont</th><th>Aktuell</th><th>Letzter Stand</th><th>Δ letzter Stand</th><th>Vor 1 Woche</th><th>Δ Vorwoche</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+ return '<h4>Importiertes Marktpricing · '+dateFmt(day)+'</h4><div style="overflow-x:auto"><table><thead><tr><th>Kennzahl</th><th>Aktuell</th><th>Letzter Stand</th><th>Δ letzter Stand</th><th>Vor 1 Woche</th><th>Δ Vorwoche</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function readRatesFor(doc){
  if(!document.documentElement.dataset.ratesAddon){
@@ -498,7 +504,7 @@ async function saveRatesPreview(doc){
     pricingChangeSource:source,pricingChangeRefPeriod:w.horizon+' · Current − 1w ago (Δ vs Today)',
     pricingChangeMeeting:w.date,pricingChangeCurrentBp:w.live,pricingChangePreviousBp:w.past});
   }
-  storePricingImport(r);
+  storePricingImport(r,d.pricingChangeHorizon??'12M');
   series[r.day]={bp:r.next,source,method:'OIS'};
   applyMeetingStand(d,r.meeting,series,r.day);
   Object.assign(d,{bankRate:String(r.rate),bankRateSource:source,bankRateAsOf:r.day,
