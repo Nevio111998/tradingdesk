@@ -40,7 +40,7 @@ function runtime() {
   vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
   const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
+  const expose = `window.test={state,D,storePricingImport,pricingImportTable,pricingImportsFrom,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -55,6 +55,24 @@ function runtime() {
 
 (async()=>{
 const rt=runtime();
+{
+ const rates=runtime();
+ const m={date:'2026-11-22',currencies:{USD:{bankRateAsOf:'2026-11-23'}}};
+ const row={code:'USD',meeting:'2026-12-09',meetings:['2026-12-09','2027-02-01','2027-10-01'],
+  next:20,quarter:40,year:60};
+ rates.storePricingImport({...row,day:'2026-11-16'});
+ rates.storePricingImport({...row,day:'2026-11-20',next:21});
+ rates.storePricingImport({...row,day:'2026-11-23',next:23});
+ rates.storePricingImport({...row,day:'2026-11-23',next:24,year:null,curve:[{date:row.meeting,live:24,past:16}]});
+ assert.equal(Object.keys(rates.state.settings.pricingImports.USD).length,3);
+ rates.state.settings.pricingImports=rates.pricingImportsFrom(clone(rates.state.settings.pricingImports));
+ const table=rates.pricingImportTable(m,'USD');
+ assert.match(table,/\+3[.,]0 bp · 20.11.2026/);
+ assert.match(table,/\+8[.,]0 bp · 1w ago/);
+ assert.equal(rates.state.settings.pricingImports.USD['2026-11-23'].year.bp,60);
+ rates.storePricingImport({...row,day:'2026-11-23',meeting:'2027-02-01'});
+ assert.match(rates.pricingImportTable(m,'USD'),/Sitzungswechsel/);
+}
 const original=rt.defaultRecord('macro');
 original.date='2026-09-09';original.title='Gestern';original.reviewed=true;
 original.fields={asOf:'2026-09-09T08:00',marketSummary:'Old context',overnight:'Old overnight',customLegacy:'keep'};
