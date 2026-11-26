@@ -392,6 +392,7 @@ function storePricingImport(row,horizon){
  const history=state.settings.pricingImports??={};
  const days=history[row.code]??={};
  const snapshot=days[row.day]??={};
+ if(Number.isFinite(row.rate))snapshot.rate=row.rate;
  for(const [key] of pricingWindows){
   if(!Number.isFinite(row[key]))continue;
   const meeting=key==='next'?row.meeting:pricingMeeting(row,key==='quarter'?'3M':'12M');
@@ -409,6 +410,7 @@ function pricingImportsFrom(...sources){
  for(const source of sources)for(const c of C){
   for(const [day,snapshot] of Object.entries(source?.[c]||{})){
    if(!validYieldDate(day))continue;
+   if(Number.isFinite(snapshot?.rate)){const days=history[c]??={};(days[day]??={}).rate=snapshot.rate;}
    for(const [key] of [...pricingWindows,['selected']]){
     const p=snapshot?.[key];
     if(!Number.isFinite(p?.bp)||(p.meeting!==null&&!validYieldDate(p.meeting)))continue;
@@ -510,6 +512,7 @@ async function saveRatesPreview(doc){
     pricingChangeSource:source,pricingChangeRefPeriod:w.horizon+' · Current − 1w ago (Δ vs Today)',
     pricingChangeMeeting:w.date,pricingChangeCurrentBp:w.live,pricingChangePreviousBp:w.past});
   }
+  if(r.day===localDate() && qualityPresent(d.real))storeRealObservation(r.code,r.day,d);
   storePricingImport(r,d.pricingChangeHorizon??'12M');
   series[r.day]={bp:r.next,source,method:'OIS'};
   applyMeetingStand(d,r.meeting,series,r.day);
@@ -775,6 +778,125 @@ function pairScreenRows(m){
 function pairScreenRates(r){return r.value===null?'Nicht berechnet':signed(r.value,1)+' bp'+(r.horizon?' · '+r.horizon:'')+(r.source==='manual'?' · manuell':'');}
 function pairScreenEvent(x){return x?esc(x.e.title||'High-Impact-Ereignis')+'<small>'+esc(x.date.dayOnly?dateFmt(x.e.at):dateTimeFmt(x.e.at))+'</small>':'Kein High-Impact-Termin erfasst';}
 function pairScreenTable(m){const rows=pairScreenRows(m);const weeks=Object.fromEntries(C.map(c=>[c,meetingWeek(m,c)]));return `<p class="pair-screen-count" role="status">${rows.length} von ${pairList(m).length} Paaren · Auswahl: ${esc(pairData(m,state.pairId)?.pair||'–')}</p><table class="pair-screen-table"><caption class="sr-only">Alle Paare im Blick</caption><thead><tr><th>Paar</th><th>Bias / Confidence</th><th>Relatives Repricing</th><th>Nächste Sitzung · Δ zur Vorwoche</th><th>EdgeFinder</th><th>Status</th><th>Nächstes High-Impact-Ereignis</th></tr></thead><tbody>${rows.map(({p,rates,event})=>`<tr class="${p.id===state.pairId?'selected':''}"><td data-label="Paar"><button type="button" class="pair-screen-open" data-pair-tab="${attr(p.id)}" aria-pressed="${p.id===state.pairId}">${esc(p.pair)}</button></td><td data-label="Bias / Confidence">${esc(p.direction||'Unbewertet')}<small>${esc(p.confidence||'Nicht erfasst')}</small></td><td data-label="Relatives Repricing">${esc(pairScreenRates(rates))}</td><td data-label="Sitzungs-Repricing 1W">${esc(weeklyPairText(weeks[String(p.pair||'').slice(0,3)],weeks[String(p.pair||'').slice(3)]))}</td><td data-label="EdgeFinder">${esc(p.edge||'Unbewertet')}</td><td data-label="Status">${esc(p.status||'Ungeprüft')}${pairNeedsReview(m,p)?'<small>Grundlage geändert · neu prüfen</small>':''}</td><td data-label="High Impact">${pairScreenEvent(event)}</td></tr>`).join('')||'<tr><td colspan="7">Keine Paare passen zur Auswahl. Suche oder Filter ändern.</td></tr>'}</tbody></table>`;}
+const pairHistoryMetrics=[
+ ['next','Nächste Sitzung'],['quarter','3M-Pricing'],['year','12M-Pricing'],['selected','Relatives Repricing'],
+ ['policy3','Erwarteter Leitzinsabstand 3M'],['policy12','Erwarteter Leitzinsabstand 12M'],
+ ['yield','2Y-Renditeabstand'],['yield1','2Y-Repricing seit 1 Woche'],['yield2','2Y-Repricing seit 2 Wochen'],['real','Real-Yield-Abstand']
+];
+function pairRatesHistory(m,pair){
+ pair=String(pair||'').toUpperCase().replace('/','');
+ const base=pair.slice(0,3),quote=pair.slice(3);
+ if(!m || !C.includes(base)||!C.includes(quote)||base===quote)return [];
+ const a=m.currencies?.[base]||{},b=m.currencies?.[quote]||{};
+ const latest=(...dates)=>dates.filter(validYieldDate).sort().pop()||'';
+ const pricing=state.settings.pricingImports||{},yields=state.settings.yieldHistory||{};
+ function commonDays(series,end){
+  return Object.keys(series[base]||{}).filter(d=>d<=end && Object.hasOwn(series[quote]||{},d)).sort().reverse();
+ }
+ function periods(dates){
+  const day=dates[0];
+  if(!day)return [];
+  const week=shiftYieldDate(day,-7);
+  return [day,dates.find(d=>d<day && d>=shiftYieldDate(day,-4)),dates.find(d=>d<=week && d>=shiftYieldDate(week,-3))];
+ }
+ function spread(series,day){
+  const x=series[base]?.[day],y=series[quote]?.[day];
+  return Number.isFinite(x)&&Number.isFinite(y)?(x-y)*100:null;
+ }
+ const priceEnd=[latest(m.date,a.bankRateAsOf),latest(m.date,b.bankRateAsOf)].sort()[0];
+ const closeEnd=[latest(m.date,a.yieldCloseDate),latest(m.date,b.yieldCloseDate)].sort()[0];
+ const priceDates=periods(commonDays(pricing,priceEnd)),yieldDates=periods(commonDays(yields,closeEnd));
+ const real=state.settings.realHistory||{};
+ const realEnd=[latest(m.date,a.realHistoryDay),latest(m.date,b.realHistoryDay)].sort()[0];
+ const realDates=periods(commonDays(real,realEnd));
+ function observe(key,day){
+  if(!day)return null;
+  let value,ref='';
+  if(key==='real'){
+   const x=real[base][day],y=real[quote][day];
+   if(realYieldQuality(x,y,base,quote).issues.length)return null;
+   value=(x.value-y.value)*100;ref=JSON.stringify([x.realTenor,y.realTenor]);
+  }else if(key.startsWith('yield')){
+   value=spread(yields,day);
+   if(key!=='yield'){
+    const old=spread(yields,shiftYieldDate(day,key==='yield1'?-7:-14));
+    value=value!==null && old!==null?value-old:null;
+   }
+  }else{
+   const x=pricing[base][day],y=pricing[quote][day];
+   const k=key==='policy3'?'quarter':key==='policy12'?'year':key;
+   const l=x[k],r=y[k];
+   if(!l||!r||!Number.isFinite(l.bp)||!Number.isFinite(r.bp))return null;
+   if(k==='selected' && l.horizon!==r.horizon)return null;
+   value=l.bp-r.bp;
+   ref=l.meeting && r.meeting?JSON.stringify([l.meeting,r.meeting,l.horizon]):null;
+   if(key.startsWith('policy')){
+    const rate=(observation,currency)=>Number.isFinite(observation.rate)?observation.rate:
+     currency.bankRateAsOf===day?qualityNumber(currency.bankRate,'','Leitzins').value:null;
+    const baseRate=rate(x,a),quoteRate=rate(y,b);
+    if(!Number.isFinite(baseRate)||!Number.isFinite(quoteRate))return null;
+    value+=(baseRate-quoteRate)*100;
+   }
+   return {day,value,ref,horizon:k==='selected'?l.horizon:''};
+  }
+  return Number.isFinite(value)?{day,value,ref}:null;
+ }
+ return pairHistoryMetrics.map(([key,label])=>{
+  const dates=key==='real'?realDates:key.startsWith('yield')?yieldDates:priceDates;
+  return {label,points:dates.map(day=>observe(key,day))};
+ });
+}
+function pairHistoryHtml(pair,rows,caption){
+ if(!rows?.length)return '';
+ const fmt=n=>signed(n,1)+' bp';
+ const body=rows.map(({label,points})=>{
+  const cells=['Aktuell','Letzter Stand','Vorwoche'].map((title,i)=>{
+   const p=points[i],current=points[0];
+   let delta='';
+   if(i && p && current){
+    if(p.ref!==current.ref || current.ref===null)delta='Vergleichsbasis verschieden oder offen';
+    else{
+     const n=Number((current.value-p.value).toFixed(1));
+     delta='Δ '+fmt(n)+(n?' · für '+(n>0?pair.slice(0,3):pair.slice(3)):'');
+    }
+   }
+   return '<td'+(!i?' class="pricing-now"':'')+'><span class="pricing-mobile-label">'+title+'</span>'+
+    (p?fmt(p.value)+'<small>'+esc(dateFmt(p.day))+'</small>':'–')+(delta?'<small>'+esc(delta)+'</small>':'')+'</td>';
+  }).join('');
+  return '<tr><th scope="row">'+esc(label)+(points[0]?.horizon?' · '+esc(points[0].horizon):'')+'</th>'+cells+'</tr>';
+ }).join('');
+ return '<details class="trade-addon-details"><summary>Rates-Verlauf · '+esc(pair)+'</summary><section class="pricing-summary"><p>'+esc(caption)+' · '+esc(pair.slice(0,3))+' minus '+esc(pair.slice(3))+' in bp</p><table><thead><tr><th>Kennzahl</th><th>Aktuell</th><th>Letzter Stand</th><th>Vorwoche</th></tr></thead><tbody>'+body+'</tbody></table></section></details>';
+}
+function tradeRatesSource(t){
+ return findRecord(t.macroId)||t.macroSnapshot;
+}
+function captureRatesEntry(t){
+ if(t.ratesEntry||t.analyticsEntry||t.closedAt||num(t.realizedR)!==null||t.status==='Offen'||t.status==='Geschlossen')return;
+ const m=tradeRatesSource(t),pair=t.pair||'';
+ const currencies={};
+ for(const c of [pair.slice(0,3),pair.slice(3)])if(m?.currencies?.[c])currencies[c]=clone(m.currencies[c]);
+ t.ratesEntry={at:now(),pair,rows:pairRatesHistory(m,pair),source:m?{id:m.id,date:m.date,currencies,
+  pairs:clone((m.pairs||[]).filter(p=>p.pair===pair))}:null};
+}
+function tradeRatesHistoryHtml(t){
+ if(t.ratesEntry)return pairHistoryHtml(t.ratesEntry.pair,t.ratesEntry.rows,'Beim Öffnen gespeichert · '+dateTimeFmt(t.ratesEntry.at));
+ if(t.analyticsEntry||['Offen','Geschlossen'].includes(t.status))return '<p class="text-small">Kein Rates-Verlauf beim Einstieg gespeichert.</p>';
+ return pairHistoryHtml(t.pair||'',pairRatesHistory(tradeRatesSource(t),t.pair||''),'Gespeicherte Beobachtungen');
+}
+function storeRealObservation(c,day,d){
+ const series=(state.settings.realHistory??={})[c]??={};
+ const value=qualityNumber(d.real,c,'Real Yield').value;
+ if(Number.isFinite(value))series[day]={value,realTenor:String(d.realTenor||'')};
+ else delete series[day];
+ d.realHistoryDay=day;
+}
+function mergeRealObservations(...sources){
+ const result={};
+ for(const source of sources)for(const c of C)for(const [day,p] of Object.entries(source?.[c]||{})){
+  if(validYieldDate(day)&&Number.isFinite(p?.value))(result[c]??={})[day]={value:p.value,realTenor:String(p.realTenor||'')};
+ }
+ return result;
+}
 function pairScreenSummary(m,p){
  const {event}=pairScreenData(m,p),changes=reviewChanges(m,p);
  const spread=spreadAtReview([m.currencies?.[p.pair.slice(0,3)],m.currencies?.[p.pair.slice(3)]]);
@@ -783,7 +905,7 @@ function pairScreenSummary(m,p){
  const reports=window.FXMacroResearch?.summaries(p.pair)||[];
  const history=reports.length?pairDetailHtml(m.id,p.id,'reports','Gespeicherte Makroberichte',reports.map(r=>'<p><strong>'+esc(dateTimeFmt(r.as_of))+' · '+esc(r.decision)+'</strong><br>'+esc(r.summary)+'</p>').join('')):'';
  const facts=[['EdgeFinder-Bias',edge],['Renditespread (Base − Quote)',spread===null?'Nicht berechnet':signed(spread,1)+' bp'],['These',p.thesis],['Invalidierung',p.invalidation]];
- return `<button type="button" class="button button-ghost" data-pair-screen-back>← Zum Paar-Screener</button><h2>${esc(p.pair)} · Entscheidung</h2><dl>${facts.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value||'Offen')}</dd></div>`).join('')}</dl><p>Nächster High-Impact-Termin ab Analyse-Datum · ${pairScreenEvent(event)}</p><p><strong>Seit deiner letzten Prüfung</strong> · ${esc(changes[0]||((p.reviewBasis||p.lastPairReview?.basis)?'Keine Änderung':'Kein Vergleichsstand erfasst'))}</p>${changes.length>1?pairDetailHtml(m.id,p.id,'changes','Alle Änderungen','<ul>'+changes.map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul>'):''}<div class="inline-actions">${btn('pair-watch',p.status==='Watchlist'?'Auf der Watchlist':'Auf Watchlist','outline',p.status==='Watchlist'?'disabled':'')}${btn('create-trade-from-pair','Trade-Idee erstellen','primary')}${btn('pair-research','Zweitmeinung einholen')}</div>${history}`;
+ return `<button type="button" class="button button-ghost" data-pair-screen-back>← Zum Paar-Screener</button><h2>${esc(p.pair)} · Entscheidung</h2><dl>${facts.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value||'Offen')}</dd></div>`).join('')}</dl><p>Nächster High-Impact-Termin ab Analyse-Datum · ${pairScreenEvent(event)}</p><p><strong>Seit deiner letzten Prüfung</strong> · ${esc(changes[0]||((p.reviewBasis||p.lastPairReview?.basis)?'Keine Änderung':'Kein Vergleichsstand erfasst'))}</p>${changes.length>1?pairDetailHtml(m.id,p.id,'changes','Alle Änderungen','<ul>'+changes.map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul>'):''}<div class="inline-actions">${btn('pair-watch',p.status==='Watchlist'?'Auf der Watchlist':'Auf Watchlist','outline',p.status==='Watchlist'?'disabled':'')}${btn('create-trade-from-pair','Trade-Idee erstellen','primary')}${btn('pair-research','Zweitmeinung einholen')}</div>${pairHistoryHtml(p.pair,pairRatesHistory(m,p.pair),"Gespeicherte Beobachtungen")}${history}`;
 }
 function refreshPairScreen(){const m=current();if(!m||m.kind!=='macro')return;const table=$('#pair-screen-results');if(table)table.innerHTML=pairScreenTable(m);const summary=$('#pair-screen-summary');const p=pairData(m,state.pairId);if(summary&&p)summary.innerHTML=pairScreenSummary(m,p);const decision=$('#pair-decision-summary');if(decision&&p)decision.innerHTML=pairDecisionHtml(m,p);}
 function renderPairShortlist(m){
@@ -1270,7 +1392,7 @@ function renderCheckRow(doc,item){const s=doc.checklist?.[item.id]||'todo',open=
 function renderEvents(doc){const events=doc.events||[];return `${tradeEventSyncNotice(doc)}${panel(`<div class="card-pad">${sectionHeader('Catalysts & Wirtschaftskalender','Trage die Events ein, die deinen Trade oder die Morgenanalyse tatsächlich beeinflussen.',btn('new-event','+ Event hinzufügen','primary'))}<div class="alert"><strong>Zeitzone:</strong> Zeiten werden als deine lokale Browserzeit erfasst. Prüfe die Originalzeit und Sommer-/Winterzeit. Ereignisse werden nicht automatisch aktualisiert.</div>${events.length?`<div class="list-stack">${events.slice().sort((a,b)=>String(a.at).localeCompare(String(b.at))).map(eventRow).join('')}</div>`:empty('Noch keine Catalysts','Erfasse z. B. CPI, NFP, Zentralbankentscheide oder ein relevantes geopolitisches Ereignis.','new-event','Event erfassen')}</div>`)}<div class="section-title"><h2>Kalender-Quellen</h2></div><div class="two-col">${sourceCard('calendar')}${sourceCard('tecalendar')}</div>`}
 function eventRow(e){return `<div class="record-row" style="cursor:default"><div class="record-main"><div class="record-symbol">◷</div><div style="min-width:0"><div class="record-title">${esc(e.title||'Unbenanntes Event')}</div><div class="record-sub">${esc(e.currency||'Global')} · ${dateTimeFmt(e.at)}${e.forecast?' · Forecast: '+esc(e.forecast):''}${e.actual?' · Actual: '+esc(e.actual):''}</div>${e.plan?`<div class="record-sub">${esc(e.plan)}</div>`:''}</div></div><div class="record-meta">${badge(e.impact||'Unbewertet',e.impact==='High'?'warn':'neutral')}<button class="button button-ghost button-small" data-edit-event="${attr(e.id)}">Bearbeiten</button><button class="button button-ghost button-small" data-delete-event="${attr(e.id)}" aria-label="Event löschen">×</button></div></div>`}
 function renderTrade(t){const tabs=[['overview','Trade-Übersicht'],['checklist','Checkliste'],['execution','Entry & Risiko'],['events','Catalysts'],['screenshots','Screenshots'],['journal','Journal']];const body=state.tab==='checklist'?renderChecklists(t):state.tab==='execution'?renderExecution(t):state.tab==='screenshots'?renderImages(t):state.tab==='events'?renderEvents(t):state.tab==='journal'?renderJournal(t):renderTradeOverview(t);return renderDetailHead(t,'TRADE-VALIDATION',t.pair||'Noch kein Paar gewählt')+renderTabs(tabs)+body}
-function renderTradeOverview(t){const stats=checklistStats(t);return `${window.FXNews?.pairHtml(t.macroSnapshot?.pairs?.find(p=>p.id===t.sourcePairId||p.pair===t.pair))||''}${tradeCatalystSummary(t)}<div class="review-strip"><div class="review-cell"><div class="label">Status</div><div class="value">${esc(t.status)}</div></div><div class="review-cell"><div class="label">Checklisten-Fortschritt</div><div class="value">${stats.done}/${stats.all} · ${stats.na} N/A</div></div><div class="review-cell"><div class="label">Eigene Setup-Qualität</div><div class="value">${esc(t.grade)}</div></div></div><div class="panel-grid trade-overview-layout"><div class="list-stack">${panel(`<div class="card-pad">${sectionHeader('Trade-Idee','Richtung und Marktmechanismus zuerst, danach der Chart.')}<div class="form-grid">${textField('title','Titel',t.title,'z. B. USDJPY – Rates Divergence','span-2')}${field('pair','Währungspaar','text','USDJPY',null,'Sechs Buchstaben, z. B. EURUSD.','',t.pair,'maxlength="6" style="text-transform:uppercase"')}${field('direction','Richtung','select','',['Long','Short'],'','',t.direction)}${field('status','Journal-Status','select','',D.status,'„Offen“ bedeutet, dass du eine tatsächliche Position dokumentierst, nicht dass die App eine Order ausführt.','',t.status)}${field('fields.confidence','Confidence der Trade-These','select','',['High','Medium','Low'],'','',get(t,'fields.confidence'))}</div>${boxField('fields.catalyst','Catalyst / dominanter Driver',get(t,'fields.catalyst'),'Was soll die Bewegung auslösen oder fortsetzen?')}${boxField('fields.fundamentalInvalidation','Was würde meine fundamentale These zerstören?',get(t,'fields.fundamentalInvalidation'),'Konkretes Repricing, Datenüberraschung oder Regimewechsel')}${boxField('notes','Weitere Trade-Notizen',t.notes,'Gedanken, offene Fragen, Watchlist …')}</div>`)}${tradeMacroSummary(t)}${panel(`<div class="card-pad">${sectionHeader('Fundamentale Einschätzung','Vier Säulen: EdgeFinder + Zusatzchecks statt Double Counting.')}<p class="text-small">Beim ersten Markieren als „Offen“ werden diese Bewertungen für die Auswertung festgehalten. Beurteile die Faktoren relativ zur geplanten Richtung. Ein Widerspruch bleibt ein Widerspruch – die App macht daraus keinen künstlichen Score.</p><div class="factor-grid">${D.FACTORS.map(f=>renderFactor(t,f)).join('')}</div></div>`)}</div><div class="list-stack">${panel(`<div class="card-pad">${sectionHeader('Trade Readiness','Ein Prüfprotokoll, kein automatisches Signal.')}<div id="readiness">${readinessHtml(t)}</div><div class="inline-actions mt-16">${btn('trade-checklist','Checkliste öffnen','outline')}${btn('trade-execution','Entry planen','outline')}</div></div>`)}${panel(`<div class="card-pad">${sectionHeader('Wichtige Catalysts',`${(t.events||[]).length} manuell erfasste Events`,btn('new-event','+ Event','ghost'))}${(t.events||[]).length?`<div class="list-stack">${t.events.slice(0,3).map(eventRow).join('')}</div>`:'<p class="text-small">Noch keine Events erfasst. Prüfe den Kalender für beide Währungen.</p>'}<div class="inline-actions mt-16">${btn('trade-events','Alle Catalysts','outline')}${sourceLink('calendar','Kalender öffnen')}</div></div>`)}</div></div>`}
+function renderTradeOverview(t){const stats=checklistStats(t);return `${window.FXNews?.pairHtml(t.macroSnapshot?.pairs?.find(p=>p.id===t.sourcePairId||p.pair===t.pair))||''}${tradeCatalystSummary(t)}<div class="review-strip"><div class="review-cell"><div class="label">Status</div><div class="value">${esc(t.status)}</div></div><div class="review-cell"><div class="label">Checklisten-Fortschritt</div><div class="value">${stats.done}/${stats.all} · ${stats.na} N/A</div></div><div class="review-cell"><div class="label">Eigene Setup-Qualität</div><div class="value">${esc(t.grade)}</div></div></div><div class="panel-grid trade-overview-layout"><div class="list-stack">${panel(`<div class="card-pad">${sectionHeader('Trade-Idee','Richtung und Marktmechanismus zuerst, danach der Chart.')}<div class="form-grid">${textField('title','Titel',t.title,'z. B. USDJPY – Rates Divergence','span-2')}${field('pair','Währungspaar','text','USDJPY',null,'Sechs Buchstaben, z. B. EURUSD.','',t.pair,'maxlength="6" style="text-transform:uppercase"')}${field('direction','Richtung','select','',['Long','Short'],'','',t.direction)}${field('status','Journal-Status','select','',D.status,'„Offen“ bedeutet, dass du eine tatsächliche Position dokumentierst, nicht dass die App eine Order ausführt.','',t.status)}${field('fields.confidence','Confidence der Trade-These','select','',['High','Medium','Low'],'','',get(t,'fields.confidence'))}</div>${boxField('fields.catalyst','Catalyst / dominanter Driver',get(t,'fields.catalyst'),'Was soll die Bewegung auslösen oder fortsetzen?')}${boxField('fields.fundamentalInvalidation','Was würde meine fundamentale These zerstören?',get(t,'fields.fundamentalInvalidation'),'Konkretes Repricing, Datenüberraschung oder Regimewechsel')}${boxField('notes','Weitere Trade-Notizen',t.notes,'Gedanken, offene Fragen, Watchlist …')}</div>`)}${tradeMacroSummary(t)}${tradeRatesHistoryHtml(t)}${panel(`<div class="card-pad">${sectionHeader('Fundamentale Einschätzung','Vier Säulen: EdgeFinder + Zusatzchecks statt Double Counting.')}<p class="text-small">Beim ersten Markieren als „Offen“ werden diese Bewertungen für die Auswertung festgehalten. Beurteile die Faktoren relativ zur geplanten Richtung. Ein Widerspruch bleibt ein Widerspruch – die App macht daraus keinen künstlichen Score.</p><div class="factor-grid">${D.FACTORS.map(f=>renderFactor(t,f)).join('')}</div></div>`)}</div><div class="list-stack">${panel(`<div class="card-pad">${sectionHeader('Trade Readiness','Ein Prüfprotokoll, kein automatisches Signal.')}<div id="readiness">${readinessHtml(t)}</div><div class="inline-actions mt-16">${btn('trade-checklist','Checkliste öffnen','outline')}${btn('trade-execution','Entry planen','outline')}</div></div>`)}${panel(`<div class="card-pad">${sectionHeader('Wichtige Catalysts',`${(t.events||[]).length} manuell erfasste Events`,btn('new-event','+ Event','ghost'))}${(t.events||[]).length?`<div class="list-stack">${t.events.slice(0,3).map(eventRow).join('')}</div>`:'<p class="text-small">Noch keine Events erfasst. Prüfe den Kalender für beide Währungen.</p>'}<div class="inline-actions mt-16">${btn('trade-events','Alle Catalysts','outline')}${sourceLink('calendar','Kalender öffnen')}</div></div>`)}</div></div>`}
 // Read legacy pair transfers without rewriting stored records; explicit current values win.
 function tradeFactorValue(t,id){return t.factors?.[id]??(id==='edgefinder'?t.factors?.edge:undefined)??'Unbewertet';}
 function renderFactor(t,f){const v=tradeFactorValue(t,f.id),n=t.factorNotes?.[f.id]||'';return `<div class="factor-card"><div class="factor-header"><h4>${esc(f.title)}</h4>${badge(v,v==='Bestätigt'?'good':v==='Widerspricht'?'bad':v==='Neutral'?'neutral':v==='Nicht verfügbar'?'warn':'neutral')}</div><p>${esc(f.description)}</p><div class="field mt-16"><label for="factor-${f.id}">Beurteilung</label><select id="factor-${f.id}" data-factor="${f.id}">${options(D.outcomes,v)}</select></div><div class="field"><label for="factor-note-${f.id}">Kurze Begründung</label><textarea id="factor-note-${f.id}" data-factor-note="${f.id}" rows="2" placeholder="Evidenz und wichtigste Einschränkung …">${esc(n)}</textarea></div></div>`}
@@ -1317,8 +1439,9 @@ if(key.startsWith('currencies.') && (key.endsWith('.pricingChangeHorizonChoice')
     updateRecord(doc);return;
   }
 }
-if(key.startsWith('pairs.')){const parts=key.split('.'),id=parts[1],prop=parts.slice(2).join('.');if(!Array.isArray(doc.pairs))doc.pairs=[];let p=doc.pairs.find(x=>x.id===id);if(!p){p={id};doc.pairs.push(p)}if(prop==='pair')value=value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,6);rememberPairBasis(doc,p);p[prop]=value;updateRecord(doc);if(['direction','status','confidence','edge','rates','driver','technical','catalystEventId'].includes(prop)||(prop==='pair'&&value.length===6))render();refreshPairScreen();refreshPairDetailExcerpts();if(prop==='repriceOverrideValue'||prop==='repriceOverrideReason')refreshPairRatesView(doc,p);return}const previousDecision=doc.decision;if(key==='status'&&window.FXAnalytics)window.FXAnalytics.capture(doc,doc.status,value,now());if(key==='realizedPnl'||key==='realizedChf')doc.realizedPnlCurrency=pnlCurrency(doc);set(doc,key,value);if(doc.kind==='trade'&&key==='decision'&&value!==previousDecision){doc.approvalAt='';doc.checklist.finalDecision='todo';if(doc.status==='Bereit')doc.status='Watchlist';}if(key.startsWith('currencies.'+state.currency+'.')){
+if(key.startsWith('pairs.')){const parts=key.split('.'),id=parts[1],prop=parts.slice(2).join('.');if(!Array.isArray(doc.pairs))doc.pairs=[];let p=doc.pairs.find(x=>x.id===id);if(!p){p={id};doc.pairs.push(p)}if(prop==='pair')value=value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,6);rememberPairBasis(doc,p);p[prop]=value;updateRecord(doc);if(['direction','status','confidence','edge','rates','driver','technical','catalystEventId'].includes(prop)||(prop==='pair'&&value.length===6))render();refreshPairScreen();refreshPairDetailExcerpts();if(prop==='repriceOverrideValue'||prop==='repriceOverrideReason')refreshPairRatesView(doc,p);return}const previousDecision=doc.decision;if(doc.kind==='trade'&&key==='status'&&value==='Offen')captureRatesEntry(doc);if(key==='status'&&window.FXAnalytics)window.FXAnalytics.capture(doc,doc.status,value,now());if(key==='realizedPnl'||key==='realizedChf')doc.realizedPnlCurrency=pnlCurrency(doc);set(doc,key,value);if(doc.kind==='trade'&&key==='decision'&&value!==previousDecision){doc.approvalAt='';doc.checklist.finalDecision='todo';if(doc.status==='Bereit')doc.status='Watchlist';}if(key.startsWith('currencies.'+state.currency+'.')){
  const d=currencyData(doc,state.currency);
+ if(key.endsWith('.real')||key.endsWith('.realTenor'))storeRealObservation(state.currency,localDate(),d);
  if(key.endsWith('.nextMeetingDate') && d.meetingHistoryDate && d.meetingHistoryDate!==value){
   d.pricingNext='';d.pricingNextAsOf='';delete d.meetingPricingDay;delete d.meetingHistoryDate;
   applyMeetingStand(d,value,meetingSeries(state.currency,value),localDate());
@@ -1345,7 +1468,7 @@ async function deleteImage(id){const doc=current();if(!doc)return;doc.images=doc
 async function removeUnusedAssets(ids){for(const id of ids){const used=state.records.some(r=>(r.images||[]).includes(id));if(used)continue;await del('assets',id);state.assets.delete(id);if(state.imageUrls.has(id)){URL.revokeObjectURL(state.imageUrls.get(id));state.imageUrls.delete(id)}}}
 function showImage(id){const a=state.assets.get(id);if(!a)return;const url=state.imageUrls.get(id)||URL.createObjectURL(a.blob);state.imageUrls.set(id,url);const host=$('#modal');host.innerHTML=`<div class="image-lightbox" role="dialog" aria-modal="true" aria-label="Screenshot ansehen"><div class="lightbox-bar"><strong>${esc(a.name)}</strong><button class="button button-outline button-small" data-action="close-modal">Schliessen ×</button></div><img src="${attr(url)}" alt="${attr(a.name)}"><div class="lightbox-bar"><span>${esc(a.caption||'Keine Bildnotiz')}</span></div></div>`}
 async function deleteRecord(){const doc=current();if(!doc)return;await flush();state.records=state.records.filter(r=>r.id!==doc.id);await del('records',doc.id);await removeUnusedAssets(doc.images||[]);navigate(doc.kind==='trade'?'trades':'macros');toast('Eintrag gelöscht.');}
-function duplicateRecord(){const doc=current();if(!doc)return;const copy=clone(doc);copy.id=uid();copy.title=doc.title+' · Kopie';copy.createdAt=now();copy.updatedAt=now();copy.images=[];rekeyCopiedEvents(copy);if(copy.kind==='trade'){delete copy.analyticsEntry;delete copy.analyticsRejectedAt;copy.status='Idee';copy.decision='Offen';copy.approvalAt='';copy.approvalNotes='';copy.journal=[];copy.exitPrice='';copy.closedAt='';copy.realizedR='';copy.realizedPnl='';delete copy.realizedPnlCurrency;delete copy.realizedChf;delete copy.openChf;delete copy.bestR;delete copy.exitReason;copy.checklist.finalDecision='todo'}else {copy.reviewed=false;copy.carriedFrom={id:doc.id,date:doc.date,title:doc.title,copiedAt:copy.createdAt};}state.records.unshift(copy);markDirty();navigate(copy.kind==='trade'?'trade':'macro',copy.id);toast('Kopie erstellt. Screenshots werden nicht dupliziert.')}
+function duplicateRecord(){const doc=current();if(!doc)return;const copy=clone(doc);copy.id=uid();copy.title=doc.title+' · Kopie';copy.createdAt=now();copy.updatedAt=now();copy.images=[];rekeyCopiedEvents(copy);if(copy.kind==='trade'){delete copy.ratesEntry;delete copy.analyticsEntry;delete copy.analyticsRejectedAt;copy.status='Idee';copy.decision='Offen';copy.approvalAt='';copy.approvalNotes='';copy.journal=[];copy.exitPrice='';copy.closedAt='';copy.realizedR='';copy.realizedPnl='';delete copy.realizedPnlCurrency;delete copy.realizedChf;delete copy.openChf;delete copy.bestR;delete copy.exitReason;copy.checklist.finalDecision='todo'}else {copy.reviewed=false;copy.carriedFrom={id:doc.id,date:doc.date,title:doc.title,copiedAt:copy.createdAt};}state.records.unshift(copy);markDirty();navigate(copy.kind==='trade'?'trade':'macro',copy.id);toast('Kopie erstellt. Screenshots werden nicht dupliziert.')}
 function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000)}
 const blobData=blob=>new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.readAsDataURL(blob)});
 async function exportBackup(){try{await flush();$('#save-status').textContent='Backup wird erstellt …';const assets=[];for(const a of state.assets.values())assets.push({id:a.id,ownerId:a.ownerId,name:a.name,type:a.type,size:a.size,caption:a.caption,createdAt:a.createdAt,data:await blobData(a.blob)});const payload={format:'fx-edgefinder-companion-backup',version:1,exportedAt:now(),settings:clone(state.settings),records:clone(state.records),assets,research:window.FXResearchBackup.capture()};download(new Blob([JSON.stringify(payload)],{type:'application/json'}),'fx-edgefinder-companion-backup-'+localDate()+'.json');localStorage.setItem('fxdesk-last-backup',now());$('#save-status').textContent='Alles gespeichert';toast('Vollständiges Backup erstellt – inklusive Screenshots, ChatGPT-Analysen und Trainingssammlung.')}catch(e){$('#save-status').textContent='Backup fehlgeschlagen';toast('Backup fehlgeschlagen: '+e.message,'error')}}
@@ -1354,11 +1477,12 @@ function validateBackup(data){if(data?.research!==undefined)window.FXResearchBac
 async function readBackup(file){if(!file)return;try{if(file.size>300*1024*1024)throw new Error('Backup-Datei ist zu gross.');const data=validateBackup(JSON.parse(await file.text()));state.importPayload=data;modal('Backup importieren',`<div class="alert warn"><strong>${data.records.length} Einträge · ${data.assets.length} Screenshots</strong><p>Erstellt: ${dateTimeFmt(data.exportedAt)}. Prüfe, ob du die richtige Datei gewählt hast. Der Import kann bei vielen Bildern Speicherplatz benötigen.</p><p>${esc(window.FXResearchBackup.summary(data.research))}</p></div><div class="field"><label for="import-mode">Import-Modus</label><select id="import-mode"><option value="merge">Zusammenführen (bestehende Daten behalten)</option><option value="replace">Alle bestehenden Daten ersetzen</option></select><span class="hint">Beim Zusammenführen erhalten importierte Einträge bei ID-Konflikten neue IDs. Bei ChatGPT-Analysen, Reviews und Trainingsbeispielen bleiben beim Zusammenführen vorhandene Versionen mit gleicher Kennung erhalten. Ersetzen übernimmt die Research-Daten aus dem Backup vollständig; bei alten Backups ohne Research-Bereich bleiben sie unverändert.</span></div><p>Ein vollständiger Export deiner jetzigen Daten vor dem Import wird empfohlen.</p>`,btn('close-modal','Abbrechen')+btn('import-confirm','Import bestätigen','primary'))}catch(e){toast('Import fehlgeschlagen: '+e.message,'error')}}
 async function commitImport(){const data=state.importPayload;if(!data)return;const mode=$('#import-mode')?.value||'merge';if(mode==='replace'){confirmAction('Alle bisherigen Daten ersetzen?','Analysen, Trade-Ideen und Screenshots werden durch das Backup ersetzt. Enthält es Research-Daten, werden auch ChatGPT-Analysen, Reviews, Trainingssammlung und EdgeFinder-Imports ersetzt. Alte Backups ohne diesen Bereich lassen vorhandene Research-Daten unverändert. Erstelle vorher einen Export, wenn du sie behalten möchtest.',()=>performImport(data,'replace'),'Alle Daten ersetzen',true)}else await performImport(data,'merge')}
 async function performImport(data,mode){let undoResearch=null;try{await flush();const research=data.research===undefined?null:window.FXResearchBackup.prepare(data.research,mode);const recordMap=new Map(),assetMap=new Map();const existingR=new Set(mode==='merge'?state.records.map(r=>r.id):[]),existingA=new Set(mode==='merge'?state.assets.keys():[]);for(const r of data.records){let id=r.id;if(existingR.has(id)){id=uid()}recordMap.set(r.id,id);existingR.add(id)}for(const a of data.assets){let id=a.id;if(existingA.has(id)){id=uid()}assetMap.set(a.id,id);existingA.add(id)}const recs=data.records.map(r=>{const x=clone(r);x.id=recordMap.get(r.id);x.images=(r.images||[]).map(id=>assetMap.get(id)).filter(Boolean);if(x.carriedFrom?.id)x.carriedFrom.id=recordMap.get(x.carriedFrom.id)||x.carriedFrom.id;if(x.macroId)x.macroId=recordMap.get(x.macroId)||x.macroId;if(x.macroSnapshot?.id&&recordMap.has(x.macroSnapshot.id))x.macroSnapshot.id=recordMap.get(x.macroSnapshot.id);x.events=(r.events||[]).map(e=>({...e,id:e.id||uid(),...(e.sourceMacro?{sourceMacro:recordMap.get(e.sourceMacro)||e.sourceMacro}:{})}));x.journal=Array.isArray(r.journal)?r.journal:[];x.checkNotes=x.checkNotes||{};x.factors=x.factors||{};x.factorNotes=x.factorNotes||{};return x});const assets=[];for(const a of data.assets){const blob=decodeImageData(a.data);assets.push({id:assetMap.get(a.id),ownerId:recordMap.get(a.ownerId)||a.ownerId,name:String(a.name||'Screenshot').slice(0,180),type:blob.type,size:blob.size,caption:String(a.caption||''),createdAt:a.createdAt||now(),blob})}const importedSettings=mode==='replace'?{...state.settings,...data.settings}:{...state.settings};
+importedSettings.realHistory=mergeRealObservations(data.settings?.realHistory,mode==='merge'?state.settings.realHistory:null);
 importedSettings.pricingImports=pricingImportsFrom(data.settings?.pricingImports,mode==='merge'?state.settings.pricingImports:null);
 importedSettings.meetingHistory=mergedMeetingHistory(data.settings?.meetingHistory,mode==='merge'?state.settings.meetingHistory:null);
 importedSettings.yieldHistory=importYieldHistory(data.settings?.yieldHistory,mode==='merge'?state.settings.yieldHistory:null);
 if(research)undoResearch=window.FXResearchBackup.apply(research);await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite'),rs=tx.objectStore('records'),as=tx.objectStore('assets');if(mode==='replace'){rs.clear();as.clear()}for(const r of recs)rs.put(r);for(const a of assets)as.put(a);tx.objectStore('meta').put({key:'settings',value:importedSettings});tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});undoResearch=null;state.settings=importedSettings;if(mode==='replace'){for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.records=recs;state.assets=new Map(assets.map(a=>[a.id,a]));}else{state.records.push(...recs);for(const a of assets)state.assets.set(a.id,a)}state.dirty=false;closeModal();state.importPayload=null;navigate('home');toast(recs.length+' Einträge und '+assets.length+' Bilder importiert.'+(research?' ChatGPT- und EdgeFinder-Daten wiederhergestellt.':''))}catch(e){if(undoResearch){try{undoResearch()}catch(rollbackError){toast('Research-Wiederherstellung fehlgeschlagen: '+rollbackError.message,'error')}}toast('Import fehlgeschlagen: '+e.message,'error')}}
-async function deleteAll(){await flush();const settings={...state.settings};delete settings.pricingImports;delete settings.yieldHistory;delete settings.meetingHistory;await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite');tx.objectStore('meta').put({key:'settings',value:settings});tx.objectStore('records').clear();tx.objectStore('assets').clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.settings=settings;state.records=[];state.assets.clear();localStorage.removeItem('fxdesk-last-backup');navigate('home');toast('Alle lokalen App-Daten gelöscht.')}
+async function deleteAll(){await flush();const settings={...state.settings};delete settings.realHistory;delete settings.pricingImports;delete settings.yieldHistory;delete settings.meetingHistory;await new Promise((resolve,reject)=>{const tx=state.db.transaction(['records','assets','meta'],'readwrite');tx.objectStore('meta').put({key:'settings',value:settings});tx.objectStore('records').clear();tx.objectStore('assets').clear();tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error)});for(const url of state.imageUrls.values())URL.revokeObjectURL(url);state.imageUrls.clear();state.settings=settings;state.records=[];state.assets.clear();localStorage.removeItem('fxdesk-last-backup');navigate('home');toast('Alle lokalen App-Daten gelöscht.')}
 function applyListFilter(){const kind=state.route==='macros'?'macro':state.route==='journal'?'journal':state.route==='open'?'open':'ideas',filtered=filteredListRecords(kind);const el=$('#list-results');if(el)el.innerHTML=filtered.length?filtered.map(kind==='open'?openPositionRow:recordRow).join(''):empty('Keine Treffer','Passe deine Suche oder den Statusfilter an.');}
 
 function addPairCandidate(){const doc=current();if(!doc||doc.kind!=='macro')return;pairList(doc);state.pairId=doc.pairs[0]?.id||'';state.tab='pairs';render();toast('Alle '+pairList(doc).length+' FX-Paare sind bereits vorbereitet.')}

@@ -40,7 +40,7 @@ function runtime() {
   vm.runInContext(read('data.base.v'+JSON.parse(read('build-info.json')).version+'.js'), context);
   const app = read('app.base.v'+JSON.parse(read('build-info.json')).version+'.js');
   assert(app.endsWith('init();\n})();\n'));
-  const expose = `window.test={state,D,storePricingImport,pricingImportTable,pricingImportsFrom,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
+  const expose = `window.test={state,D,pairRatesHistory,tradeRatesHistoryHtml,storePricingImport,pricingImportTable,pricingImportsFrom,dailyMacroCopy,dailyMacroModal,createDailyMacro,dailyMacroNotice,previousPairReview,pairScreen,pairScreenRows,macroPairStats,performImport,renderChecklists,renderExecution,renderTradeOverview,renderCheckGroup,pairDetailStates,rememberPairDetail,pairDetailHtml,dispatch,defaultRecord,pairTradeRecord,readiness,readinessHtml,renderFactor,approvalModal,saveApproval,handleBound,saveNow,relativeRepricingResult,expectedPolicyDifferentialResult,renderHome,renderMacro,renderTrade,renderSources,renderSettings,tradeFactorValue};`;
   vm.runInContext(app.replace(/init\(\);\n\}\)\(\);\n$/, expose + '\n})();\n'), context);
   const api = context.window.test;
   api.state.db = db;
@@ -79,6 +79,28 @@ const rt=runtime();
  assert.equal(rates.state.settings.pricingImports.USD['2026-11-23'].year.bp,60);
  rates.storePricingImport({...row,day:'2026-11-23',meeting:'2027-02-01'});
  assert.match(rates.pricingImportTable(m,'USD'),/Sitzungswechsel/);
+}
+{
+ const r=runtime(),m=r.defaultRecord('macro'),t=r.defaultRecord('trade');
+ m.date='2026-11-22'; t.pair='USDCAD'; t.macroId=m.id;
+ const meeting='2026-12-09';
+ for(const [day,base,quote] of [['2026-11-16',50,22],['2026-11-20',40,20],['2026-11-23',35,20]]){
+  for(const [code,value,rate] of [['USD',base,4],['CAD',quote,3]]){
+   r.storePricingImport({code,day,meeting,meetings:[meeting],next:value,quarter:value,year:value,rate},'12M');
+   m.currencies[code]={bankRateAsOf:day,pricing3m:String(value)};
+  }
+ }
+ r.state.records=[m,t];r.state.id=t.id;r.state.route='trade';
+ const rows=r.pairRatesHistory(m,t.pair);
+ assert.deepEqual(Array.from(rows[1].points,p=>p.value),[15,20,28]);
+ assert.equal(rows[4].points[0].value,115);
+ assert.match(r.tradeRatesHistoryHtml(t),/für CAD/);
+ r.handleBound({dataset:{bind:'status'},value:'Offen'});
+ assert.equal(t.ratesEntry.source.currencies.USD.pricing3m,'35');
+ m.currencies.USD.pricing3m='60';r.state.settings.pricingImports.USD['2026-11-23'].quarter.bp=60;
+ assert.equal(r.pairRatesHistory(m,t.pair)[1].points[0].value,40);
+ assert.equal(t.ratesEntry.rows[1].points[0].value,15);
+ assert.equal(t.ratesEntry.source.currencies.USD.pricing3m,'35');
 }
 const original=rt.defaultRecord('macro');
 original.date='2026-09-09';original.title='Gestern';original.reviewed=true;
