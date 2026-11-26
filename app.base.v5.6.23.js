@@ -398,7 +398,7 @@ function storePricingImport(row){
   const point={bp:row[key],meeting:meeting||null};
   const curve=Array.isArray(row.curve)&&row.curve.find(p=>p?.date===meeting &&
    Number.isFinite(p.live)&&Number.isFinite(p.past)&&Math.abs(p.live-point.bp)<0.11);
-  if(curve)point.week=Number((curve.live-curve.past).toFixed(1));
+  if(curve){point.week=Number((curve.live-curve.past).toFixed(1));point.weekBp=curve.past;}
   snapshot[key]=point;
  }
 }
@@ -411,7 +411,7 @@ function pricingImportsFrom(...sources){
     const p=snapshot?.[key];
     if(!Number.isFinite(p?.bp)||(p.meeting!==null&&!validYieldDate(p.meeting)))continue;
     const days=history[c]??={};
-    (days[day]??={})[key]={bp:p.bp,meeting:p.meeting,...(Number.isFinite(p.week)?{week:p.week}:{})};
+    (days[day]??={})[key]={bp:p.bp,meeting:p.meeting,...(Number.isFinite(p.week)?{week:p.week,...(Number.isFinite(p.weekBp)?{weekBp:p.weekBp}:{})}:{})};
    }
   }
  }
@@ -436,10 +436,18 @@ function pricingImportTable(m,c){
  }
  const rows=pricingWindows.map(([key,label])=>{
   const point=days[day][key];
-  const weekly=Number.isFinite(point?.week)?format(point.week)+' · 1w ago (Grafik)':point?change(point,key,week):'–';
-  return '<tr><th>'+label+'</th><td>'+(point?format(point.bp):'–')+'</td><td>'+(point?change(point,key,previous):'–')+'</td><td>'+weekly+'</td></tr>';
+  const prior=days[previous]?.[key];
+  const localWeek=days[week]?.[key];
+  const graph=Number.isFinite(point?.week);
+  const prevLevel=prior?format(prior.bp)+' · '+dateFmt(previous):'–';
+  let weekLevel=localWeek?format(localWeek.bp)+' · '+dateFmt(week):'–';
+  if(graph && Number.isFinite(point.weekBp))weekLevel=format(point.weekBp)+' · Grafik';
+  else if(graph)weekLevel='– · erneut importieren';
+  const weekly=graph?format(point.week)+' · 1w ago (Grafik)':point?change(point,key,week):'–';
+  const cells=[point?format(point.bp):'–',prevLevel,point?change(point,key,previous):'–',weekLevel,weekly];
+  return '<tr><th>'+label+'</th>'+cells.map(v=>'<td>'+v+'</td>').join('')+'</tr>';
  }).join('');
- return '<h4>Importiertes Marktpricing · '+dateFmt(day)+'</h4><div style="overflow-x:auto"><table><thead><tr><th>Horizont</th><th>Aktuell</th><th>Δ letzter Stand</th><th>Δ Vorwoche</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+ return '<h4>Importiertes Marktpricing · '+dateFmt(day)+'</h4><div style="overflow-x:auto"><table><thead><tr><th>Horizont</th><th>Aktuell</th><th>Letzter Stand</th><th>Δ letzter Stand</th><th>Vor 1 Woche</th><th>Δ Vorwoche</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function readRatesFor(doc){
  if(!document.documentElement.dataset.ratesAddon){

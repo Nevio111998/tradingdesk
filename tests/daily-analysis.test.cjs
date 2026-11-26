@@ -67,6 +67,8 @@ const rt=runtime();
  assert.equal(Object.keys(rates.state.settings.pricingImports.USD).length,3);
  rates.state.settings.pricingImports=rates.pricingImportsFrom(clone(rates.state.settings.pricingImports));
  const table=rates.pricingImportTable(m,'USD');
+ assert.match(table,/16[.,]0 bp · Grafik/);
+ assert.match(table,/21[.,]0 bp · 20.11.2026/);
  assert.match(table,/\+3[.,]0 bp · 20.11.2026/);
  assert.match(table,/\+8[.,]0 bp · 1w ago/);
  assert.equal(rates.state.settings.pricingImports.USD['2026-11-23'].year.bp,60);
